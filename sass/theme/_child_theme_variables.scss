@@ -1,0 +1,49 @@
+// Use this file to overwrite the basic Bootstrap variables and add your own variables
+// To overwrite a Bootstrap variable you don´t have to touch the Bootstrap folder. 
+// Just copy a variable from /sass/bootstrap/_variables.scss, paste it here and edit the value.
+// As example you find one of the most important Bootstrap variable below: $brand-primary.
+// Thats the ugly Bootstrap blue used for all the links, primary buttons etc.
+// Just add your color code here, compile the theme.scss file to change this color everywhere
+
+
+$font-book: GillSansNova-Book, sans-serif;
+$font-bold: GillSansNova-SemiBold, sans-serif;
+
+//
+// Color system
+//
+
+$red: #A72F2E; //rgb(167,47,46)
+$marine: #04627C; //rgb(4,98,124)
+$grey: #b0b0b0;  //rgb(176,176,176)
+
+$warm_red: #ff4438;
+$dark-green: #10312b;
+
+$dark-grey: #4A4A4A;
+$cool-grey: #54565a;
+
+
+/*
+ * Arrows
+ *
+Instead of
+background-image: url(../img/icon-arrow-right--white.png);
+use
+@include bg-arrow('%234A4A4A'); //%23 replaces #
+*/
+@mixin bg-arrow($iconcolor) {
+  background-image: url('data:image/svg+xml;utf8,<svg width="10px" height="16px" viewBox="0 0 10 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="XL-Desktop-1" transform="translate(-406.000000, -505.000000)" fill="#{$iconcolor}"><g id="noun_angle-right_1965565" transform="translate(406.000000, 505.000000)"><polygon id="Path" points="10 8 1.80327869 16 0 14.24 6.39344262 8 0 1.76 1.80327869 0"></polygon></g></g></g></svg>');
+}
+@mixin bg-thin-arrow($iconcolor) {
+  background-image: url('data:image/svg+xml;utf8,<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><polygon id="Shape" stroke="#{$iconcolor}" stroke-width="0.72" fill="#{$iconcolor}" fill-rule="nonzero" points="5.87593052 19 5 18.1335328 13.2456576 10 5 1.86646723 5.87593052 1 15 10"></polygon></g></svg>');
+}
+@mixin bg-download($iconcolor) {
+  background-image: url('data:image/svg+xml;utf8,<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Location-Map-1---XL-desktop" transform="translate(-1171.000000, -154.000000)" fill="#{$iconcolor}"><g id="Group-2" transform="translate(1000.000000, 140.000000)"><g id="noun_Download_2120379" transform="translate(171.000000, 14.000000)"><g id="Group"><path d="M21,20 L1,20 C0.4,20 0,20.4 0,21 C0,21.6 0.4,22 1,22 L21,22 C21.6,22 22,21.6 22,21 C22,20.4 21.6,20 21,20 Z" id="Path"></path><path d="M10.3,17.9 C10.5,18.1 10.8,18.2 11,18.2 C11.2,18.2 11.5,18.1 11.7,17.9 L18.8,10.8 C19.2,10.4 19.2,9.8 18.8,9.4 C18.4,9 17.8,9 17.4,9.4 L12,14.8 L12,1 C12,0.4 11.6,0 11,0 C10.4,0 10,0.4 10,1 L10,14.8 L4.6,9.4 C4.2,9 3.6,9 3.2,9.4 C2.8,9.8 2.8,10.4 3.2,10.8 L10.3,17.9 Z" id="Path"></path></g></g></g></g></g></svg>') !important;
+}
+@mixin bg-envelope($iconcolor) {
+  background-image: url('data:image/svg+xml;utf8,<svg width="29px" height="21px" viewBox="0 0 29 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Location-Map-1---XL-desktop-Copy" transform="translate(-243.000000, -49.000000)" fill="#{$iconcolor}" fill-rule="nonzero"><g id="noun_Mail_1707180" transform="translate(243.000000, 49.000000)"><g id="Group"><path d="M2.82926723,0.128904407 C1.25951845,0.128904407 -9.54878049e-07,1.4577061 -9.54878049e-07,3.05424 L-9.54878049e-07,17.8365458 C-9.54878049e-07,19.4330441 1.25951845,20.7729864 2.82926723,20.7729864 L26.1707328,20.7729864 C27.7404815,20.7729864 29.0000011,19.4330441 29.0000011,17.8365458 L29.0000011,3.05424 C29.0000011,1.4577061 27.7404815,0.128904407 26.1707328,0.128904407 L2.82926759,0.128904407 L2.82926723,0.128904407 Z M2.82926723,1.55263322 L26.1707328,1.55263322 C26.3800633,1.55263322 26.577723,1.61331966 26.756462,1.69721288 L15.3731115,12.5754407 C14.8506164,13.0746712 14.1724054,13.0747068 13.6490261,12.5754407 L2.24353832,1.69721288 C2.42227734,1.61331966 2.6199371,1.55263322 2.82926759,1.55263322 L2.82926723,1.55263322 Z M1.43673674,2.88737898 L9.49353796,10.573322 L1.5693587,18.5373051 C1.47012211,18.3299034 1.41463309,18.0924966 1.41463309,17.8365458 L1.41463309,3.05424 C1.41463309,2.99643661 1.43125504,2.94308237 1.43655991,2.88737898 L1.43673674,2.88737898 Z M27.5632633,2.88737898 C27.5689218,2.94308237 27.5851901,2.99643661 27.5851901,3.05424 L27.5851901,17.8365458 C27.5851901,18.0887949 27.5270486,18.3209339 27.4304645,18.5261644 L19.5284225,10.5621814 L27.5630864,2.88737898 L27.5632633,2.88737898 Z M18.5007615,11.5521356 L26.2370437,19.3492576 C26.2147633,19.3492576 26.1931547,19.3492576 26.1707328,19.3492576 L2.82926759,19.3492576 C2.81052368,19.3492576 2.7924871,19.3492576 2.77402612,19.3492576 L10.5213408,11.5632407 L12.6764651,13.6098508 C13.7028883,14.5890915 15.3194615,14.5904797 16.3456725,13.6098508 L18.5007615,11.5521356 Z" id="Shape"></path></g></g></g></g></svg>') !important;
+}
+@mixin bg-phone($iconcolor) {
+  background-image: url('data:image/svg+xml;utf8,<svg width="20px" height="23px" viewBox="0 0 20 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g id="Location-Map-1---XL-desktop-Copy" transform="translate(-256.000000, -244.000000)" fill="#{$iconcolor}"><g id="Group-2-Copy-3" transform="translate(65.000000, 230.000000)"><g id="noun_call_2123020" transform="translate(191.000000, 14.000000)"><path d="M19.6362634,18.5724421 L16.1775762,15.9061196 C15.0558398,14.986698 14.9623618,15.3544667 13.2797572,16.5497147 C12.9058451,16.8255412 12.1580208,17.5610784 11.5036746,17.2852519 C9.63411393,16.4577725 4.96021233,11.0331853 5.33412446,9.01045792 C5.42760249,7.90715205 8.04498739,7.8152099 7.67107526,5.516656 L6.64281691,1.47120115 C5.70803659,-2.48231155 0.192832699,2.48256486 0.00587663509,5.24082953 C-0.274557461,12.1364912 9.5406359,25.1003352 16.8319224,22.7098391 C18.4210489,22.1581862 20.9449558,19.7676901 19.6362634,18.5724421 Z" id="Path"></path></g></g></g></g></svg>') !important;
+}

@@ -1,0 +1,41 @@
+body { 
+	-webkit-font-smoothing: antialiased; 
+	-moz-osx-font-smoothing: grayscale; 
+
+	font-family: $font-book;
+	font-size: 18px;
+	line-height: 20px;
+	color: $grey;
+	text-align: left;
+}
+
+a,a:hover,a:focus {
+    color: $grey;
+    text-decoration: underline;
+}
+b, strong {
+	font-family: $font-bold;
+}
+
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    font-family: $font-book;
+    font-weight: 500;
+    line-height: 1.2;
+    a,a:hover,a:focus {
+    	text-decoration: none;
+    }
+}
+.h1, h1 {
+    font-size: 64px;
+	line-height: 70px;
+}
+.h2, h2 {
+    font-family: $font-bold;
+    font-size: 24px;
+	line-height: 30px;
+}
+.h3, h3 {
+    font-family: $font-bold;
+    font-size: 24px;
+	line-height: 30px;
+}

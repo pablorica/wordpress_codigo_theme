@@ -1,0 +1,72 @@
+.btn {
+    border-radius: 0;
+    font-weight: normal;
+    //text-transform: uppercase;
+    //letter-spacing: 0.08em;
+    white-space: normal;
+    font-size: 14px;
+
+    color: white;
+    background: none;
+    border-color: white;
+        
+    &:hover, &:focus {
+        background: none;
+        opacity: .6;
+    }
+
+    &-small {
+    	
+
+		padding: 8px 10px;
+		font-size: 0.75em;
+		line-height: 1;
+    }
+}
+.btn-download {
+
+}
+.btn-download,
+.btn-addtobasket {
+    display:inline-block;
+    height:50px;
+    width:50px;
+    border:none;
+    background-color: transparent;
+    background-image:url('../img/icon--download.png');
+    background-size:contain;
+    background-position:center;
+    background-repeat:no-repeat;
+    cursor:pointer;
+    &:hover {
+        //opacity:.6
+    }
+}
+.btn-download  {
+    margin-right:40px;
+}
+.btn-addtobasket {
+    background-image:url('../img/icon--addtobasket.png');
+}
+.btn-noborder {
+    border:0 !important
+}
+.btn-hover {
+    &__tooltip {
+        display:block;
+        text-align:center;
+        padding-top:55px;
+        font-size: 13px;
+        line-height: 14px;
+        opacity:0;
+        color:white;
+    }
+    &:hover {
+        opacity:1 !important;
+        .btn-hover__tooltip {
+            opacity:1;
+        }
+
+    }
+    
+}

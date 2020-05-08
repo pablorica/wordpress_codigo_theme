@@ -1,0 +1,79 @@
+/* Slick carousel */
+.slick-initialized {
+	@media screen and (min-width: 576px) {
+		&.slick-sm-no-slide{
+			.slick-track {
+			    transform: inherit !important;
+			}
+			.slick-slide {
+			    //float: none;
+			    //display: inline-block;
+			}
+		}
+	}
+	@media screen and (min-width: 768px) {
+		&.slick-md-no-slide{
+			.slick-track {
+			    transform: inherit !important;
+			}
+		}
+	}
+	@media screen and (min-width: 992px) {
+		&.slick-lg-no-slide{
+			.slick-track {
+			    transform: inherit !important;
+			}
+		}
+	}
+	@media screen and (min-width: 1200px) {
+		&.slick-xl-no-slide{
+			.slick-track {
+			    transform: inherit !important;
+			}
+		}
+	}
+	
+	.slick-slide {
+	    padding: 0 20px;
+	    .box__image {
+	      margin-bottom:10px;
+	    }
+	}
+}
+
+/* Royal Slider */
+.royalSlider {
+	&.rsDefault {
+		.rsArrowIcn {
+		    width: 32px;
+		    height: 32px;
+		    top: 50%;
+		    left: 50%;
+		    margin-top: -16px;
+		    margin-left: -16px;
+		    position: absolute;
+		    cursor: pointer;
+		    background-image: url('../img/arrow-right--white.png');
+		    background-color: transparent;
+		    background-position: center !important;
+		    background-size:contain;
+		    background-repeat:no-repeat;
+		    border-radius: 0;
+		    &:hover {
+		    	background-color: transparent !important;
+		    }
+		}
+		.rsArrowRight {
+			.rsArrowIcn {
+				background-image: url('../img/arrow-right--white.png');
+			    background-position: center !important;
+			}
+		}
+		.rsArrowLeft {
+			.rsArrowIcn {
+				background-image: url('../img/arrow-left--white.png');
+			    background-position: center !important;
+			}
+		}
+	}
+}
