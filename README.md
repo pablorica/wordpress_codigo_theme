@@ -1,4 +1,4 @@
-# Wordpress Codigo Theme
+# Codigo
 Basic Child Theme for UnderStrap Theme Framework: https://github.com/understrap/understrap
 
 ## How it works
@@ -57,3 +57,9 @@ Or, to run with Browser-Sync:
 
 [1] Visit [https://browsersync.io/](https://browsersync.io/) for more information on Browser Sync
 
+### Potentially Dangerous Files
+ ` yarn.lock` 
+ 
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/pablorica/wordpress_codigo_theme/tags).
