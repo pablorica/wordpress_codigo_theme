@@ -8,84 +8,92 @@ if( function_exists('get_field') ) {
     
     function register_acf_block_types() {
 
-        // register a testimonial block.
-        acf_register_block_type(array(
+        $carousel_block = array(
             'name'              => 'carousel',
             'title'             => __('Carousel'),
-            'description'       => __('TNF carousel block.'),
+            'description'       => __('Codigo carousel block.'),
             'render_callback'   => 'my_acf_block_render_callback',
             //'render_template'   => get_stylesheet_directory()  . '/template-parts/block/content-testimonial.php',
-            'category'          => 'rampa-blocks',
+            'category'          => 'codigo-blocks',
             'icon'              => 'slides',
             'mode'              => 'preview',
             'keywords'          => array( 'carousel', 'slider', 'image', 'link' ),
-        ));
-
-        acf_register_block_type(array(
+        );
+        
+        $headline_block = array(
             'name'              => 'headline',
             'title'             => __('Headline'),
-            'description'       => __('TNF headline block.'),
+            'description'       => __('Codigo headline block.'),
             'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'rampa-blocks',
+            'category'          => 'codigo-blocks',
             'icon'              => 'admin-comments',
             'mode'              => 'preview',
             'keywords'          => array( 'headline', 'comment'),
-        ));
-
-        acf_register_block_type(array(
+        );
+        
+        $mosaic_block = array(
             'name'              => 'mosaic',
             'title'             => __('Mosaic'),
-            'description'       => __('TNF mosaic block.'),
+            'description'       => __('Codigo mosaic block.'),
             'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'rampa-blocks',
+            'category'          => 'codigo-blocks',
             'icon'              => 'editor-kitchensink',
             'mode'              => 'preview',
             'keywords'          => array( 'mosaic', 'image', 'link' ),
-        ));
+        );
 
-        acf_register_block_type(array(
+        $formatted_block = array(
             'name'              => 'formatted-section',
             'title'             => __('Formatted Section'),
-            'description'       => __('TNF formatted section block.'),
+            'description'       => __('Codigo formatted section block.'),
             'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'rampa-blocks',
+            'category'          => 'codigo-blocks',
             'icon'              => 'admin-appearance',
             'mode'              => 'preview',
             'keywords'          => array( 'paragraph', 'background', 'columns' ),
-        ));
+        );
 
-        acf_register_block_type(array(
+        $articles_block = array(
             'name'              => 'articles-row',
             'title'             => __('Articles Row'),
-            'description'       => __('TNF Articles Row block.'),
+            'description'       => __('Codigo Articles Row block.'),
             'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'rampa-blocks',
+            'category'          => 'codigo-blocks',
             'icon'              => 'excerpt-view',
             'mode'              => 'preview',
             'keywords'          => array( 'article', 'post', 'image', 'link', 'excerpt' ),
-        ));
-
-        acf_register_block_type(array(
+        );
+        
+        $accordion_block = array(
             'name'              => 'accordion',
             'title'             => __('Accordion'),
-            'description'       => __('TNF Accordion block.'),
+            'description'       => __('Codigo Accordion block.'),
             'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'rampa-blocks',
+            'category'          => 'codigo-blocks',
             'icon'              => 'feedback',
             'mode'              => 'preview',
             'keywords'          => array( 'article', 'post', 'text', 'excerpt' ),
-        ));
+        );
+        
 
-        acf_register_block_type(array(
+        $slider_block = array(
             'name'              => 'images-slider',
             'title'             => __('Images Slider'),
-            'description'       => __('TNF Simple Images Slider block.'),
+            'description'       => __('Codigo Simple Images Slider block.'),
             'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'rampa-blocks',
+            'category'          => 'codigo-blocks',
             'icon'              => 'format-gallery',
             'mode'              => 'preview',
             'keywords'          => array( 'article', 'post', 'text', 'excerpt' ),
-        ));
+        );
+
+        //acf_register_block_type($carousel_block);
+        acf_register_block_type($headline_block);
+        //acf_register_block_type($mosaic_block);
+        //acf_register_block_type($formatted_block);
+        //acf_register_block_type($articles_block);
+        //acf_register_block_type($accordion_block);
+        //acf_register_block_type($slider_block);
     }
 
     // Check if function exists and hook into setup.
@@ -127,23 +135,23 @@ if( function_exists('get_field') ) {
 
 
     /**
-     * New Group for TNF blocks
+     * New Group for Codigo blocks
      *
      * @link https://loomo.ca/gutenberg-creating-custom-block-categories/
      *
      */
-    function rampa_block_category( $categories, $post ) {
+    function codigo_block_category( $categories, $post ) {
         return array_merge(
             $categories,
             array(
                 array(
-                    'slug' => 'rampa-blocks',
-                    'title' => __( 'Rampa', 'rampa-blocks' ),
+                    'slug' => 'codigo-blocks',
+                    'title' => __( 'Codigo', 'codigo-blocks' ),
                 ),
             )
         );
     }
-    add_filter( 'block_categories', 'rampa_block_category', 10, 2);
+    add_filter( 'block_categories', 'codigo_block_category', 10, 2);
 
 }
 
