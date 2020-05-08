@@ -24,9 +24,9 @@ function manage_wp_posts_be_qe_pre_get_posts( $query ) {
 function cptui_register_my_cpts_members() {
 
     $labels = array(
-        "name" => __( 'Members', 'understrap' ),
-        "singular_name" => __( 'Member', 'understrap' ),
-		'add_new' => _x('Add New', 'understrap'),
+        "name" => __( 'Members', 'codigo' ),
+        "singular_name" => __( 'Member', 'codigo' ),
+		'add_new' => _x('Add New', 'codigo'),
 		'add_new_item' => __('Add new member'),
 		'edit_item' => __('Edit member'),
 		'new_item' => __('New member'),
@@ -39,7 +39,7 @@ function cptui_register_my_cpts_members() {
     );
 
     $args = array(
-        "label" => __( 'Members', 'understrap' ),
+        "label" => __( 'Members', 'codigo' ),
         "labels" => $labels,
         "description" => "The Not Forgotten Team",
         "public" => true,
@@ -195,9 +195,9 @@ function member_type_term_radio_checklist( $args ) {
 function cptui_register_my_cpts_events() {
 
     $labels = array(
-        "name" => __( 'Events', 'understrap' ),
-        "singular_name" => __( 'Event', 'understrap' ),
-        'add_new' => _x('Add New', 'understrap'),
+        "name" => __( 'Events', 'codigo' ),
+        "singular_name" => __( 'Event', 'codigo' ),
+        'add_new' => _x('Add New', 'codigo'),
         'add_new_item' => __('Add new event'),
         'edit_item' => __('Edit event'),
         'new_item' => __('New event'),
@@ -210,7 +210,7 @@ function cptui_register_my_cpts_events() {
     );
 
     $args = array(
-        "label" => __( 'Events', 'understrap' ),
+        "label" => __( 'Events', 'codigo' ),
         "labels" => $labels,
         "description" => "The Fundraising Events",
         "public" => true,
@@ -400,9 +400,9 @@ function  cptui_convert_month_to_meta_in_query($query) {
 function cptui_register_my_cpts_testimonials() {
 
     $labels = array(
-        "name" => __( 'Testimonials', 'understrap' ),
-        "singular_name" => __( 'Testimonial', 'understrap' ),
-        'add_new' => _x('Add New', 'understrap'),
+        "name" => __( 'Testimonials', 'codigo' ),
+        "singular_name" => __( 'Testimonial', 'codigo' ),
+        'add_new' => _x('Add New', 'codigo'),
         'add_new_item' => __('Add new testimonial'),
         'edit_item' => __('Edit testimonial'),
         'new_item' => __('New testimonial'),
@@ -415,7 +415,7 @@ function cptui_register_my_cpts_testimonials() {
     );
 
     $args = array(
-        "label" => __( 'Testimonials', 'understrap' ),
+        "label" => __( 'Testimonials', 'codigo' ),
         "labels" => $labels,
         "description" => "The Not Forgotten Team",
         "public" => true,
@@ -481,9 +481,9 @@ function cptui_register_my_cpts_testimonials() {
 function cptui_galleries() {
 
     $labels = array(
-        "name" => __( 'Galleries', 'understrap' ),
-        "singular_name" => __( 'Gallery', 'understrap' ),
-		'add_new' => _x('Add New', 'understrap'),
+        "name" => __( 'Galleries', 'codigo' ),
+        "singular_name" => __( 'Gallery', 'codigo' ),
+		'add_new' => _x('Add New', 'codigo'),
 		'add_new_item' => __('Add new gallery'),
 		'edit_item' => __('Edit gallery'),
 		'new_item' => __('New gallery'),
@@ -496,7 +496,7 @@ function cptui_galleries() {
     );
 
     $args = array(
-        "label" => __( 'Galleries', 'understrap' ),
+        "label" => __( 'Galleries', 'codigo' ),
         "labels" => $labels,
         "description" => "Galleries",
         "public" => true,
