@@ -13,3 +13,19 @@ dist-product
 npm-debug.log
 
 /vendor/
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+**/.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Potentially Dangerous Files #
+###############################
+# yarn.lock
+# package-lock.json
