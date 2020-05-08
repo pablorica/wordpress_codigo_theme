@@ -43,6 +43,7 @@
     "wpackagist-plugin/duplicate-post": "*",
     "wpackagist-plugin/post-types-order": "*",
     "wpackagist-plugin/simple-page-ordering": "*",
+    "wpackagist-plugin/taxonomy-terms-order": "*",
     "wpackagist-plugin/wordpress-importer": "*",
     "wpackagist-plugin/cookie-notice": "*",
     "wpackagist-plugin/easy-wp-smtp": "*",
