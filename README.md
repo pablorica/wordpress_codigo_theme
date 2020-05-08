@@ -59,6 +59,7 @@ Or, to run with Browser-Sync:
 
 ### Potentially Dangerous Files
  ` yarn.lock` 
+ ` package-lock.json`
  
 ## Versioning
 
