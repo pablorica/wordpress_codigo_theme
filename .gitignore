@@ -26,6 +26,6 @@ ehthumbs.db
 Thumbs.db
 
 # Potentially Dangerous Files #
-###############################
-# yarn.lock
-# package-lock.json
+############################### 
+yarn.lock
+package-lock.json
