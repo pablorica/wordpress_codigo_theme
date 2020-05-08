@@ -140,6 +140,36 @@ function cptui_register_my_cpts_members() {
 		'show_admin_column' => true
 	));
 
+    //Add new column to custom taxonomy table
+    add_filter( 'manage_edit-role_columns', 'codigo_role_add_field_column' );
+    function codigo_role_add_field_column( $columns ) {
+
+        //Create new key "portrait" in position 2
+        $new_columns = array_slice($columns, 0, 2, true) +
+        array("role_color" => __( 'Colour')) +
+        array_slice($columns, 2, count($columns)-2, true);
+
+        //$columns['portrait'] = __( 'Portrait');
+        return $new_columns;
+    }
+
+
+    //Select the values to show in this new column
+    add_action( 'manage_role_custom_column', 'codigo_manage_role_columns', 10, 3 );
+    function codigo_manage_role_columns($out, $column, $term_id) {
+        $term= get_term($term_id);
+
+        switch( $column ) {
+
+            case 'role_color' :
+                echo '<div style="height:20px;width:20px;border-radius:50%;background-color:'.get_field( 'role_colour',  $term).'" ></div>';
+                break;
+
+            default :
+                break;
+        }
+    }
+
 
 }
 
