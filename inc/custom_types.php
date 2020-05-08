@@ -176,24 +176,24 @@ function cptui_register_my_cpts_members() {
 //add_action( 'init', 'cptui_register_my_cpts_members' );
 
 /**
- * Use radio inputs instead of checkboxes for Member Type checklists.
+ * Use radio inputs instead of checkboxes for Sector checklists.
  *
  * @param   array   $args
  * @return  array
  */
 // https://wordpress.stackexchange.com/questions/139269/wordpress-taxonomy-radio-buttons
-function member_type_term_radio_checklist( $args ) {
-    if ( ! empty( $args['taxonomy'] ) && $args['taxonomy'] === 'type') {
+function codigo_sector_radio_checklist( $args ) {
+    if ( ! empty( $args['taxonomy'] ) && $args['taxonomy'] === 'sector') {
         if ( empty( $args['walker'] ) || is_a( $args['walker'], 'Walker' ) ) { // Don't override 3rd party walkers.
-            if ( ! class_exists( 'Member_Type_Walker_Category_Radio_Checklist' ) ) {
+            if ( ! class_exists( 'Sector_Walker_Category_Radio_Checklist' ) ) {
                 /**
                  * Custom walker for switching checkbox inputs to radio.
                  *
                  * @see Walker_Category_Checklist
                  */
-                class Member_Type_Walker_Category_Radio_Checklist extends Walker_Category_Checklist {
-                    function walk( $elements, $max_depth, $args = array() ) {
-                        $output = parent::walk( $elements, $max_depth, $args );
+                class Sector_Walker_Category_Radio_Checklist extends Walker_Category_Checklist {
+                    function walk( $elements, $max_depth, ...$args) {
+                        $output = parent::walk( $elements, $max_depth, ...$args );
                         $output = str_replace(
                             array( 'type="checkbox"', "type='checkbox'" ),
                             array( 'type="radio"', "type='radio'" ),
@@ -205,14 +205,15 @@ function member_type_term_radio_checklist( $args ) {
                 }
             }
 
-            $args['walker'] = new Member_Type_Walker_Category_Radio_Checklist;
+            $args['walker'] = new Sector_Walker_Category_Radio_Checklist;
         }
     }
 
     return $args;
 }
 
-//add_filter( 'wp_terms_checklist_args', 'member_type_term_radio_checklist' );
+//add_filter( 'wp_terms_checklist_args', 'codigo_sector_radio_checklist' );
+
 
 
 
