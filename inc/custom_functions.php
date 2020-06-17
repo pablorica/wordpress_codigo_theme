@@ -14,6 +14,13 @@
    with variables
       include(locate_template('global-templates/include-modal-video.php'));
 
+
+--- Images
+    $image_id=get_field('image')				
+    $image=wp_get_attachment_image($image_id, 'medium_large');
+	OR
+	$image = get_the_post_thumbnail($post->ID, 'medium_large');
+
  */
 
 /**
