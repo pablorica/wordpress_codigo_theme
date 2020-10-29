@@ -1,0 +1,31 @@
+/**
+ * modules/fonts
+ * ---
+ * Declare fonts here
+ */
+
+
+
+@font-face {
+  font-family: "Druk-Medium";
+  src: url("../../fonts/Druk-Medium.eot");
+  src: url("../../fonts/Druk-Medium.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/Druk-Medium.woff") format("woff"),
+    url("../../fonts/Druk-Medium.ttf") format("truetype"),
+    url("../../fonts/Druk-Medium.svg#Druk-Medium") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: "FranklinGothic-DemiCond";
+  src: url("../../fonts/FranklinGothic-DemiCond.eot");
+  src: url("../../fonts/FranklinGothic-DemiCond.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/FranklinGothic-DemiCond.woff") format("woff"),
+    url("../../fonts/FranklinGothic-DemiCond.ttf") format("truetype"),
+    url("../../fonts/FranklinGothic-DemiCond.svg#FranklinGothic-DemiCond") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+

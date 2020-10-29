@@ -1,0 +1,81 @@
+.gblock__onecolumn_body,
+.gblock__twocolumns-left_body,
+.gblock__twocolumns-right_body { 
+    &--content {
+        //margin-top:80px;
+        //margin-bottom:80px;
+        margin-top:0;
+        margin-bottom:0;
+        @media screen and (min-width: 768px) {
+            margin-top:110px;
+            margin-bottom:110px;
+        }
+        h1,h2,h3 {
+            margin-bottom:40px;
+            @media screen and (min-width: 768px) {
+                margin-bottom:60px;
+            }
+        }
+        .btn-cta {
+            margin-top:50px;
+        }
+    }
+    &--carousel {
+        figure {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            img {
+                position: absolute;
+                object-fit: cover;
+                height: 100%;
+                width: 100%;
+            }
+            figcaption {
+                position: absolute;
+                bottom: 50px;
+                left:0;
+                z-index: 10;
+                text-align: left;
+                max-width: 40%;
+                padding-left:15px;
+            }
+        }
+        
+        .slick-prev {
+            //left: 25px;
+            left: 40px;
+            z-index: 10;
+        }
+        .slick-next {
+            //right: 25px;
+            right: 40px;
+            z-index: 10;
+        }
+        .slick-dots {
+            bottom: 25px;
+            li {
+                button {
+                    &::before {
+                        content: '';
+                        font-size: 15px;
+                        width: 15px;
+                        height: 15px;
+                        color: white;
+                        border: solid 2px white;
+                        background-color: white;
+                        border-radius: 50%;
+                        opacity: 0.3;
+                    }
+                }
+                &.slick-active {
+                    button {
+                        &::before {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

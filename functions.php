@@ -1,12 +1,12 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+    exit; // Exit if accessed directly.
 }
 
 /**
  * Remove Understrap Configuration.
  */
-require get_stylesheet_directory()   . '/inc/understrap.php';
+//require get_stylesheet_directory()   . '/inc/wpbootstrapsass.php'; //Deprecated
 
 /**
  * Theme Set Up.
@@ -23,6 +23,8 @@ require get_stylesheet_directory()   . '/inc/custom_enqueue.php';
  */
 require get_stylesheet_directory()   . '/inc/class-wp-codigo-navwalker.php';
 
+
+
 /**
  * Custom Pagination.
  */
@@ -38,11 +40,26 @@ require get_stylesheet_directory()   . '/inc/custom_functions.php';
  */
 //require get_stylesheet_directory()  . '/inc/custom_types.php';
 
-
 /**
  * Custom Template Management
  */
-//require get_stylesheet_directory()  . '/inc/custom_template.php';
+require get_stylesheet_directory()  . '/inc/custom_template.php';
+
+/**
+ * Custom Blocks for Gutenberg
+ */
+require get_stylesheet_directory()  . '/inc/custom_blocks.php';
+
+
+/**
+ * Custom Sidebars.
+ */
+//require get_stylesheet_directory()   . '/inc/custom_sidebars.php';
+
+/**
+ * Custom Shortcodes.
+ */
+//require get_stylesheet_directory()  . '/inc/custom_shortcodes.php';
 
 
 /**
@@ -51,10 +68,7 @@ require get_stylesheet_directory()   . '/inc/custom_functions.php';
 //require get_stylesheet_directory()  . '/inc/custom_ajax.php';
 
 
-/**
- * Custom Blocks for Gutenberg
- */
-//require get_stylesheet_directory()  . '/inc/custom_blocks.php';
+
 
 
 /**

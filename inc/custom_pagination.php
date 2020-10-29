@@ -52,4 +52,30 @@ if ( ! function_exists( 'codigo_pagination' ) ) {
 	}
 }
 
+
+// Pagination for paged posts, Page 1, Page 2, Page 3, with Next and Previous Links, No plugin
+function codigo_new_pagination()
+{
+    global $wp_query;
+    $big = 999999999;
+    $links = paginate_links(array(
+        'base' => str_replace($big, '%#%', get_pagenum_link($big)),
+        'format' => '?paged=%#%',
+        'current' => max(1, get_query_var('paged')),
+        'total' => $wp_query->max_num_pages,
+        'prev_text' => '<span class="border p-1">&lt;</span>',
+        'next_text' => '<span class="border p-1">&gt;</span>',
+        'before_page_number' => '<span class="border p-1">',
+        'after_page_number' => '</span>',
+    ));
+
+    if ( $links ) :
+
+        echo $links;
+
+    endif;
+
+}
+//add_action('init', 'codigo_new_pagination'); 
+
 ?>

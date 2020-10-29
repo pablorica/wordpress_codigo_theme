@@ -1,61 +1,45 @@
-# Codigo
-Basic Child Theme for UnderStrap Theme Framework: https://github.com/understrap/understrap
-
-## How it works
-Codigo Theme shares with the parent theme all PHP files and adds its own functions.php on top of the UnderStrap parent theme's functions.php.
-
-**IT DOES NOT LOAD THE PARENT THEMES CSS FILE(S)!** Instead it uses the UnderStrap Parent Theme as a dependency via npm and compiles its own CSS file from it.
-
-Codigo Theme uses the Enqueue method to load and sort the CSS file the right way instead of the old @import method.
+# Codigo Theme
+A clean slate Wordpress theme template with Bootstrap(4), Sass, and a Webpack config with Babel.
+Based in [wp-bootstrap4-sass](https://github.com/tone4hook/wp-bootstrap4-sass)
 
 ## Installation
-1. Install the parent theme UnderStrap first: `https://github.com/understrap/understrap`
-   - IMPORTANT: If you download UnderStrap from GitHub make sure you rename the "understrap-master.zip" file to "understrap.zip" or you might have problems using this child theme!
-1. Upload the codigo folder to your wp-content/themes directory
-1. Go into your WP admin backend 
-1. Go to "Appearance -> Themes"
-1. Activate the Codigo theme
 
-## Editing
-Add your own CSS styles to `/sass/theme/_child_theme.scss`
+* Using command line(Terminal or Command Prompt) navigate to seadesign directory in your themes folder
+* *npm update --save-dev*  to update all devDependencies
+* Run *npm update*
+* Run *npm start* for Webpack development build
+* Run *npm run build* for Webpack production build
 
-To overwrite Bootstrap's or UnderStrap's base variables just add your own value to:
-`/sass/theme/_child_theme_variables.scss`
+* Run *npm run watch* for Webpack development watch
 
-For example, the "$brand-primary" variable is used by both Bootstrap and UnderStrap.
+## Dev Dependencies
 
-Add your own color like: `$brand-primary: #ff6600;` in `/sass/theme/_child_theme_variables.scss` to overwrite it. This change will automatically apply to all elements that use the $brand-primary variable.
+*Note:* Using the extract-text-webpack-plugin Beta version since it plays better with Webpack 4; *npm i -D extract-text-webpack-plugin@next*
 
-It will be outputted into:
-`/css/understrap-child.min.css` and `/css/understrap-child.css`
+* [Babel](https://babeljs.io/)
+* [babel-loader](https://github.com/babel/babel-loader)
+* [babel-preset-env](https://github.com/babel/babel/tree/master/packages/babel-preset-env)
+* [css-loader](https://www.npmjs.com/package/css-loader)
+* [extract-text-webpack-plugin ^4.0.0-beta.0](https://github.com/webpack-contrib/extract-text-webpack-plugin)
+* [node-sass](https://www.npmjs.com/package/node-sass)
+* [sass-loader](https://www.npmjs.com/package/sass-loader)
+* [style-loader](https://www.npmjs.com/package/style-loader)
+* [uglifyjs-webpack-plugin](https://www.npmjs.com/package/uglifyjs-webpack-plugin)
+* [webpack](https://webpack.js.org/)
+* [webpack-cli](https://webpack.js.org/api/cli/)
 
-So you have one clean CSS file at the end and just one request.
+## Dependencies
 
-## Developing With NPM, Gulp, SASS and Browser Sync
+* [Bootstrap](https://getbootstrap.com/)
+* [Popper.js](https://popper.js.org/)
 
-### Installing Dependencies
-- Make sure you have installed Node.js, Gulp, and Browser-Sync [1] on your computer globally
-- Open your terminal and browse to the location of your UnderStrap copy
-- Run: `$ npm install` then: `$ gulp copy-assets`
+## Acknowledgements
 
-### Running
-To work and compile your Sass files on the fly start:
+* [HTML 5 Blank](https://github.com/toddmotto/html5blank)
 
-- `$ gulp watch`
+## License
 
-Or, to run with Browser-Sync:
-
-- First change the browser-sync options to reflect your environment in the file `/gulpconfig.json` in the beginning of the file:
-```javascript
-  "browserSyncOptions" : {
-    "proxy": "localhost/wordpress/",
-    "notify": false
-  }
-};
-```
-- then run: `$ gulp watch-bs`
-
-[1] Visit [https://browsersync.io/](https://browsersync.io/) for more information on Browser Sync
+MIT
 
 ### Potentially Dangerous Files
  ` yarn.lock` 

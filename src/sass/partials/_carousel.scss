@@ -1,0 +1,32 @@
+.slick-dotted.slick-slider {
+    margin-bottom: 0;
+}
+
+.slick-arrow {
+    //position:relative;
+    &::before {
+        content:'';
+        position:absolute;
+        top:50%;
+        left:50%;
+        transform:translate(-50%,-50%);
+        width: 52px;
+        height: 52px;
+        background:transparent;
+        background-image: url('../../img/play_button.png');
+        background-position: center;
+        background-size: contain;
+        background-repeat:no-repeat;
+        border:none;
+        z-index:10;
+    }
+}
+.slick-prev {
+    &::before {
+        transform:translate(-50%,-50%) rotate(180deg);
+    }
+}
+.slick-next {
+    right: 25px;
+    z-index: 10;
+}

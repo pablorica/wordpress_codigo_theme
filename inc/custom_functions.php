@@ -23,59 +23,44 @@
 
  */
 
-/**
- * Image sizes
- */
-
-/*
-the_post_thumbnail('thumbnail');       // Thumbnail (default 150px x 150px max)
-the_post_thumbnail('medium');          // Medium resolution (default 300px x 300px max)
-the_post_thumbnail('medium_large');    // Medium Large resolution (default 768px x 0px max)
-the_post_thumbnail('large');           // Large resolution (default 1024px x 1024px max)
-the_post_thumbnail('full');            // Original image resolution (unmodified)
-*/
-add_image_size( 'retina', 2048, 2048, false );
-add_image_size( 'square', 200, 200, array( 'left', 'top' ) );
-add_image_size( 'icon', 50, 50, false );
 
 
-/**
- * Remove editor on "Posts"
- */
 
-function codigo_remove_editor_posts() {
-	remove_post_type_support( 'post', 'editor' );
+
+
+
+/*** Custom Excerpts *****/
+
+// Create 20 Word Callback for Index page Excerpts, call using codigo_excerpt('codigo_index');
+function codigo_index($length) 
+{
+    return 20;
 }
-//add_action( 'init', 'codigo_remove_editor_posts' );
 
-
-/**
- * Custom HTML tags in Titles
- */
-add_filter('the_title', 'custom_html_tags_title', 10, 2);
-function custom_html_tags_title($title, $id){
-	$title=str_replace("[sup]", '<sup>', $title);
-	$title=str_replace("[/sup]", '</sup>', $title);
-
-	$title=str_replace("[sub]", '<sub>', $title);
-	$title=str_replace("[/sub]", '</sub>', $title);
-
-	$title=str_replace("[strong]", '<strong>', $title);
-	$title=str_replace("[/strong]", '</strong>', $title);
-
-	$title=str_replace("[b]", '<strong>', $title);
-	$title=str_replace("[/b]", '</strong>', $title);
-
-	$title=str_replace("[em]", '<i>', $title);
-	$title=str_replace("[/em]", '</i>', $title);
-
-	$title=str_replace("[i]", '<i>', $title);
-	$title=str_replace("[/i]", '</i>', $title);
-
-	$title=str_replace("[br]", '<br />', $title);
-
-	return $title;
+// Create 40 Word Callback for Custom Post Excerpts, call using codigo_excerpt('codigo_custom_post');
+function codigo_custom_post($length)
+{
+    return 40;
 }
+
+// Create the Custom Excerpts callback
+function codigo_excerpt($length_callback = '', $more_callback = '')
+{
+    global $post;
+    if (function_exists($length_callback)) {
+        add_filter('excerpt_length', $length_callback);
+    }
+    if (function_exists($more_callback)) {
+        add_filter('excerpt_more', $more_callback);
+    }
+    $output = get_the_excerpt();
+    $output = apply_filters('wptexturize', $output);
+    $output = apply_filters('convert_chars', $output);
+    $output = '<p>' . $output . '</p>';
+    echo $output;
+}
+
+
 
 
 
@@ -115,10 +100,15 @@ function codigo_display_html_video($videourl, $royalSlider=false) {
 	}
 	else {
 		if ($youtubeID) {
-			/*$html='<div id="youplayer_'.$youtubeID.'" class="youplayer" data-video-url="'.$youtubeID.'"></div>
+			/*$
+			<div id="youplayer_'.$youtubeID.'" class="youplayer" data-video-url="'.$youtubeID.'"></div>
 			<a class="start-video" data-video-id="'.$youtubeID.'"></a>
-			<a class="mute-video" data-video-id="'.$youtubeID.'" style="opacity:0"></a>';*/
-      $html='<iframe width="100%" height="600" data-url="https://www.youtube.com/embed/'.$youtubeID.'?showinfo=0&rel=0&enablejsapi=1" src="" frameborder="0" allowfullscreen></iframe>';
+			<a class="mute-video" data-video-id="'.$youtubeID.'" style="opacity:0"></a>
+			
+			<iframe width="100%" height="600" data-url="https://www.youtube.com/embed/'.$youtubeID.'?showinfo=0&rel=0&enablejsapi=1" src="" frameborder="0" allowfullscreen></iframe>
+			
+			*/
+	  $html='<iframe width="100%" height=100%" src="https://www.youtube.com/embed/'.$youtubeID.'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
 		}
 		if ($vimeoID) {
 			$html='<iframe id="vimeoplayer" src="https://player.vimeo.com/video/'.$vimeoID.'?api=1&player_id=vimeoplayer" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>

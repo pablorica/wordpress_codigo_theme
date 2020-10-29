@@ -1,0 +1,36 @@
+/**
+ * partials/footer
+ * ---
+ */
+ footer.footer {
+    font-size: 20px;
+    line-height: 30px;
+    max-height: 150px;
+    color: $grey;
+    background-color: $dark-grey;
+    .footer-media {
+        list-style:none;
+        padding:15px 0;
+        margin:0;
+        text-align: center;
+        li {
+          list-style:none;
+          padding:0;
+          margin:0 7px;
+          display:inline;
+        }
+        img {
+          width:40px;
+          height: 40px;
+        }
+    }
+}
+#nofullpage {
+  footer.section {
+    height: 150px;
+    @media screen and (min-width: 768px) {
+      height: 150px;
+    }
+  }
+
+}

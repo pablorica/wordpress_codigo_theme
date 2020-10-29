@@ -12,13 +12,12 @@ if( function_exists('acf_add_options_page') ) {
 		'capability'	=> 'edit_posts',
 	));
 
-	acf_add_options_sub_page(array(
-		'page_title' 	=> 'Theme Settings: General',
-		'menu_title'	=> 'General',
-		'parent_slug'	=> 'theme-general-settings',
-	));
-
-		
+	// acf_add_options_sub_page(array(
+	// 	'page_title' 	=> 'Theme Settings: General',
+	// 	'menu_title'	=> 'General',
+	// 	'parent_slug'	=> 'theme-general-settings',
+	// ));
+	
 	// acf_add_options_sub_page(array(
 	// 	'page_title' 	=> 'Theme Settings: Header',
 	// 	'menu_title'	=> 'Header',
@@ -37,12 +36,11 @@ if( function_exists('acf_add_options_page') ) {
 		
 	));
 	
-	acf_add_options_sub_page(array(
-		'page_title' 	=> 'Theme Settings: 404',
-		'menu_title'	=> '404',
-		'parent_slug'	=> 'theme-general-settings',
-		
-	));
+	// acf_add_options_sub_page(array(
+	// 	'page_title' 	=> 'Theme Settings: 404',
+	// 	'menu_title'	=> '404',
+	// 	'parent_slug'	=> 'theme-general-settings',
+	//));
 
 }
 

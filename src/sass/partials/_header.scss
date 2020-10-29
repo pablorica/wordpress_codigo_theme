@@ -1,0 +1,9 @@
+
+nav.navbar {
+    &.fixed-top {
+		transition: opacity .25s cubic-bezier(.785,.135,.15,.86),transform .25s cubic-bezier(.785,.135,.15,.86);
+        &.scroll-down {
+         	transform: translate3d(0,-110px,0);
+		}
+	}
+}
