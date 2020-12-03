@@ -297,6 +297,8 @@ import fullpage from 'fullpage.js/dist/fullpage.extensions.min';
 
 		/* FullPage */
 		fullpage: function(){
+			console.log('Loading fullpage');
+
 	    	if ($('#fullpage').length) {
 
 				$("nav.navbar").addClass("fixed-top");

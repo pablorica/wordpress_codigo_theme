@@ -46,19 +46,111 @@ function codigo_custom_post($length)
 // Create the Custom Excerpts callback
 function codigo_excerpt($length_callback = '', $more_callback = '')
 {
-    global $post;
+	global $post;
+
     if (function_exists($length_callback)) {
         add_filter('excerpt_length', $length_callback);
     }
     if (function_exists($more_callback)) {
         add_filter('excerpt_more', $more_callback);
-    }
-    $output = get_the_excerpt();
-    $output = apply_filters('wptexturize', $output);
-    $output = apply_filters('convert_chars', $output);
-    $output = '<p>' . $output . '</p>';
-    echo $output;
+	}
+
+	
+	$output =false;
+	if(get_the_excerpt()) {
+		$output = apply_filters('wptexturize', get_the_excerpt());
+		$output = apply_filters('convert_chars', $output);
+		$output = '<p class="post_excerpt">' . $output . '</p>';
+	}
+    return $output;
 }
+
+
+/*** Get content between HTML tags *****/
+
+function getTextBetweenTags($string, $tagname) {
+
+	$d = new DOMDocument();
+    $d->loadHTML($string);
+    $items = array();
+    foreach($d->getElementsByTagName($tagname) as $item){
+        $items[] = $item->textContent;
+    }
+	return $items;
+}
+
+
+/*** Create the Block Custom Excerpts *****/
+function codigo_advanced_excerpt($article = null) {
+	$excerpt = codigo_excerpt('codigo_index');
+
+	if(!$excerpt){
+		$content = get_the_content($article);
+		if ( has_blocks( $content ) ) {
+			$cblocks = parse_blocks( $content );
+			//error_log(print_r($cblocks,true));
+			$cblock = $cblocks[0];
+			//error_log('$cblock '.print_r($cblock ,true));
+			
+			if(isset($cblock['attrs']['data'])) {
+				foreach($cblock['attrs']['data'] as $key => $val) {
+					if($excerpt) {
+						break; //There is one excerpt, break the loop 
+					}
+
+					if (strpos($key, '_text') !== false) {
+						$excerpt = preg_replace("/\<h(.*)\>(.*)\<\/h[^>]+\>/","", $val); //remove <h1>,<h2>,<h3>
+						$excerpt = strip_tags($excerpt);
+						$excerpt = wp_trim_words( $excerpt, 20);
+						$excerpt = '<p class="post_excerpt">'.$excerpt.'</p>';
+					}
+
+				}
+			}
+
+			//error_log('$excerpt '.print_r($excerpt ,true));
+		}
+	}
+
+	return $excerpt;
+}
+
+
+
+/*** Managing Gutenberg Blocks *****/
+// https://awhitepixel.com/blog/wordpress-gutenberg-access-parse-blocks-with-php/
+// https://developer.wordpress.org/reference/hooks/render_block/
+
+function codigo_block_wrapper( $block_content, $block ) {
+	
+	/*
+	error_log('block '.print_r($block,true));
+
+    if ( $block['blockName'] === 'core/paragraph' ) {
+        $content = '<div class="wp-block-paragraph">';
+        $content .= $block_content;
+        $content .= '</div>';
+        return $content;
+    } elseif ( $block['blockName'] === 'core/heading' ) {
+        $content = '<div class="wp-block-heading">';
+        $content .= $block_content;
+        $content .= '</div>';
+        return $content;
+	}
+	*/
+
+	//Wrapping each block. This is needed for jQuery function cssElements()
+	//NOTE: This is not compatible with Fullpage!!
+	if ( isset($block['attrs']['id']) ) {
+		$content = '<div class="block-wrapper" id="'.$block['attrs']['id'].'">';
+        $content .= $block_content;
+        $content .= '</div>';
+        return $content;
+	}
+    return $block_content;
+}
+ 
+//add_filter( 'render_block', 'codigo_block_wrapper', 10, 2 );
 
 
 

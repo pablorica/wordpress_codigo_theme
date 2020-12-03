@@ -17,7 +17,7 @@ if( function_exists('get_field') ) {
             //'render_template'   => get_stylesheet_directory()  . '/template-parts/block/content-testimonial.php',
             'category'          => 'codigo-blocks',
             'icon'              => 'admin-comments',
-            'mode'              => 'editor', //preview, editor
+            'mode'              => 'preview', //preview, editor
             'keywords'          => array( 'headline', 'comment'),
         );
 
@@ -28,7 +28,7 @@ if( function_exists('get_field') ) {
             'render_callback'   => 'my_acf_block_render_callback',
             'category'          => 'codigo-blocks',
             'icon'              => 'align-center',
-            'mode'              => 'editor',
+            'mode'              => 'preview',
             'keywords'          => array( 'article', 'section', 'post', 'image', 'link', 'excerpt', 'one column' ),
         );
         $twocolumns_block = array(
@@ -38,18 +38,29 @@ if( function_exists('get_field') ) {
             'render_callback'   => 'my_acf_block_render_callback',
             'category'          => 'codigo-blocks',
             'icon'              => 'columns',
-            'mode'              => 'editor',
+            'mode'              => 'preview',
             'keywords'          => array( 'article', 'section', 'post', 'image', 'link', 'excerpt', 'one column' ),
         );
         $gallery_block = array(
             'name'              => 'gallery-row',
             'title'             => __('Gallery Row'),
-            'description'       => __('Codigo list of images displayed in a row.'),
+            'description'       => __('List of article cards displayed in a row.'),
             'render_callback'   => 'my_acf_block_render_callback',
             'category'          => 'codigo-blocks',
             'icon'              => 'format-gallery',
-            'mode'              => 'editor',
+            'mode'              => 'preview',
             'keywords'          => array( 'article', 'post', 'text', 'image', 'gallery' ),
+        );
+
+        $tabs_block = array(
+            'name'              => 'tabs',
+            'title'             => __('Tabs'),
+            'description'       => __('Codigo tabs block.'),
+            'render_callback'   => 'my_acf_block_render_callback',
+            'category'          => 'codigo-blocks',
+            'icon'              => 'table-row-after',
+            'mode'              => 'preview',
+            'keywords'          => array( 'tabs', 'ctas', 'accordion', 'link' ),
         );
         
         /*
@@ -136,6 +147,7 @@ if( function_exists('get_field') ) {
         acf_register_block_type($onecolumn_block);
         acf_register_block_type($twocolumns_block);
         acf_register_block_type($gallery_block);
+        acf_register_block_type($tabs_block);
     }
 
     // Check if function exists and hook into setup.
@@ -205,10 +217,70 @@ if( function_exists('get_field') ) {
     	
         $htmlBody   = '';
         
-        $inner_col_class = "col-xl-6";
+        $inner_col_class = "col-xl-9 mx-auto";
+
         if($body['classname'] == 'onecolumn') {
-            $inner_col_class = "col-md-6";
+            $inner_col_class = "py-5 col-md-9 mx-auto";
         }
+        if($body['classname'] == 'twocolumns-left') {
+            $inner_col_class = "py-5 col-12 mx-auto col-xl-10 mr-xl-auto ml-xl-0 pr-xl-0";
+        }
+        if($body['classname'] == 'twocolumns-right') {
+            $inner_col_class = "py-5 col-12 mx-auto col-xl-10 ml-xl-auto mr-xl-0 pl-xl-0 ";
+        }
+
+        $inner_col_class .= " ".$body['content_class'];
+
+        $fade_animation = 'fade_in_up';
+        if (strpos($body['classname'], 'left') !== false) {
+            $fade_animation = 'fade_in_right';
+        }
+        if (strpos($body['classname'], 'right') !== false) {
+            $fade_animation = 'fade_in_left';
+        }
+
+
+        //error_log('$body[ctas] '.print_r($body['ctas'],true) );
+        
+        $htmlCTA ='';
+        if( have_rows($body['groupname'])): while ( have_rows($body['groupname']) ) : the_row(); 
+
+            if( have_rows('ctas') ){ while ( have_rows('ctas') ) { the_row();   
+                $cta_download = (get_sub_field('download') ? 'download': false);
+                $cta_color    = get_sub_field('color');
+                $cta_bg       = get_sub_field('bgcolor');
+                $cta          = get_sub_field('link');
+
+                $cta_class    = "btn btn-primary btn-cta".($cta_download ?  ' btn-download': '');
+                $addWrapper   = false;
+
+                if(is_array($cta) && ( isset($cta['title']) && isset($cta['url']) )  ){
+                    if($body['type'] == 'menu') {
+
+                        global $wp;
+                        $current_url = home_url( $wp->request )."/";
+
+                        //error_log('current url '. $current_url );
+                        //error_log('current link '. $cta['url']);
+
+                        $liclass = ($current_url == $cta['url'] ? 'active' : '' );
+
+                        $htmlCTA .= '
+                        <li class="'.$liclass.'" >
+                        <a href="'.$cta['url'].'" target="'.$cta['target'].'">'.$cta['title'].'</a>
+                        </li>';
+                    } else {
+                        $addWrapper = true;
+                        $htmlCTA .= '
+                            <p>
+                            <a class="'.$cta_class.'" role="button" href="'.$cta['url'].'" target="'.$cta['target'].'" style="color:'.$cta_color.'; border-color:'.$cta_color.'; background-color:'.$cta_bg.';" '.$cta_download.'>'.$cta['title'].'</a>
+                            </p>';
+                    }
+                }
+            }}
+            if($addWrapper) $htmlCTA = '<div class="cta_wrapper">'.$htmlCTA.'</div>';
+
+        endwhile; endif;
 
         if($body['type'] == 'image') {
             if(!$body['mobile_image'])  $body['mobile_image']  = $body['desktop_image'];
@@ -217,14 +289,10 @@ if( function_exists('get_field') ) {
             $mobile_image  = wp_get_attachment_image($body['mobile_image'], 'large', false, array('class'=>'d-md-none m-auto'));
             $desktop_image = wp_get_attachment_image($body['desktop_image'], 'full', false, array('class'=>'d-none d-md-block m-auto'));
             $htmlBody .= '
-            <div class="gblock__'.$body['classname'].'_body--image row">
-                <div class="col-md-12 text-center '.($body['animation'] ? 'animate-children fade_in_up' : '').'">
-                    <figure>
-                        '.$mobile_image.'
-                        '.$desktop_image.'
-                    </figure>
-                </div>
-            </div>';
+            <figure class="gblock__'.$body['classname'].'_body--image h-100">
+                '.$mobile_image.'
+                '.$desktop_image.'
+            </figure>';
         }
         elseif($body['type'] == 'carousel') {
 
@@ -235,8 +303,10 @@ if( function_exists('get_field') ) {
             $carousel_navdots  = ($body['dots'] ? true: false);
             if($block_images):
                 $htmlBody .= '
-                <div class="gblock__'.$body['classname'].'_body--carousel row">
-                    <div class="col-md-12 text-center '.($body['animation'] ? 'animate-children fade_in_up' : '').' slick-carousel" data-autoplay='.$carousel_autoplay.' data-arrows='.$carousel_arrows.' data-dots='.$carousel_navdots.' >';
+                <div class="gblock__'.$body['classname'].'_body--carousel h-100 row">
+                    <div class="w-100 p-0 m-auto slick-carousel-wrapper '.($body['animation'] ? 'animate-children '.$fade_animation : '').'">
+                        <div class="slick-carousel" data-autoplay='.$carousel_autoplay.' data-arrows='.$carousel_arrows.' data-dots='.$carousel_navdots.' >';
+
                 foreach($block_images as $gal_image ):
                     $htmlBody.= '
                     <div>
@@ -245,41 +315,54 @@ if( function_exists('get_field') ) {
                             '<figcaption>'.esc_html($gal_image['caption']).'</figcaption>
                         </figure>
                     </div>';
-
                 endforeach;
+
                 $htmlBody .= '</div>
+                    </div>
                 </div>';
             endif; 
         }
         elseif($body['type'] == 'text') {
             if($body['text']){
                 $htmlBody .= '
-                <div class="gblock__'.$body['classname'].'_body--content row">
-                    <div class="'.$inner_col_class.' mx-auto '.($body['animation'] ? 'animate-children fade_in_up' : '').'">
+                <div class="gblock__'.$body['classname'].'_body--content h-100 row">
+                    <div class="'.$inner_col_class.' '.($body['animation'] ? 'animate-children '.$fade_animation : '').'">
                     '.$body['text'].'
+                    '.$htmlCTA.'
                     </div>
                 </div>';
-            }
+            }            
         }
         elseif($body['type'] == 'quote') {
             $htmlBody .= '
-            <div class="gblock__'.$body['classname'].'_body--content row">
-                <div class="'.$inner_col_class.' mx-auto '.($body['animation'] ? 'animate-children fade_in_up' : '').'">
+            <div class="gblock__'.$body['classname'].'_body--content h-100 row">
+                <div class="'.$inner_col_class.' '.($body['animation'] ? 'animate-children '.$fade_animation : '').'">
                     <blockquote>
                         <p>'.$body['quote'].'</p>
                     </blockquote>
                     <div class="author mt-auto">'.$body['author'].'</div>
+                    '.$htmlCTA.'
                 </div>
             </div>';
-        } elseif($body['type'] == 'cta') {
-            $cta = $body['cta'];
+        } 
+        elseif($body['type'] == 'menu') {
             $htmlBody .= '
             <div class="gblock__'.$body['classname'].'_body--content row">
-                <div class="'.$inner_col_class.' mx-auto '.($body['animation'] ? 'animate-children fade_in_up' : '').'">
-                    <p>'.$body['cta_text'].'</p>
-                    <a class="btn btn-primary btn-cta" role="button" href="'.$cta['url'].'" target="'.$cta['target'].'">'.$cta['title'].'</a>
+                <div class="'.$inner_col_class.' '.($body['animation'] ? 'animate-children '.$fade_animation  : '').'">
+                    <ul class="gblock__'.$body['classname'].'_body--content_menu">
+                    '.$htmlCTA.'
+                    </ul>
                 </div>
             </div>';
+        }
+        elseif($body['type'] == 'empty') {
+            if($body['text']){
+                $htmlBody .= '
+                <div class="gblock__'.$body['classname'].'_body--content row">
+                    <div class="'.$inner_col_class.' mx-auto">
+                    </div>
+                </div>';
+            }            
         }
         else {
             $type 		= $body['type'];
@@ -294,7 +377,7 @@ if( function_exists('get_field') ) {
             );
             //error_log($type);
             ob_start(); ?>
-            <div class="gblock__<?=$body['classname']?>_body--video <?=($body['animation'] ? 'animate-single fade_in_up' : '')?>">
+            <div class="gblock__<?=$body['classname']?>_body--video ">
                 <?php //get_template_part( 'global-templates/component', 'video' ); ?>
                 <?php include(locate_template('global-templates/component-video.php')); ?>
             </div>
@@ -302,6 +385,11 @@ if( function_exists('get_field') ) {
             $htmlBody .= ob_get_contents();
             ob_end_clean();
         }
+
+        if($body['column_custom']) {
+            $htmlBody = '<div class="column-wrapper-inner" data-acolor="'.$body['column_color'] .'" style="color:'.$body['column_color'] .';background-color:'.$body['column_bgcolor'].';">'.$htmlBody.'</div>';
+        }
+        
 
         return $htmlBody;
     }
@@ -346,6 +434,9 @@ function hb_acf_custom_fonts() {
             border: none;
             z-index: 10;
         }
+
+        .acf-block-preview .fp-bg__twocolumns-left,
+        .acf-block-preview .fp-bg__twocolumns-right,
         .acf-block-preview img + img,
         .acf-block-preview .component_video + .component_video {
             display:none;
@@ -377,6 +468,26 @@ function hb_acf_custom_fonts() {
         .acf-block-preview .slick-carousel::after {
             right:calc(50% - 18px);
             background-color: white;
+        }
+
+        .acf-block-preview .gblock__gallery .gblock__gallery--col,
+        .acf-block-preview .gblock__gallery .gblock__gallery--post {
+            display:inline-block;
+            width:180px;
+            height:auto;
+            padding: 0 5px
+        }
+        .acf-block-preview .gblock__gallery .gblock__gallery--post:nth-of-type(4n) {
+            display: none
+        }
+        .acf-block-preview .gblock__gallery .gblock__gallery--col figure {
+            margin:0
+        }
+        .acf-block-preview .gblock__gallery .gblock__gallery--col h2 {
+            font-size: 1em;
+        }
+        .acf-block-preview .gblock__gallery .gblock__gallery--col .post_excerpt{
+            display:none;
         }
     </style>';
 }

@@ -66,10 +66,19 @@ if (function_exists('load_theme_textdomain'))
 }
 
 
-
 /**
-* Adds a second custom logo
+* Site Logo
+*
 */
+// Filters the custom logo output.
+add_filter( 'get_custom_logo', 'codigo_custom_logo' );
+function codigo_custom_logo($html) {
+    return str_replace('class="custom-logo-link"', 'class="pl-sm-3 pl-md-0 custom-logo-link"',$html);
+}
+
+
+
+// Adds a second custom logo
 function codigo_customizer_setting($wp_customize) {
 // add a setting 
     $wp_customize->add_setting('custom_white_logo');
@@ -84,13 +93,16 @@ function codigo_customizer_setting($wp_customize) {
 //add_action('customize_register', 'codigo_customizer_setting');
 
 
+
+
+
 // Register WP Bootstrap Sass Navigation 
 add_action('init', 'register_codigo_menu');
 function register_codigo_menu()
 {
     register_nav_menus(array( // Using array to specify more menus if needed
         'header-menu' => __('Header Menu', 'codigo'), // Main Navigation
-        //'sidebar-menu' => __('Sidebar Menu', 'codigo'), // Sidebar Navigation
+        'footer-menu' => __('Footer Menu', 'codigo'), // Footer Navigation
         //'extra-menu' => __('Extra Menu', 'codigo') // Extra Navigation if needed (duplicate as many as you need!)
     ));
 }
@@ -101,6 +113,14 @@ add_filter('show_admin_bar', 'remove_admin_bar');
 function remove_admin_bar()
 {
     return false;
+}
+
+
+// Remove Categories and Tags from Posts
+add_action('init', 'codigo_remove_tax');
+function codigo_remove_tax() {
+    register_taxonomy('category', array());
+    register_taxonomy('post_tag', array());
 }
 
 
