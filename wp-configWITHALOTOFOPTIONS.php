@@ -20,16 +20,16 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define('DB_NAME', 'wprainbowdb');
+define('DB_NAME', 'database');
 
 /** MySQL database username */
-define('DB_USER', 'wprainbow');
+define('DB_USER', 'username');
 
 /** MySQL database password */
-define('DB_PASSWORD', 'OQJa2A$U1v@V');
+define('DB_PASSWORD', 'password');
 
 /** MySQL hostname */
-define('DB_HOST', '213.171.200.94');
+define('DB_HOST', 'localhost');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
@@ -61,7 +61,7 @@ define('NONCE_SALT',       '|RVjOIs<o.:RqSe,*^5@asye[ZO_(QQPipcKB]I5pX[u(VhME,/c
 
 /**#@-*/
 
-define('G_MAP_KEY', 'AIzaSyD4j5Q04OCTL5960j8yby4GCKxeW6Doqn4');
+define('G_MAP_KEY', 'googlekey');
 
 /**
  * WordPress Database Table prefix.
