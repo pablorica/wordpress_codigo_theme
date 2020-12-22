@@ -16,57 +16,197 @@ if (!function_exists('get_field')) {
 	exit; // Exit if ACF is not enabled
 }
 
-$section_id    =  (get_field('bgallery_section_id') ? 'id="'.get_field('bgallery_section_id').'"' : '');
-$section_class =  (get_field('bgallery_section_class') ? get_field('bgallery_section_class') : ''); 
-$block_id      =  (get_field('bgallery_id') ? 'id="'.get_field('bgallery_id').'"' : '');
-$block_class   =  (get_field('bgallery_class') ? get_field('bgallery_class') : '');
-
-
-$block_color     = (get_field('bgallery_color') ? get_field('bgallery_color') : '#FFFFFF'); 
+$style           = get_field('bgallery_style');
+$block_color     = (get_field('bgallery_color') ? get_field('bgallery_color') : '#0D223F'); 
+$block_bgcolor   = (get_field('bgallery_bgcolor') ? get_field('bgallery_bgcolor') : '#FFFFFF'); 
 $block_animation = get_field('bgallery_animation');
 
+$gallery_type    = get_field('bgallery_type');
+$gallery_columns = (get_field('bgallery_columns') ? get_field('bgallery_columns') : 3); 
 
 
+$col = "col-12";
+switch ($gallery_columns) {
+    case 1:
+        $col = "col-12";
+        break;
+    case 2:
+		$col = "col-sm-6";
+		if($gallery_type == 'ctas') {
+			$col = "col-md-6";
+		}
+        break;
+    case 3:
+        $col = "col-sm-6 col-md-6 col-lg-4";
+		break;
+	case 4:
+		$col = "col-sm-6 col-md-6 col-lg-3";
+		break;
+	case 5:
+		$col = "col-sm-6 col-md-6 col-lg-3";
+		break;
+	case 6:
+		$col = "col-sm-6 col-md-6 col-lg-2";
+		break;
+}
+$col .= ' gblock__gallery--col';
+//$container = 'container-fluid';
+$container = 'container';
 
 
 $htmlBody   = '';
-$block_images = get_field('bgallery_gallery');
-if($block_images):
-    $htmlBody .= '
-		<div class="post_gallery my-auto row mx-md-0 '.($block_animation ? 'animate-children fade_in_up' : '').'">';
-        foreach($block_images as $image_id ):
-            $htmlBody .= '
-			<div class="col-sm-6 col-md-3 px-sm-0">
+if($gallery_type == 'images'):
+
+	if($block_images = get_field('bgallery_images')){
+
+		foreach($block_images as $image_id ):
+			$htmlBody .= '
+			<div class="'.$col.'">
 				<div class="gblock__gallery--img">
-				'. wp_get_attachment_image( $image_id, 'retina').'
+					<figure>'. wp_get_attachment_image( $image_id, 'large').'</figure>
 				</div>
 			</div>';
-        endforeach;
-        $htmlBody .= '
-		</div>';
+		endforeach;
+	}
 endif; 
-        
 
-if(get_field('bgallery_show_scroll_cta')) {
-	$htmlBody .= '
-	<button class="gblock__gallery_scroll_cta '.($block_animation ? 'animate-single fade_in_up' : '').' moveScrollDown">
-		'.get_field('bgallery_scroll_cta').'
-	</button>';
-}
+if($gallery_type == 'ctas'):
+	$container = 'container-xl';
+	if( have_rows('bgallery_ctas') ):
+
+		while( have_rows('bgallery_ctas') ) : the_row();
+			$color    = get_sub_field('color');
+			$bgcolor  = get_sub_field('bgcolor');
+			$headline = (get_sub_field('headline')? '<h4 class="card-title">'.get_sub_field('headline').'</h4>' : '');
+			$content  = (get_sub_field('content')? '<div class="card-excerpt">'.get_sub_field('content').'</div>' : '');
+
+			$htmlCTA  = '';
+			if( have_rows('cta') ){ while ( have_rows('cta') ) { the_row();   
+                $cta_download = (get_sub_field('download') ? 'download': false);
+                $cta_color    = get_sub_field('color');
+                $cta_bg       = get_sub_field('bgcolor');
+                $cta          = get_sub_field('link');
+
+                $cta_class    = "btn btn-primary btn-cta".($cta_download ?  ' btn-download': '');
+
+                if(is_array($cta) && ( isset($cta['title']) && isset($cta['url']) )  ){
+                    $htmlCTA .= '
+                        <p>
+                        <a class="'.$cta_class.'" role="button" href="'.$cta['url'].'" target="'.$cta['target'].'" style="color:'.$cta_color.'; border-color:'.$cta_color.'; background-color:'.$cta_bg.';" '.$cta_download.'>'.$cta['title'].'</a>
+                        </p>';
+                    
+                }
+            }}
+
+			$htmlBody .= '
+			<div class="'.$col.'">
+				<div class="gblock__gallery--cta card mx-auto" style="color:'.$color.'; background-color:'.$bgcolor.';">
+					<div class="card-body">
+						<div class="card-headline">
+							'.$headline.'
+							'.$content.'
+						</div>
+						'.$htmlCTA.'
+					</div>
+				</div>
+			</div>';
+		endwhile;
+	endif;
 
 
+endif; 
 
 
+if($gallery_type == 'articles'):
+	$block_articles = get_field('bgallery_articles');
+
+	//error_log('$block_articles ' . print_r($block_articles,true));
+	$post_type = null;
+
+	if($block_articles['type'] == 'sametype') {
+		$post_type = $block_articles['post_type'];
+		$excluded  = $block_articles['excluded'];
+
+		$args = array(  
+			'post_type' => $post_type,
+			'post_status' => 'publish',
+			'posts_per_page' => -1,
+			'post__not_in' => $excluded
+		);
+
+	}
+	if($block_articles['type'] == 'selected') {
+		$post_list = $block_articles['articles_list'];
+
+		//error_log('$post_list '.print_r($post_list,true));
+
+		$args = array(  
+			'post_status'    	  => 'publish',
+			'post_type'      	  => 'any',
+			'posts_per_page' 	  => -1,
+			'post__in'            => $post_list,
+			'ignore_sticky_posts' => true
+		);
+
+	}
+
+	//error_log('args '.print_r($args,true));
+
+	$loop = new WP_Query( $args ); 
+
+	//error_log('query '.$loop->request);
+	
+	$int = 0;		
+	while ( $loop->have_posts() ) : $loop->the_post(); 
+
+		if($post_type == "post") {
+			$htmlBody .= '
+			<div class="container gblock__gallery--post">
+			 <div class="row">
+			  <div class="col-md-6 col-colour  '.( $int%2 ? 'order-md-last':'' ).'">'.get_the_post_thumbnail($post->ID, 'medium_large').'</div>
+			  <div class="p-3 col-md-6 '.( $int%2 ? 'order-md-first':'' ).'">
+				<p class="date">'.get_the_time('F j, Y').'</p>	
+				<h2>'.get_the_title().'</a></h2>
+				'.codigo_advanced_excerpt().'
+				<a class="read-post" href="'.get_permalink().'">'.__("Read article","codigo").'</a>
+			  </div>
+			  
+			 </div>
+			</div>';
+
+		} 
+		else {
+			if(get_post_thumbnail_id($post->ID)) {
+				$post_image = get_the_post_thumbnail($post->ID, 'large');
+			} else {
+				$default_image = get_field('general_default_image','option');
+				$post_image    = wp_get_attachment_image($default_image, 'large');
+			}
+
+			$htmlBody .= '
+			<div class="'.$col.'">
+				<div class="gblock__gallery--article">
+				<a href="'.get_permalink().'"><figure>'.$post_image.'</figure></a>
+				<h2>'.get_the_title().'</h2>
+				'.codigo_advanced_excerpt().'
+				</div>
+			</div>';
+		}
+
+		$int++;
+		
+	endwhile;
+	wp_reset_postdata(); 
+	
+endif; 
 
 
-
-echo '
-<section '.$section_id.' class="section section-gallery '.$section_class.'" data-color="'.$block_color.'">
-  <div class="container-fluid p-0 h-100 d-flex flex-column"">
-	<div '.$block_id.' class="gblock gblock__gallery my-auto text-center '.$block_class.'" >
-			'.$htmlBody.'
+echo '<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';">
+  <div class="'.$container.'">
+	<div id="'.$style['block_id'].'"  class="'.$style['block_class'].' pt-3 py-sm-5 gblock gblock__gallery" >
+	  <div id="'.$style['content_id'].'" class="row py-sm-5 '.$style['content_class'].' '.($block_animation ? 'animate-children fade_in_up' : '').'">
+		'.$htmlBody.'
+	  </div>
 	</div>
   </div>
-</section>';
-?>
-
+</section>'; ?>
