@@ -3,34 +3,28 @@
  * ---
  */
  footer.footer {
-    font-size: 20px;
-    line-height: 30px;
-    max-height: 150px;
-    color: $grey;
-    background-color: $dark-grey;
-    .footer-media {
-        list-style:none;
-        padding:15px 0;
-        margin:0;
-        text-align: center;
-        li {
-          list-style:none;
-          padding:0;
-          margin:0 7px;
-          display:inline;
-        }
-        img {
-          width:40px;
-          height: 40px;
-        }
-    }
-}
-#nofullpage {
-  footer.section {
-    height: 150px;
-    @media screen and (min-width: 768px) {
-      height: 150px;
-    }
+  padding-top:75px;
+  padding-bottom:85px;
+  color: white;
+  background-color: $dark-green;
+  a {
+    color:inherit;
+    text-decoration: none;
   }
-
+  .footer-media {
+      list-style:none;
+      padding:0;
+      margin:0;
+      text-align: left;
+      li {
+        list-style:none;
+        padding:0;
+        margin:0 14px 0 0;
+        display:inline;
+      }
+      img {
+        width:40px;
+        height: 40px;
+      }
+  }
 }

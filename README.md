@@ -12,10 +12,6 @@ Based in [wp-bootstrap4-sass](https://github.com/tone4hook/wp-bootstrap4-sass)
 
 * Run *npm run watch* for Webpack development watch
 
-## Wordpress Import
-* Use *Export.File.2020-12-03.xml* to Import content
-* Use *acf-export.json* to Import ACF structure
-
 ## Dev Dependencies
 
 *Note:* Using the extract-text-webpack-plugin Beta version since it plays better with Webpack 4; *npm i -D extract-text-webpack-plugin@next*

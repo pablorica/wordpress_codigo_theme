@@ -13,7 +13,7 @@
         width: 52px;
         height: 52px;
         background:transparent;
-        background-image: url('../../img/play_button.png');
+        background-image: url('../../img/arrow@2x.png');
         background-position: center;
         background-size: contain;
         background-repeat:no-repeat;
@@ -22,11 +22,12 @@
     }
 }
 .slick-prev {
+    left: -25px;
+}
+.slick-next {
+    right: -25px;
+    z-index: 10;
     &::before {
         transform:translate(-50%,-50%) rotate(180deg);
     }
-}
-.slick-next {
-    right: 25px;
-    z-index: 10;
 }

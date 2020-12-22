@@ -6,9 +6,9 @@
 /**
  * Fonts
  */
-
-$font-medium: Druk-Medium, sans-serif;
-$font-bold: FranklinGothic-DemiCond, sans-serif;
+$font-light: LubalinGraphStd-ExtraLight, sans-serif;
+$font-medium: LubalinGraphStd-Book, sans-serif;
+$font-bold: LubalinGraphStd-Bold, sans-serif;
 
 
 /**
@@ -16,6 +16,11 @@ $font-bold: FranklinGothic-DemiCond, sans-serif;
  */
 
 $blue: #051FF6;
-$grey: #F0EEEB;
 $dark-grey: #70634A; //rgb(112,99,74)
 
+
+
+$green: #93A6A3;
+$dark-green: #122D28;
+$grey: #707070;
+$red: #EC8772;

@@ -18,25 +18,27 @@ body {
 	-moz-osx-font-smoothing: grayscale; 
     
 
-	background-color: $grey;
-    color: $dark-grey;
+	  background-color: white;
+    color: $green;
     text-align: left;
     
     font-family: $font-medium;
-	font-size: 18px;
-    line-height: 20px;
+	  font-size: 18px;
+    line-height: 1.1;
     @media screen and (min-width: 768px) {
         font-size: 18px;
-        line-height: 20px;
+        line-height: 1.1;
     }
-
 }
 
 *:focus {
     outline: none !important;
 }
-a, a:hover, a:focus {
-	color: $dark-grey;
+a {
+	color: $green;
+}
+a:hover, a:focus {
+	color: $red;
 }
 img {
   width: auto;
@@ -44,21 +46,24 @@ img {
   max-width: 100%;
   max-height: 100%;
 }
-h1,h2 {
-	font-weight: normal;
-	margin:0;
+strong, b {
+  font-family: $font-bold;
+}
+h1,.h1,h2,.h2 ,h3,.h3,h4,.h4,h5,.h5 {
+  color: $dark-green;
+  font-family: $font-bold;
 }
 h1,.h1 {
-    font-size:50px;
-    line-height:61px;
+    font-size:70px;
+    line-height: 77px;
 }
 h2,.h2 {
-	font-size: 30px;
-	line-height: 36px;
+	font-size: 36px;
+	line-height: 1.2;
 }
 h3,.h3 {
-	font-size: 18px;
-	line-height: 20px;
+	font-size: 30px;
+	line-height: 1.2;
 }
 h4,.h4 {
 	font-size: 18px;
@@ -70,6 +75,8 @@ p:last-of-type {
 	margin-bottom:0;
 }
 blockquote {
+  font-family: $font-bold;
+  font-size: 20px;
 	p:first-of-type:before {
 	  content: open-quote;
 	  vertical-align: top;
@@ -100,10 +107,6 @@ small {
   //padding-bottom:100px;
   max-height:calc(100vh-30px);
   overflow: hidden;
-  .h1 {
-    font-size:50px;
-    line-height:51px;
-  }
   a {
     text-decoration:underline;
   }

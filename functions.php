@@ -38,7 +38,7 @@ require get_stylesheet_directory()   . '/inc/custom_functions.php';
 /**
  * Custom Types.
  */
-//require get_stylesheet_directory()  . '/inc/custom_types.php';
+require get_stylesheet_directory()  . '/inc/custom_types.php';
 
 /**
  * Custom Template Management

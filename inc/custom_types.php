@@ -18,30 +18,30 @@ function manage_wp_posts_be_qe_pre_get_posts( $query ) {
 
 
 /**
- * Post Type: studies
+ * Post Type: apartments
  */
 
-function cptui_register_my_cpts_studies() {
+function cptui_register_my_cpts_apartments() {
 
     $labels = array(
-        "name" => __( 'Case Studies', 'codigo' ),
-        "singular_name" => __( 'Case Study', 'codigo' ),
+        "name" => __( 'Apartments', 'codigo' ),
+        "singular_name" => __( 'Apartment', 'codigo' ),
 		'add_new' => _x('Add New', 'codigo'),
-		'add_new_item' => __('Add new case study'),
-		'edit_item' => __('Edit case study'),
-		'new_item' => __('New case study'),
-		'view_item' => __('View case study'),
-		'search_items' => __('Search case studies'),
-		'not_found' =>  __('No case studies found'),
-		'not_found_in_trash' => __('No case studies found in Trash'),
+		'add_new_item' => __('Add new apartment'),
+		'edit_item' => __('Edit apartment'),
+		'new_item' => __('New apartment'),
+		'view_item' => __('View apartment'),
+		'search_items' => __('Search apartments'),
+		'not_found' =>  __('No apartments found'),
+		'not_found_in_trash' => __('No apartments found in Trash'),
 		'parent_item_colon' => '',
-		'menu_name' => 'Case Studies'
+		'menu_name' => 'Apartments'
     );
 
     $args = array(
-        "label" => __( 'Case Studies', 'codigo' ),
+        "label" => __( 'Apartments', 'codigo' ),
         "labels" => $labels,
-        "description" => "Lorega Case Studies",
+        "description" => "Florence Apartments",
         "public" => true,
         "publicly_queryable" => true,
         "show_ui" => true,
@@ -53,17 +53,17 @@ function cptui_register_my_cpts_studies() {
         "capability_type" => "post",
         "map_meta_cap" => true,
         "hierarchical" => false,
-        "rewrite" => array( "slug" => "case-study", "with_front" => true ),
+        "rewrite" => array( "slug" => "apartment", "with_front" => true ),
         "query_var" => true,
         "menu_position" => 5,
-        "menu_icon" => "dashicons-id",
+        "menu_icon" => "dashicons-building",
         "supports" => array( "title", "editor", "thumbnail"),
     );
 
-    register_post_type( "casestudy", $args );
+    register_post_type( "apartment", $args );
 }
 
-add_action( 'init', 'cptui_register_my_cpts_studies' );
+add_action( 'init', 'cptui_register_my_cpts_apartments' );
 
 /**
  * Post Type: members
@@ -204,4 +204,4 @@ function cptui_register_my_cpts_members() {
 
 }
 
-add_action( 'init', 'cptui_register_my_cpts_members' );
+//add_action( 'init', 'cptui_register_my_cpts_members' );

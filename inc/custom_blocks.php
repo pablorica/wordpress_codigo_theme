@@ -52,6 +52,7 @@ if( function_exists('get_field') ) {
             'keywords'          => array( 'article', 'post', 'text', 'image', 'gallery' ),
         );
 
+        /*
         $tabs_block = array(
             'name'              => 'tabs',
             'title'             => __('Tabs'),
@@ -63,7 +64,7 @@ if( function_exists('get_field') ) {
             'keywords'          => array( 'tabs', 'ctas', 'accordion', 'link' ),
         );
         
-        /*
+        
         $info_grid_block = array(
             'name'              => 'info-grid',
             'title'             => __('Info Grid'),
@@ -147,7 +148,7 @@ if( function_exists('get_field') ) {
         acf_register_block_type($onecolumn_block);
         acf_register_block_type($twocolumns_block);
         acf_register_block_type($gallery_block);
-        acf_register_block_type($tabs_block);
+        //acf_register_block_type($tabs_block);
     }
 
     // Check if function exists and hook into setup.
@@ -220,13 +221,13 @@ if( function_exists('get_field') ) {
         $inner_col_class = "col-xl-9 mx-auto";
 
         if($body['classname'] == 'onecolumn') {
-            $inner_col_class = "py-5 col-md-9 mx-auto";
+            $inner_col_class = "col-md-9 mx-auto";
         }
         if($body['classname'] == 'twocolumns-left') {
-            $inner_col_class = "py-5 col-12 mx-auto col-xl-10 mr-xl-auto ml-xl-0 pr-xl-0";
+            $inner_col_class = "col-12 mx-auto col-xl-10 mr-xl-auto ml-xl-0 pr-xl-0";
         }
         if($body['classname'] == 'twocolumns-right') {
-            $inner_col_class = "py-5 col-12 mx-auto col-xl-10 ml-xl-auto mr-xl-0 pl-xl-0 ";
+            $inner_col_class = "col-12 mx-auto col-xl-10 ml-xl-auto mr-xl-0 pl-xl-0 ";
         }
 
         $inner_col_class .= " ".$body['content_class'];
@@ -303,7 +304,7 @@ if( function_exists('get_field') ) {
             $carousel_navdots  = ($body['dots'] ? true: false);
             if($block_images):
                 $htmlBody .= '
-                <div class="gblock__'.$body['classname'].'_body--carousel h-100 row">
+                <div class="gblock__'.$body['classname'].'_body--carousel h-100 container">
                     <div class="w-100 p-0 m-auto slick-carousel-wrapper '.($body['animation'] ? 'animate-children '.$fade_animation : '').'">
                         <div class="slick-carousel" data-autoplay='.$carousel_autoplay.' data-arrows='.$carousel_arrows.' data-dots='.$carousel_navdots.' >';
 

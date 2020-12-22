@@ -103,7 +103,7 @@ function register_codigo_menu()
     register_nav_menus(array( // Using array to specify more menus if needed
         'header-menu' => __('Header Menu', 'codigo'), // Main Navigation
         'footer-menu' => __('Footer Menu', 'codigo'), // Footer Navigation
-        //'extra-menu' => __('Extra Menu', 'codigo') // Extra Navigation if needed (duplicate as many as you need!)
+        'extra-menu' => __('Extra Menu', 'codigo') // Extra Navigation
     ));
 }
 

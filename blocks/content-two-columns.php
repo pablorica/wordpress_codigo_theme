@@ -16,18 +16,16 @@ if (!function_exists('get_field')) {
 	exit; // Exit if ACF is not enabled
 }
 
-$section_id    =  (get_field('btwocolumns_section_id') ? 'id="'.get_field('btwocolumns_section_id').'"' : '');
-$section_class =  (get_field('btwocolumns_section_class') ? get_field('btwocolumns_section_class') : ''); 
-$block_id      =  (get_field('btwocolumns_id') ? 'id="'.get_field('btwocolumns_id').'"' : '');
-$block_class   =  (get_field('btwocolumns_class') ? get_field('btwocolumns_class') : '');
-
-
-$block_color = (get_field('btwocolumns_color') ? get_field('btwocolumns_color') : '#FFFFFF'); 
-
+$style         = get_field('btwocolumns_style');
+$block_color   = (get_field('btwocolumns_color') ? get_field('btwocolumns_color') : '#122D28'); 
+$block_bgcolor = (get_field('btwocolumns_bgcolor') ? get_field('btwocolumns_bgcolor') : '#FFFFFF'); 
 
 $left = get_field('btwocolumns_left'); 
 $left['classname'] = 'twocolumns-left';
+$left['groupname'] = 'btwocolumns_left';
+$left['animation'] = get_field('btwocolumns_animation'); 
 $htmlLeft = my_acf_block_column( $left );
+//$block_class_left = $left['content_class'];
 $block_class_left = '';
 if(!$htmlLeft) {
 	$block_class_left .= ' d-none d-md-block ';
@@ -35,21 +33,67 @@ if(!$htmlLeft) {
 
 $right = get_field('btwocolumns_right'); 
 $right['classname'] = 'twocolumns-right';
+$right['groupname'] = 'btwocolumns_right';
+$right['animation'] = get_field('btwocolumns_animation'); 
 $htmlRight= my_acf_block_column( $right );
+//$block_class_right = $right['content_class'];
 $block_class_right = '';
 if(!$htmlRight) {
 	$block_class_right .= ' d-none d-md-block ';
 }
 
+if(get_field('btwocolumns_animation')) {
+  $style['section_class'].= ' animated';
+}
+
+$htmlBack = false;
+$bodybackc = array();
+if( $left['type'] == 'image' ) {
+  $bodybackc['left'] = $left;
+}
+if( $left['column_custom'] != false ) {
+  $bodybackc['left'] = $left;
+}
+if($right['type'] == 'image' ) {
+  $bodybackc['right'] = $right;
+}
+if($right['column_custom'] != false ) {
+  $bodybackc['right'] = $right;
+}
+
+foreach($bodybackc as $bodyback) {
+  if($bodyback['type'] == 'image') {
+    if(!$bodyback['mobile_image'])  $bodyback['mobile_image']  = $bodyback['desktop_image'];
+    if(!$bodyback['desktop_image']) $bodyback['desktop_image'] = $bodyback['mobile_image'];
+
+    $mobile_back  = wp_get_attachment_image($bodyback['mobile_image'], 'large', false, array('class'=>'d-md-none m-auto'));
+    $desktop_back = wp_get_attachment_image($bodyback['desktop_image'], 'full', false, array('class'=>'d-none d-md-block m-auto'));
+    $htmlBack .= '
+    <div class="fp-bg fp-bg__'.$bodyback['classname'].' d-none d-md-block">
+      <figure>
+        '.$mobile_back.'
+        '.$desktop_back.'
+        </figure> 
+    </div>';
+  }
+  if($bodyback['column_custom']) {
+    $htmlBack .= '
+    <div class="fp-bg fp-bg__'.$bodyback['classname'].' column-style d-none d-md-block" style="color:'.$bodyback['column_color'] .';background-color:'.$bodyback['column_bgcolor'].';"></div>';
+  }
+}
+
+
+
 echo '
-<section '.$section_id.' class="section '.$section_class.'" data-color="'.$block_color.'">
-  <div class="container-fluid h-100 d-flex flex-column">
-    <div '.$block_id.' class="gblock gblock__btwocolumns my-auto text-center '.$block_class.'" >
+<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';" >
+'.$htmlBack.'
+  <div class="container-md">
+    <div id="'.$style['block_id'].'" class="'.$style['block_class'].' gblock gblock__btwocolumns" >
       <div class="row" >
-        <div class="col-md-6 my-auto py-3 text-center '.$block_class_left.'" >
+        <div id="'.$left['content_id'].'" class="column-wrapper col-md-6 '.$block_class_left.'" >
             '.$htmlLeft.'
         </div>
-        <div class="col-md-6 my-auto py-3 text-center '.$block_class_right.'" >
+        <div id="'.$right['content_id'].'" class="column-wrapper col-md-6 '.$block_class_right.'" >
             '.$htmlRight.'
         </div>
     </div>
@@ -57,4 +101,5 @@ echo '
   </div>
 </section>';
 ?>
+
 

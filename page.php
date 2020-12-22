@@ -1,11 +1,12 @@
 <?php get_header(); ?>
-<main id="<?php echo (get_field('fullpage_enable')?'fullpage':'nofullpage')?>" class="wrapper">
-	<div class="container">
+
+
+<main  class="wrapper">
+	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-8">
+			<div class="col-md-12 p-md-0">
 
 
-					<h1 class="page-header"><?php the_title(); ?></h1>
 
 				<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
@@ -14,9 +15,6 @@
 
 						<?php the_content(); ?>
 
-						<br class="clear">
-
-						<?php edit_post_link(); ?>
 
 					</article>
 					<!-- /article -->
@@ -36,8 +34,7 @@
 				<?php endif; ?>
 
 
-			</div><!-- /.col-md-8 -->
-			<?php get_sidebar(); ?>
+			</div><!-- /.col-md-12 -->
 		</div><!-- /.row -->
 	</div><!-- /.container -->
 </main>

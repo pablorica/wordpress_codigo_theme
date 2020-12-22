@@ -1,69 +1,25 @@
-// https://github.com/alvarotrigo/fullPage.js/wiki/Use-module-loaders-for-fullPage.js
-import IScroll from 'fullpage.js/vendors/scrolloverflow';
-
-//import fullpage from 'fullpage.js';
-import parallax from '../../fullpageparallax/fullpage.parallax.min';
-import fullpage from 'fullpage.js/dist/fullpage.extensions.min';
-
-
+import {jarallax} from '../../parallax/jarallax.min';
+import slick from '../../slick/slick.min';
 
 (function($) {
 
 	/*'use strict';*/
-
-	const fullParalaxOptions = {
-		//anchors: ['','','','','','','','','team'],
-		//anchors: ['firstPage', 'secondPage', '3rdPage', '4thpage'],
-		//menu: '#menu',
-		scrollBar: false,
-		slidesNavigation: false,
-		scrollingSpeed: 1000,
-
-		licenseKey: '02EF1C6C-6EB14AD4-BADA0490-EBDF28DF',
-
-		scrollOverflow: true,
-		scrollOverflowReset: true,
-
-		parallax: true,
-		parallaxKey: 'Y29kaWdvLmNvLnVrX2wxS2NHRnlZV3hzWVhnPXJkNQ==', //see https://goo.gl/xkUmHS
-		parallaxOptions: {
-			type: 'reveal',
-			percentage: 62,
-			property: 'translate'
-		},
-		onLeave: function(origin, destination, direction){
-			var leaving = origin.item;
-			var arrival = destination.item;
-
-			if(direction =='down'){
-				$("nav.navbar").removeClass("scroll-up");
-				$("nav.navbar").addClass("scroll-down");
-			}
-	
-			if(direction == 'up'){
-				$("nav.navbar").addClass("scroll-up");
-				$("nav.navbar").removeClass("scroll-down");
-			}
-
-			//let arrClass = arrival.classList.value;
-			//var $ele = $(arrival);
-
-			//let arrColour = arrival.dataset.color;
-			//console.log(arrColour);
-
-			//if(origin.index == 0 && direction =='down'){
-				//alert("Going from section 0 to section 1");
-			//}
-			//if(origin.index == 1 && direction =='up'){
-				//alert("Going from section 1 to section 0");
-			//}
-
-			//if(direction == 'up' || direction =='down'){}
-			//if(origin.index == 1){}
-		}
-    }
-
-
+	$.isMobile = function(type) {
+        var reg = [];
+        var any = {
+            blackberry: 'BlackBerry',
+            android: 'Android',
+            windows: 'IEMobile',
+            opera: 'Opera Mini',
+            ios: 'iPhone|iPad|iPod'
+        };
+        type = 'undefined' == $.type(type) ? '*' : type.toLowerCase();
+        if ('*' == type) reg = $.map(any, function(v) {
+            return v;
+        });
+        else if (type in any) reg.push(any[type]);
+        return !!(reg.length && navigator.userAgent.match(new RegExp(reg.join('|'), 'i')));
+    };
 
 
 	/*LAUNCH  AJAX */
@@ -165,10 +121,12 @@ import fullpage from 'fullpage.js/dist/fullpage.extensions.min';
 		},
 		
 		slickslider: function(){
-			if ($('.slick-carousel').length) {
+			console.log('launching slick');
+			if ($(document.body).find('.slick-carousel').length) {
+				console.log('loading carousels');
 				var int = 0;
 				var $carousels = [];
-				$('.slick-carousel').each(function(){
+				$(document.body).find('.slick-carousel').each(function(){
 
 					var $carousel = $(this);
 					var autoplay = $carousel.data('autoplay'),
@@ -292,28 +250,6 @@ import fullpage from 'fullpage.js/dist/fullpage.extensions.min';
 		    	});
 
 			}
-		},
-
-
-		/* FullPage */
-		fullpage: function(){
-			console.log('Loading fullpage');
-
-	    	if ($('#fullpage').length) {
-
-				$("nav.navbar").addClass("fixed-top");
-
-	        	var fullPageInstance = new fullpage('#fullpage',fullParalaxOptions);
-
-	        	$('#fullpage .moveScrollDown').on("click",function(){
-	        		//console.log('move down');
-	        		fullpage_api.moveSectionDown();
-				});
-
-	        	//fullpage_api.setAutoScrolling(false);
-
-	        	
-	      	}
 		},
 
 
@@ -450,6 +386,25 @@ import fullpage from 'fullpage.js/dist/fullpage.extensions.min';
 			});
 		},
 
+
+
+		/* Parallax */
+        initParallax: function(card) {
+			$(card).addClass('jarallax-enabled')
+            setTimeout(function() {
+                $(card).find('.wn-parallax-background')
+                    .jarallax({
+                        speed: 0.6
+                    })
+                    .css('position', 'relative');
+            }, 0);
+        },
+        destroyParallax: function(card) {
+            $(card).jarallax('destroy').css('position', '');
+        },
+
+        
+
 		burgerEffects: function() {
 			//Burger menu effect
 			 $(".navbar-toggler__animated").on("click", function () {
@@ -468,8 +423,6 @@ import fullpage from 'fullpage.js/dist/fullpage.extensions.min';
 
 			  });
 		},
-
-
 		styleSelects: function() {
 
 			$(".select-styled").each(function(){
@@ -935,7 +888,27 @@ import fullpage from 'fullpage.js/dist/fullpage.extensions.min';
 			
 			CDG.slickslider();
 
-			CDG.fullpage();
+			//if ($.fn.jarallax && !$.isMobile()) {
+			if (!$.isMobile()) {
+				$(window).on('update.parallax', function(event) {
+					setTimeout(function() {
+						var $jarallax = $('.wn-parallax-background');
+	
+						$jarallax.jarallax('coverImage');
+						$jarallax.jarallax('clipContainer');
+						$jarallax.jarallax('onScroll');
+					}, 0);
+				});
+	
+				CDG.initParallax(document.body);
+	
+				// for Tabs
+				//$(window).on('shown.bs.tab', function(e) {
+				//	$(window).trigger('update.parallax');
+				//});
+			}
+
+
 			//CDG.scrollEffects();
 			//CDG.scrollWayPoint();
 			

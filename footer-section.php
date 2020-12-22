@@ -1,11 +1,18 @@
     <!-- footer -->
     <footer class="footer section">
-        <div class="d-flex flex-column">
-            <div class="container m-auto">
+            <div class="container">
                 <div class="row">
-                    <div class="col-md-8 mx-auto text-center footer-media">
+                    <div class="col-md-4 d-flex flex-column">
+                        <?php the_field('footer_left','option'); ?>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column">
+                        <?php the_field('footer_middle','option'); ?>
+                    </div>
+                    <div class="col-md-4 d-flex flex-column">
+                        <?php the_field('footer_right','option'); ?>
+
                         <?php if( have_rows('footer_media_cta','option') ): ?>
-                            <ul class="entry-media px-3">
+                            <ul class="footer-media mt-auto">
                             <?php while ( have_rows('footer_media_cta','option') ) : the_row(); 
                                     $icon = wp_get_attachment_image(get_sub_field('icon'), 'thumbnail');
                                     $url = get_sub_field('link');
@@ -16,15 +23,11 @@
                             <?php endwhile; ?>
                             </ul>
                         <?php endif; ?>
-                    </div>
-                </div>
 
-                <div class="text-center p-2 footer-copyright">
-                    <!-- copyright -->
-                    <?php the_field('footer_copyright','option'); ?>
-                    <!-- /copyright -->
+                    </div>
                 </div><!-- /.row -->
             </div><!-- /.container -->
-        </div><!-- /.d-flex -->
     </footer>
     <!-- /footer -->
+    
+

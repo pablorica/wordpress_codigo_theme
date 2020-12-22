@@ -79,6 +79,7 @@ if($gallery_type == 'ctas'):
 			$bgcolor  = get_sub_field('bgcolor');
 			$headline = (get_sub_field('headline')? '<h4 class="card-title">'.get_sub_field('headline').'</h4>' : '');
 			$content  = (get_sub_field('content')? '<div class="card-excerpt">'.get_sub_field('content').'</div>' : '');
+			$image    = (get_sub_field('image')? '<div class="gblock__gallery--img card-image"><figure>'. wp_get_attachment_image( get_sub_field('image'), 'large').'</figure></div>' : '');
 
 			$htmlCTA  = '';
 			if( have_rows('cta') ){ while ( have_rows('cta') ) { the_row();   
@@ -102,9 +103,10 @@ if($gallery_type == 'ctas'):
 			<div class="'.$col.'">
 				<div class="gblock__gallery--cta card mx-auto" style="color:'.$color.'; background-color:'.$bgcolor.';">
 					<div class="card-body">
-						<div class="card-headline">
+						<div class="card-headline mt-0">
 							'.$headline.'
 							'.$content.'
+							'.$image.'
 						</div>
 						'.$htmlCTA.'
 					</div>
@@ -203,8 +205,8 @@ endif;
 
 echo '<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';">
   <div class="'.$container.'">
-	<div id="'.$style['block_id'].'"  class="'.$style['block_class'].' pt-3 py-sm-5 gblock gblock__gallery" >
-	  <div id="'.$style['content_id'].'" class="row py-sm-5 '.$style['content_class'].' '.($block_animation ? 'animate-children fade_in_up' : '').'">
+	<div id="'.$style['block_id'].'"  class="'.$style['block_class'].' gblock gblock__gallery" >
+	  <div id="'.$style['content_id'].'" class="row '.$style['content_class'].' '.($block_animation ? 'animate-children fade_in_up' : '').'">
 		'.$htmlBody.'
 	  </div>
 	</div>

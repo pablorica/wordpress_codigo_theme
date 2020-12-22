@@ -12,14 +12,18 @@ if ( ! function_exists( 'codigo_enqueue_scripts' ) ) {
 		//wp_enqueue_script( 'match-height', get_stylesheet_directory_uri() . '/matchheight/jquery.matchHeight-min.js', array(), '0.7.2', true);
 
 		wp_enqueue_style( 'slick', get_stylesheet_directory_uri() . '/slick/slick.css', array(), '3.5.1' );
-		wp_enqueue_style( 'slick-theme', get_stylesheet_directory_uri() . '/slick/slick-theme.css', array(), '3.5.1' );
-		wp_enqueue_script( 'slick', get_stylesheet_directory_uri() . '/slick/slick.min.js', array(), '0.7.2', true);
+        wp_enqueue_style( 'slick-theme', get_stylesheet_directory_uri() . '/slick/slick-theme.css', array(), '3.5.1' );
+        //Imported directly on JS file
+		//wp_enqueue_script( 'slick', get_stylesheet_directory_uri() . '/slick/slick.min.js', array(), '0.7.2', true);
 
 	/*	wp_enqueue_style( 'royalslider', get_stylesheet_directory_uri() . '/royalslider/royalslider.css', array(), '1.0.6' );
 		wp_enqueue_style( 'royalslider-default', get_stylesheet_directory_uri() . '/royalslider/rs-default.css', array(), '1.0.6' );
 		wp_enqueue_script( 'royalslider', get_stylesheet_directory_uri() . '/royalslider/jquery.royalslider.min.js', array(), '9.5.8', true); */
 
-		wp_enqueue_script( 'waypoints', get_stylesheet_directory_uri() . '/waypoints/jquery.waypoints.min.js', array(), '4.0.1', true);
+        wp_enqueue_script( 'waypoints', get_stylesheet_directory_uri() . '/waypoints/jquery.waypoints.min.js', array(), '4.0.1', true);
+        
+        //Imported directly on JS file
+        //wp_enqueue_script( 'jarallax', get_stylesheet_directory_uri() . '/parallax/jarallax.min.js"', array(), '1.10.6', true);
 	}
 }
 
@@ -91,7 +95,7 @@ function codigo_conditional_scripts()
 function codigo_styles()
 {
     // Normalize is loaded in Bootstrap and both are imported into the style.css via Sass
-    wp_register_style('codigo-css', get_template_directory_uri() . '/dist/style.min.css', array(), '1.0.0', 'all');
+    wp_register_style('codigo-css', get_template_directory_uri() . '/dist/style.min.css', array(), '1.5.1', 'all');
     wp_enqueue_style('codigo-css'); // Enqueue it!
 }
 add_action('wp_enqueue_scripts', 'codigo_styles'); // Add Theme Stylesheet

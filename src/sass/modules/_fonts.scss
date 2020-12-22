@@ -7,24 +7,35 @@
 
 
 @font-face {
-  font-family: "Druk-Medium";
-  src: url("../../fonts/Druk-Medium.eot");
-  src: url("../../fonts/Druk-Medium.eot?#iefix") format("embedded-opentype"),
-    url("../../fonts/Druk-Medium.woff") format("woff"),
-    url("../../fonts/Druk-Medium.ttf") format("truetype"),
-    url("../../fonts/Druk-Medium.svg#Druk-Medium") format("svg");
+  font-family: "LubalinGraphStd-ExtraLight";
+  src: url("../../fonts/LubalinGraphStd-ExtraLight.eot");
+  src: url("../../fonts/LubalinGraphStd-ExtraLight.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/LubalinGraphStd-ExtraLight.woff") format("woff"),
+    url("../../fonts/LubalinGraphStd-ExtraLight.ttf") format("truetype"),
+    url("../../fonts/LubalinGraphStd-ExtraLight.svg#LubalinGraphStd-ExtraLight") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "LubalinGraphStd-Book";
+  src: url("../../fonts/LubalinGraphStd-Book.eot");
+  src: url("../../fonts/LubalinGraphStd-Book.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/LubalinGraphStd-Book.woff") format("woff"),
+    url("../../fonts/LubalinGraphStd-Book.ttf") format("truetype"),
+    url("../../fonts/LubalinGraphStd-Book.svg#LubalinGraphStd-Book") format("svg");
   font-weight: normal;
   font-style: normal;
 }
 
 
 @font-face {
-  font-family: "FranklinGothic-DemiCond";
-  src: url("../../fonts/FranklinGothic-DemiCond.eot");
-  src: url("../../fonts/FranklinGothic-DemiCond.eot?#iefix") format("embedded-opentype"),
-    url("../../fonts/FranklinGothic-DemiCond.woff") format("woff"),
-    url("../../fonts/FranklinGothic-DemiCond.ttf") format("truetype"),
-    url("../../fonts/FranklinGothic-DemiCond.svg#FranklinGothic-DemiCond") format("svg");
+  font-family: "LubalinGraphStd-Bold";
+  src: url("../../fonts/LubalinGraphStd-Bold.eot");
+  src: url("../../fonts/LubalinGraphStd-Bold.eot?#iefix") format("embedded-opentype"),
+    url("../../fonts/LubalinGraphStd-Bold.woff") format("woff"),
+    url("../../fonts/LubalinGraphStd-Bold.ttf") format("truetype"),
+    url("../../fonts/LubalinGraphStd-Bold.svg#LubalinGraphStd-Bold") format("svg");
   font-weight: normal;
   font-style: normal;
 }

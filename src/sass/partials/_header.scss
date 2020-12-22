@@ -1,9 +1,49 @@
 
 nav.navbar {
+	font-family: $font-bold;
+	font-size: 14px;
+	line-height: 1.1;
+	background-color: $green;
+	padding: 0;
     &.fixed-top {
 		transition: opacity .25s cubic-bezier(.785,.135,.15,.86),transform .25s cubic-bezier(.785,.135,.15,.86);
         &.scroll-down {
          	transform: translate3d(0,-110px,0);
 		}
 	}
+	a {
+		text-transform: uppercase;
+		color: white;
+		&.navbar-brand {
+			color: $dark-green;
+			font-size: 28px;
+			white-space: normal;
+			text-align: center;
+			max-width: 155px;
+		}
+	}
+	a:hover, a:focus {
+		color: $red;
+		&.navbar-brand {
+			color: $dark-green;
+		}
+	}
+	.nav-link {
+		padding-top: 45px;
+		padding-bottom: 45px;
+	}
+	#menu-register-menu {
+		.nav-link {
+			border:1px solid white;
+			padding-top: 15px;
+			padding-bottom: 10px;
+			&:hover, &:focus {
+				border-color:$red;
+				background-color: $red;
+				color: white;
+			}
+		}
+
+	}
+	
 }

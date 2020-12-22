@@ -16,16 +16,8 @@ if (!function_exists('get_field')) {
 	exit; // Exit if ACF is not enabled
 }
 
-$section_id    =  (get_field('bheadline_section_id') ? get_field('bheadline_section_id') : '');
-$section_class =  'section-headline '.(get_field('bheadline_section_class') ? get_field('bheadline_section_class') : ''); 
-$block_id      =  (get_field('bheadline_id') ? get_field('bheadline_id') : '');
-$block_class   =  (get_field('bheadline_class') ? get_field('bheadline_class') : '');
-
-
-$block_color     = (get_field('bheadline_color') ? get_field('bheadline_color') : '#FFFFFF'); 
-$block_color_bg  = false;
-$block_animation = get_field('bheadline_animation');
-
+$style 					= get_field('bheadline_style');
+$style['section_style'] = "";
 
 
 $htmlBack   = '';
@@ -34,6 +26,13 @@ if($background['type'] == 'color') {
 	$htmlBack .= '
 	<div class="fp-bg" style="background-color:'.$background['background_colour'].'"></div>';
 	$block_color_bg = $background['background_colour'];
+
+	if($background['fullscreen']){
+		$style['section_style'] .= " background-color:".$background['background_colour'].";";
+		$style['section_class'] .= " wn-fullscreen";
+
+		$htmlBack = '';
+	}
 }
 if($background['type'] == 'image') {
 
@@ -49,6 +48,14 @@ if($background['type'] == 'image') {
 			'.$desktop_image.'
   		</figure> 
 	</div>';
+
+	if($background['parallax']){
+		$parallax_image          = wp_get_attachment_image_url($background['desktop_image'], 'full', false);
+		$style['section_style'] .= " background-image: url('$parallax_image');";
+		$style['section_class'] .= " wn-fullscreen wn-parallax-background";
+
+		$htmlBack = '';
+	}
 }
 
 //error_log('$background: ');
@@ -78,43 +85,69 @@ if(strpos($background['type'], 'video') !== false){
 
 $htmlBody   = '';
 $block_body = get_field('bheadline_body');
+$block_body['groupname'] = 'bheadline_body';
+$block_animation = $block_body['animation'];
 
-$htmlBody .= '<div class="gblock__headline_body--text '.($block_animation ? 'animate-children fade_in_up' : '').'">';
-	if($block_body['headline']) {
-		$htmlBody .= '<div class="h1 gblock__headline_body--ctext" style="color:'.$block_color.'">'.$block_body['headline'].'</div>';
-	}
-	if($block_body['content']) {
-		$htmlBody .= '<div class="gblock__headline_body--content row">
-			<div class="col-md-6 mx-auto">
-			'.$block_body['content'].'
-			</div>
-		</div>';
-	}
-	$htmlBody .= '</div>';
-
-
-
-if(get_field('bheadline_show_scroll_cta')) {
-	$htmlBody .= '
-	<button class="gblock__headline_scroll_cta '.($block_animation ? 'animate-single fade_in_up' : '').' moveScrollDown">
-		'.get_field('bheadline_scroll_cta').'
-	</button>';
+if($block_animation) {
+	$style['section_class'].= ' animated';
 }
 
+if(!$style['block_class']) {
+	$style['block_class'] = "text-center my-auto";
+}
+if(!$style['content_class']) {
+	$style['content_class'] = "col-md-12";
+}
 
+$htmlBody .= '
+<div class="row gblock__headline_body--text '.($block_animation ? 'animate-children fade_in_right' : '').'">
+	<div id="'.$style['content_id'].'" class="gblock__headline_body--content '.$style['content_class'].' ">';
 
+	if($block_body['headline']) {
+		$htag =  'h2';
+		if (strpos($style['section_class'], 'section-header') !== false) {
+			$htag = 'h1';
+		}
+		$htmlBody .= '<'.$htag.' class=" gblock__headline_body--htext" style="color:'.$block_body['head_color'].'">'.$block_body['headline'].'</'.$htag.'>';
+	}
+	if($block_body['content']) {
+		$htmlBody .= '
+		<div class="gblock__headline_body--ctext" style="color:'.$block_body['content_color'].'">
+		'.$block_body['content'].'
+		</div>';
+	}
 
+	if(get_field('bheadline_show_scroll_cta')) {
+		$htmlBody .= '
+		<button class="gblock__headline_scroll_cta '.($block_animation ? 'animate-single fade_in_up' : '').' moveScrollDown">
+			'.get_field('bheadline_scroll_cta').'
+		</button>';
+	}
 
-
-
-echo '
-<section id="'.$section_id.'" class="section '.$section_class.'" data-color="'.$block_color.'" data-bgcolor="'.($block_color_bg?  $block_color_bg : $block_color ).'">
-'.$htmlBack.'
-  <div class="gblock__headline--wrapper container-fluid p-md-0 h-100 d-flex flex-column">
-	<div id="'.$block_id.'" class="gblock gblock__headline my-auto text-center '.$block_class.'" >
-			'.$htmlBody.'
+	$htmlBody .= '
 	</div>
+</div>';
+
+
+
+/*
+echo '
+<section id="'.$style['section_id'].'" class="section '.$style['section_class'].' " style="'.$section_style.'" data-color="'.$block_color.'" data-bgcolor="'.($block_color_bg?  $block_color_bg : $block_color ).'" >
+'.$htmlBack.'
+	<div id="'.$style['block_id'].'" class="gblock gblock__headline container h-100 d-flex flex-column" >
+		'.$htmlBody.'
+  	</div><!-- /.container-->
+</section> <!-- /section -->';
+*/
+
+/* */
+echo '
+<section id="'.$style['section_id'].'" class="section '.$style['section_class'].' " style="'.$style['section_style'].'" data-color="'.$block_color.'" data-bgcolor="'.($block_color_bg?  $block_color_bg : $block_color ).'" >
+'.$htmlBack.'
+  <div id="'.$style['block_id'].'" class="   gblock__headline--wrapper container-fluid '.$style['block_class'].' d-flex flex-column">
+	'.$htmlBody.'
   </div>
 </section>';
+/**/
 ?>
 
