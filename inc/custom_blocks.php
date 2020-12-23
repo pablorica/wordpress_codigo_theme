@@ -224,10 +224,12 @@ if( function_exists('get_field') ) {
             $inner_col_class = "col-md-9 mx-auto";
         }
         if($body['classname'] == 'twocolumns-left') {
-            $inner_col_class = "col-12 mx-auto col-xl-10 mr-xl-auto ml-xl-0 pr-xl-0";
+            //$inner_col_class = "col-12 mx-auto col-xl-10 mr-xl-auto ml-xl-0 pr-xl-0";
+            $inner_col_class = "col-12 mx-auto";
         }
         if($body['classname'] == 'twocolumns-right') {
-            $inner_col_class = "col-12 mx-auto col-xl-10 ml-xl-auto mr-xl-0 pl-xl-0 ";
+            //$inner_col_class = "col-12 mx-auto col-xl-10 ml-xl-auto mr-xl-0 pl-xl-0 ";
+            $inner_col_class = "col-12 mx-auto";
         }
 
         $inner_col_class .= " ".$body['content_class'];
@@ -304,7 +306,7 @@ if( function_exists('get_field') ) {
             $carousel_navdots  = ($body['dots'] ? true: false);
             if($block_images):
                 $htmlBody .= '
-                <div class="gblock__'.$body['classname'].'_body--carousel h-100 container">
+                <div class="gblock__'.$body['classname'].'_body--carousel h-100">
                     <div class="w-100 p-0 m-auto slick-carousel-wrapper '.($body['animation'] ? 'animate-children '.$fade_animation : '').'">
                         <div class="slick-carousel" data-autoplay='.$carousel_autoplay.' data-arrows='.$carousel_arrows.' data-dots='.$carousel_navdots.' >';
 

@@ -29,7 +29,7 @@ $htmlBody = my_acf_block_column( $body );
 
 echo '
 <section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';">
-  <div class="container-fluid">
+  <div class="container-md">
 	<div id="'.$style['block_id'].'"  class="'.$style['block_class'].' gblock gblock__onecolumn" >
 	  <div class="row">
 		<div id="'.$style['content_id'].'" class="col-12 '.$style['content_class'].'" >

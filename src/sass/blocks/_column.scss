@@ -19,6 +19,23 @@
         .btn-cta {
             margin-top:50px;
         }
+        ul {
+            margin:0;
+            padding: 0;
+            list-style-type: none;
+            li {
+                list-style: none;
+                margin-bottom:20px;
+                text-indent: -22px;
+                padding-left: 22px;
+                &:before {
+                    content: "\2014\a0";
+                }
+            }
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+        }
     }
     &--carousel {
         figure {

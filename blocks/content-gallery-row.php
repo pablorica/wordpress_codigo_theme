@@ -161,39 +161,29 @@ if($gallery_type == 'articles'):
 	$int = 0;		
 	while ( $loop->have_posts() ) : $loop->the_post(); 
 
-		if($post_type == "post") {
-			$htmlBody .= '
-			<div class="container gblock__gallery--post">
-			 <div class="row">
-			  <div class="col-md-6 col-colour  '.( $int%2 ? 'order-md-last':'' ).'">'.get_the_post_thumbnail($post->ID, 'medium_large').'</div>
-			  <div class="p-3 col-md-6 '.( $int%2 ? 'order-md-first':'' ).'">
-				<p class="date">'.get_the_time('F j, Y').'</p>	
-				<h2>'.get_the_title().'</a></h2>
-				'.codigo_advanced_excerpt().'
-				<a class="read-post" href="'.get_permalink().'">'.__("Read article","codigo").'</a>
-			  </div>
-			  
-			 </div>
-			</div>';
 
-		} 
-		else {
-			if(get_post_thumbnail_id($post->ID)) {
-				$post_image = get_the_post_thumbnail($post->ID, 'large');
-			} else {
-				$default_image = get_field('general_default_image','option');
-				$post_image    = wp_get_attachment_image($default_image, 'large');
-			}
-
-			$htmlBody .= '
-			<div class="'.$col.'">
-				<div class="gblock__gallery--article">
-				<a href="'.get_permalink().'"><figure>'.$post_image.'</figure></a>
-				<h2>'.get_the_title().'</h2>
-				'.codigo_advanced_excerpt().'
-				</div>
-			</div>';
+		if(get_post_thumbnail_id($post->ID)) {
+			$post_image = get_the_post_thumbnail($post->ID, 'large');
+		} else {
+			$default_image = get_field('general_default_image','option');
+			$post_image    = wp_get_attachment_image($default_image, 'large');
 		}
+
+		$bgcolor = '#EC8772';
+
+		$htmlBody .= '
+		<div class="'.$col.'">
+			<div class="gblock__gallery--cta card mx-auto" style="background-color:'.$bgcolor.';">
+				<div class="card-body">
+					<div class="card-headline mt-0">
+						<div class="gblock__gallery--img card-image"><a href="'.get_permalink().'"><figure>'. $post_image.'</figure></a></div>
+					</div>
+					<p>
+						<a class="btn btn-primary btn-cta" role="button" href="'.get_permalink().'">'.get_the_title().'</a>
+					</p>
+				</div>
+			</div>
+		</div>';	
 
 		$int++;
 		

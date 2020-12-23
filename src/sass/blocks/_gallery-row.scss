@@ -2,6 +2,9 @@
     &--img {
         position: relative;
         padding-bottom: 100%;
+        &.card-image {
+            padding-bottom: 56.25%;
+        }
         img {
             position: absolute;
             top:0;

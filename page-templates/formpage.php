@@ -1,12 +1,27 @@
-<?php get_header(); ?>
+<?php
+/**
+ * Template Name: Form Page
+ *
+ * Form page for codigo
+ *
+ * @package codigo
+ */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
 
 
-<main  class="wrapper">
+if (!function_exists('get_field')) {
+	exit; // Exit if ACF is not enabled 
+}
+
+
+get_header(); ?>
+
+<main  class="wrapper wrapper-form">
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12 p-md-0">
-
-
 
 				<?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
@@ -38,4 +53,7 @@
 		</div><!-- /.row -->
 	</div><!-- /.container -->
 </main>
+
 <?php get_footer(); ?>
+
+
