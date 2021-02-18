@@ -23,8 +23,6 @@ require get_stylesheet_directory()   . '/inc/custom_enqueue.php';
  */
 require get_stylesheet_directory()   . '/inc/class-wp-codigo-navwalker.php';
 
-
-
 /**
  * Custom Pagination.
  */

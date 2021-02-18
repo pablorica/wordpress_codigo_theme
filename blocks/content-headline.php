@@ -18,9 +18,13 @@ if (!function_exists('get_field')) {
 
 $style 					= get_field('bheadline_style');
 $style['section_style'] = "";
+$style['section_data']  = "";
+
+$block_menucolor = (get_field('bheadline_menu_color')?get_field('bheadline_menu_color'):'bg-green');
 
 
 $htmlBack   = '';
+$htmlStyle  = '';
 $background = get_field('bheadline_background'); 
 if($background['type'] == 'color') {
 	$htmlBack .= '
@@ -29,9 +33,7 @@ if($background['type'] == 'color') {
 
 	if($background['fullscreen']){
 		$style['section_style'] .= " background-color:".$background['background_colour'].";";
-		$style['section_class'] .= " wn-fullscreen";
-
-		$htmlBack = '';
+		$style['section_class'] .= " d-flex hv-100";
 	}
 }
 if($background['type'] == 'image') {
@@ -39,22 +41,50 @@ if($background['type'] == 'image') {
 	if(!$background['mobile_image']) $background['mobile_image'] = $background['desktop_image'];
     if(!$background['desktop_image']) $background['desktop_image'] = $background['mobile_image'];
 
-	$mobile_image  = wp_get_attachment_image($background['mobile_image'], 'large', false, array('class'=>'d-md-none'));
-	$desktop_image = wp_get_attachment_image($background['desktop_image'], 'full', false, array('class'=>'d-none d-md-block'));
-	$htmlBack .= '
-	<div class="fp-bg">
-		<figure>
-			'.$mobile_image.'
-			'.$desktop_image.'
-  		</figure> 
-	</div>';
+	
 
 	if($background['parallax']){
-		$parallax_image          = wp_get_attachment_image_url($background['desktop_image'], 'full', false);
-		$style['section_style'] .= " background-image: url('$parallax_image');";
-		$style['section_class'] .= " wn-fullscreen wn-parallax-background";
 
-		$htmlBack = '';
+		$style['section_class'] .= " d-flex hv-100";
+		$style['section_style'] .= ' overflow:hidden';
+
+		$mobile_image  = wp_get_attachment_image($background['mobile_image'], 'large', false, array('class'=>'d-md-none'));
+		$desktop_image = wp_get_attachment_image($background['desktop_image'], 'full', false, array('class'=>'d-none d-md-block'));
+		$htmlBack .= '
+		<div class="rellax fp-bg fp-bg--image">
+			<figure>
+				'.$mobile_image.'
+				'.$desktop_image.'
+			</figure>
+		</div>';
+
+	}
+	else {
+		$mobile_image  = wp_get_attachment_image_url($background['mobile_image'], 'large', false);
+		$desktop_image = wp_get_attachment_image_url($background['desktop_image'], 'full', false);
+
+		
+		if($style['section_id']){
+			$cssIndex = "#".$style['section_id'];
+		} else {
+			$randomClass = 'section_'.substr(str_shuffle(MD5(microtime())), 0, 5);
+			$style['section_class'] .= " ".$randomClass;
+			$cssIndex = ".".$randomClass;
+		}
+		$htmlStyle .= '
+		<style>
+			'.$cssIndex.'{
+				background-image: url('.$mobile_image.');
+				background-size: cover;
+			}
+			@media screen and (min-width: 768px) {
+				'.$cssIndex.'{
+					background-image: url('.$desktop_image.');
+				}
+			}
+		</style>';
+
+		$style['section_class'] .= " d-flex hv-100";
 	}
 }
 
@@ -81,6 +111,8 @@ if(strpos($background['type'], 'video') !== false){
 	<?php
 	$htmlBack .= ob_get_contents();
 	ob_end_clean();
+
+	$style['section_class'] .= " d-flex hv-100";
 }
 
 $htmlBody   = '';
@@ -89,7 +121,13 @@ $block_body['groupname'] = 'bheadline_body';
 $block_animation = $block_body['animation'];
 
 if($block_animation) {
-	$style['section_class'].= ' animated';
+
+	if (strpos($style['section_class'], 'section-header') !== false) {
+		$animation_css = 'scene_element scene_element--fadeinup';
+	} else {
+		$style['section_class'].= ' animated';
+		$animation_css = 'animate-children fade_in_up';
+	}
 }
 
 if(!$style['block_class']) {
@@ -100,8 +138,8 @@ if(!$style['content_class']) {
 }
 
 $htmlBody .= '
-<div class="row gblock__headline_body--text '.($block_animation ? 'animate-children fade_in_right' : '').'">
-	<div id="'.$style['content_id'].'" class="gblock__headline_body--content '.$style['content_class'].' ">';
+<div class="row gblock__headline_body--text '.$animation_css.'">
+	<div id="'.$style['content_id'].'" class="gblock__headline_body--content '.$style['content_class'].' "  >';
 
 	if($block_body['headline']) {
 		$htag =  'h2';
@@ -142,12 +180,13 @@ echo '
 
 /* */
 echo '
-<section id="'.$style['section_id'].'" class="section '.$style['section_class'].' " style="'.$style['section_style'].'" data-color="'.$block_color.'" data-bgcolor="'.($block_color_bg?  $block_color_bg : $block_color ).'" >
+<section id="'.$style['section_id'].'" class="section '.$style['section_class'].' " style="'.$style['section_style'].'" data-menucolor="'.$block_menucolor.'" '.$style['section_data'].' >
 '.$htmlBack.'
   <div id="'.$style['block_id'].'" class="   gblock__headline--wrapper container-fluid '.$style['block_class'].' d-flex flex-column">
 	'.$htmlBody.'
   </div>
-</section>';
+</section>'
+.$htmlStyle;
 /**/
 ?>
 

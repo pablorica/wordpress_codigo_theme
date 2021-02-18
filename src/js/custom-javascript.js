@@ -1,5 +1,6 @@
-import {jarallax} from '../../parallax/jarallax.min';
+const Rellax = require('Rellax');
 import slick from '../../slick/slick.min';
+import waypoint from '../../waypoints/jquery.waypoints.min';
 
 (function($) {
 
@@ -120,131 +121,134 @@ import slick from '../../slick/slick.min';
 			$playButton.addClass("paused");
 		},
 		
-		slickslider: function(){
-			console.log('launching slick');
-			if ($(document.body).find('.slick-carousel').length) {
-				console.log('loading carousels');
-				var int = 0;
-				var $carousels = [];
-				$(document.body).find('.slick-carousel').each(function(){
+		slickslider: function($carousel){
 
-					var $carousel = $(this);
-					var autoplay = $carousel.data('autoplay'),
-					dots       = $carousel.data('dots'),
-					arrows     = $carousel.data('arrows'),
-					slides     = $carousel.data('slides'),
-					info       = $carousel.data('info'),
-					fullbutton = $carousel.data('fullbutton');
+			var autoplay = $carousel.data('autoplay'),
+			dots       = $carousel.data('dots'),
+			arrows     = $carousel.data('arrows'),
+			slides     = $carousel.data('slides'),
+			info       = $carousel.data('info'),
+			fullbutton = $carousel.data('fullbutton');
 
-					if(arrows === 1) {
-						arrows = true;
+			if(arrows === 1) {
+				arrows = true;
+			}
+			if(dots === 1) {
+				dots = true;
+			}
+
+
+			var slickOptions = {
+				lazyLoad: 'ondemand',
+				infinite: true,
+				autoplay: autoplay,
+				dots: dots,
+				arrows: arrows,
+				slide:'div',
+				prevArrow: '<button class="slick-prev slick-arrow"></button>',
+				nextArrow: '<button class="slick-next slick-arrow"></button>',
+			}
+
+			if(typeof slides !== 'undefined' && slides > 1){
+				slickOptions['slidesToShow'] = slides;
+				slickOptions['centerMode'] = true;
+				slickOptions['variableWidth'] = true;
+
+				/**
+				$carousel.slick('slickSetOption', {
+					'slidesToShow': slides,
+					'centerMode': true,
+					'variableWidth': true,
+				}, true);
+				/**/
+			}
+
+			//console.log(slickOptions);
+
+			$carousel.slick(slickOptions);
+
+
+			if(typeof fullbutton !== 'undefined'){
+				$("#"+fullbutton).on("click", function () {
+					var elem = $carousel.get(0);
+
+					if (document.fullscreenElement) {
+						document.exitFullscreen();
+					} else {
+						if (elem.requestFullscreen) {
+							elem.requestFullscreen();
+						} 
+						/**
+						else if (elem.msRequestFullscreen) {
+							elem.msRequestFullscreen();
+						} else if (elem.mozRequestFullScreen) {
+							elem.mozRequestFullScreen();
+						} else if (elem.webkitRequestFullscreen) {
+							elem.webkitRequestFullscreen();
+						}
+						/**/
 					}
-					if(dots === 1) {
-						dots = true;
-					}
+				});
 
+				if (document.addEventListener) {
+					document.addEventListener('fullscreenchange', changeFullScreen, false);
+					document.addEventListener('mozfullscreenchange', changeFullScreen, false);
+					document.addEventListener('MSFullscreenChange', changeFullScreen, false);
+					document.addEventListener('webkitfullscreenchange', changeFullScreen, false);
+				}
+			}
 
-					var slickOptions = {
-						lazyLoad: 'ondemand',
-						infinite: true,
-						autoplay: autoplay,
-						dots: dots,
-						arrows: arrows,
-						slide:'div',
-						prevArrow: '<button class="slick-prev slick-arrow"></button>',
-						nextArrow: '<button class="slick-next slick-arrow"></button>',
-					}
+			function changeFullScreen() {
+				if (!document.fullscreenElement) {
+					//console.log('exit fullscreen');
+
+					$carousel.slick("unslick");
 
 					if(typeof slides !== 'undefined' && slides > 1){
 						slickOptions['slidesToShow'] = slides;
 						slickOptions['centerMode'] = true;
 						slickOptions['variableWidth'] = true;
+						//console.log(slickOptions);
+					}
 
-			            /**
-			            $carousel.slick('slickSetOption', {
-			              'slidesToShow': slides,
-			              'centerMode': true,
-			              'variableWidth': true,
-			            }, true);
-			            /**/
-		        	}
+					$carousel.slick(slickOptions);
 
-		          	//console.log(slickOptions);
+				} else {
+					//console.log('enter fullscreen');
 
-		          	$carousel.slick(slickOptions);
+					$carousel.slick("unslick");
 
+					slickOptions['slidesToShow'] = 1;
+					slickOptions['centerMode'] = false;
+					slickOptions['variableWidth'] = false;
 
-			        if(typeof fullbutton !== 'undefined'){
-			          	$("#"+fullbutton).on("click", function () {
-			          		var elem = $carousel.get(0);
-
-			          		if (document.fullscreenElement) {
-			          			document.exitFullscreen();
-			          		} else {
-			          			if (elem.requestFullscreen) {
-			          				elem.requestFullscreen();
-			          			} 
-				                /**
-				                else if (elem.msRequestFullscreen) {
-				                  elem.msRequestFullscreen();
-				                } else if (elem.mozRequestFullScreen) {
-				                  elem.mozRequestFullScreen();
-				                } else if (elem.webkitRequestFullscreen) {
-				                  elem.webkitRequestFullscreen();
-				                }
-				                /**/
-				            }
-			        	});
-
-			          	if (document.addEventListener) {
-			          		document.addEventListener('fullscreenchange', changeFullScreen, false);
-			          		document.addEventListener('mozfullscreenchange', changeFullScreen, false);
-			          		document.addEventListener('MSFullscreenChange', changeFullScreen, false);
-			          		document.addEventListener('webkitfullscreenchange', changeFullScreen, false);
-			          	}
-			        }
-
-			        function changeFullScreen() {
-			          	if (!document.fullscreenElement) {
-			              //console.log('exit fullscreen');
-
-			              	$carousel.slick("unslick");
-
-			              	if(typeof slides !== 'undefined' && slides > 1){
-				              	slickOptions['slidesToShow'] = slides;
-				              	slickOptions['centerMode'] = true;
-				              	slickOptions['variableWidth'] = true;
-				                //console.log(slickOptions);
-				            }
-
-			            	$carousel.slick(slickOptions);
-
-			        	} else {
-			              //console.log('enter fullscreen');
-
-			              $carousel.slick("unslick");
-
-			              slickOptions['slidesToShow'] = 1;
-			              slickOptions['centerMode'] = false;
-			              slickOptions['variableWidth'] = false;
-
-			              $carousel.slick(slickOptions);
-			          	}
-			            //if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
-			        }
+					$carousel.slick(slickOptions);
+				}
+				//if (document.webkitIsFullScreen || document.mozFullScreen || document.msFullscreenElement !== null)
+			}
 
 
-			        if(typeof info !== 'undefined' && info != 0){
-			        	var $status = $('#'+info);
+			if(typeof info !== 'undefined' && info != 0){
+				var $status = $('#'+info);
 
-			        	$carousel.on('init reInit afterChange', function(event, slick, currentSlide, nextSlide){
-			                //currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
-			                var i = (currentSlide ? currentSlide : 0) + 1;
-			                $status.text(i + ' / ' + slick.slideCount);
-			            });
+				$carousel.on('init reInit afterChange', function(event, slick, currentSlide, nextSlide){
+					//currentSlide is undefined on init -- set it to 0 in this case (currentSlide is 0 based)
+					var i = (currentSlide ? currentSlide : 0) + 1;
+					$status.text(i + ' / ' + slick.slideCount);
+				});
 
-			        }
+			}
+			
+		},
+		slicksAllSliders: function(){
+			//console.log('launching slick');
+			if ($(document.body).find('.slick-carousel').length) {
+				console.log('loading carousels');
+				var $carousels = [];
+				$(document.body).find('.slick-carousel').each(function(){
 
+					var $carousel = $(this);
+					CDG.slickslider($carousel);
 		        	$carousels.push($carousel);
 
 		    	});
@@ -258,6 +262,8 @@ import slick from '../../slick/slick.min';
 		scrollEffects: function() {
 
 			var prevScrollpos = window.pageYOffset;
+			var displayWidth = $(window).width();
+			var displayHeight = $(window).height();
 
 			//if there is an anchor on the URL
 			if(window.location.hash) {
@@ -308,9 +314,8 @@ import slick from '../../slick/slick.min';
 			});
 
 
-			$(window).scroll(function (event) {
+			$(window).on('scroll',function (event) {
 				var vscroll = $(document).scrollTop();
-				var displayWidth = $(window).width();
 				//console.log(vscroll);
 
 				if (vscroll >= 1) {
@@ -341,67 +346,93 @@ import slick from '../../slick/slick.min';
 					$("#wrapper-navbar").removeClass("scroll-up");
 					$("#wrapper-navbar").removeClass("scroll-down");
 				}
-
-
-				$('.left_content').each(function(){
-					$vtitlewrap=$(this);
-					$vtitle=$('.left_content__title', this);
-
-					var docHeight = $(document).height();
-					var titleHeight = $vtitle.height();
-					var positionTitle = $vtitlewrap.offset();
-
-
-					minimum=positionTitle.top-130;
-					maximum=docHeight-540-titleHeight;
-					//console.log('scroll '+vscroll+' minimum '+minimum+' maximum '+maximum);
-					if (vscroll >= minimum) {
-						$vtitle.addClass("scrolled");
-					} else {
-						$vtitle.removeClass("scrolled");
-					}
-				});
-
-				if ($('.submenu_trigger').length) {
-					if( displayWidth > 767 ) {
-						var submenu_pos = $(".history").position();
-						if(vscroll > submenu_pos.top) {
-							$('.submenu_trigger').css({"position": "fixed", "top": "110px"});
-						} else {
-							$('.submenu_trigger').css('position', 'static');
-						}
-					} else {
-						$('.submenu_trigger').css('position', 'static');
-					}
-				}
 			});
 		},
 
 		scrollWayPoint: function() {
+			/*
 		    var waypoint = new Waypoint({
 			  element: document.getElementById('waypoint_anchor'),
 			  handler: function() {
 			    console.log('Basic waypoint triggered')
 			  }
 			});
+			*/
+
+			var $headerNav = $("header.header .navbar");
+
+			function changeMenuColor(dcolor,navscroll) {
+				
+				$headerNav.removeClass('bg-white');
+				$headerNav.removeClass('bg-green');
+				$headerNav.removeClass('bg-transparent');
+				$headerNav.removeClass('scroll-disabled');
+
+				$headerNav.addClass(dcolor).addClass(navscroll);
+				//console.log('menu color '+dcolor);
+			}
+
+
+			//console.log('Starting Waypoint');
+
+			$('body').find('.section:not(".d-none")').each(function(){
+
+				//console.log('Section found');
+				var $section = $(this); 
+
+				$section.waypoint(function(direction) {
+					if (direction === 'down') {
+						//console.log('Section ('+$section.attr("id")+') top touched screen top');
+						
+						var dcolor = $section.data('menucolor'), navscroll = null;
+						if($section.attr('class').indexOf('navscroll-disabled') !== -1){
+							navscroll = 'scroll-disabled';
+						}
+						changeMenuColor(dcolor,navscroll);
+					}
+				}, {
+					offset: '10%'
+				})
+
+				$section.waypoint(function(direction) {
+					if (direction === 'down') {
+						$section.addClass('active'); //Triggers section animation
+					}
+				}, {
+					offset: '75%'
+				})
+	
+				$section.waypoint(function(direction) {
+					if (direction === 'up') {
+						//console.log('Section ('+$section.attr("id")+') bottom touched screen top');
+						var dcolor = $section.data('menucolor'), navscroll = null;
+						if($section.attr('class').indexOf('navscroll-disabled') !== -1){
+							navscroll = 'scroll-disabled';
+						}
+						changeMenuColor(dcolor,navscroll);
+					}
+				}, {
+					offset: function() {
+						return '-'+(this.element.offsetHeight - 50);
+					}
+				})
+
+
+			});
 		},
 
 
 
 		/* Parallax */
-        initParallax: function(card) {
-			$(card).addClass('jarallax-enabled')
-            setTimeout(function() {
-                $(card).find('.wn-parallax-background')
-                    .jarallax({
-                        speed: 0.6
-                    })
-                    .css('position', 'relative');
-            }, 0);
-        },
-        destroyParallax: function(card) {
-            $(card).jarallax('destroy').css('position', '');
-        },
+		initRellax: function() {
+			// https://dixonandmoe.com/rellax/
+			//console.log('Starting Rellax');;
+			var rellax = new Rellax('.rellax', {
+				speed: -3,
+				center: true
+			});
+		},
+
 
         
 
@@ -886,31 +917,16 @@ import slick from '../../slick/slick.min';
 			CDG.handleHTMLVideo();
 			CDG.cssElements();
 			
-			CDG.slickslider();
+			CDG.slicksAllSliders();
 
-			//if ($.fn.jarallax && !$.isMobile()) {
 			if (!$.isMobile()) {
-				$(window).on('update.parallax', function(event) {
-					setTimeout(function() {
-						var $jarallax = $('.wn-parallax-background');
-	
-						$jarallax.jarallax('coverImage');
-						$jarallax.jarallax('clipContainer');
-						$jarallax.jarallax('onScroll');
-					}, 0);
-				});
-	
-				CDG.initParallax(document.body);
-	
-				// for Tabs
-				//$(window).on('shown.bs.tab', function(e) {
-				//	$(window).trigger('update.parallax');
-				//});
+				//Rellax
+				CDG.initRellax();
 			}
 
 
-			//CDG.scrollEffects();
-			//CDG.scrollWayPoint();
+			CDG.scrollEffects();
+			CDG.scrollWayPoint();
 			
 			//CDG.burgerEffects();
 			//CDG.styleSelects();
@@ -918,6 +934,7 @@ import slick from '../../slick/slick.min';
 			//CDG.dropdownNoPropagation();
 
 			$(window).on('resize',function() {
+				CDG.scrollEffects();
 				CDG.cssElements();
 			});
 		},

@@ -20,6 +20,8 @@ $style         = get_field('btwocolumns_style');
 $block_color   = (get_field('btwocolumns_color') ? get_field('btwocolumns_color') : '#122D28'); 
 $block_bgcolor = (get_field('btwocolumns_bgcolor') ? get_field('btwocolumns_bgcolor') : '#FFFFFF'); 
 
+$block_menucolor = (get_field('btwocolumns_menu_color')?get_field('btwocolumns_menu_color'):'bg-green');
+
 $left = get_field('btwocolumns_left'); 
 $left['classname'] = 'twocolumns-left';
 $left['groupname'] = 'btwocolumns_left';
@@ -85,7 +87,7 @@ foreach($bodybackc as $bodyback) {
 
 
 echo '
-<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';" >
+<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';" data-menucolor="'.$block_menucolor.'" >
 '.$htmlBack.'
   <div class="container-md">
     <div id="'.$style['block_id'].'" class="'.$style['block_class'].' gblock gblock__btwocolumns" >

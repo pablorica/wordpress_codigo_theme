@@ -7,6 +7,8 @@
         margin-left: auto;
         margin-bottom: 3rem;
         margin-top: 3rem;
+
+        text-align: center;
     
         @media screen and (min-width: 576px) {
             max-width: 540px;
@@ -20,5 +22,9 @@
         @media screen and (min-width: 1200px) {
             max-width: 1140px;
         }
+        p {
+            margin-bottom:100px;
+        }
+
     }
 }

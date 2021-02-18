@@ -160,7 +160,7 @@ if ( ! function_exists( 'codigo_display_html_video' ) ) :
 /**
  * From an URL streaming video, check the source and prints the HTML
  */
-function codigo_display_html_video($videourl, $royalSlider=false) {
+function codigo_display_html_video($videourl, $args=false) {
 	//$videourl='https://youtu.be/m0m7BPMZHwc';
 	//$videourl='https://vimeo.com/144725590';
 	//$videourl='https://www.youtube.com/embed/DEIYVFbNjm8';
@@ -182,31 +182,31 @@ function codigo_display_html_video($videourl, $royalSlider=false) {
 	//var_dump($youtmatches);
 	//var_dump($vimematches);
 
+	$autoplay = ($args['autoplay'] ? '&autoplay=1' : '');
+	$muted 	  = ($args['muted'] ? '&mute=1' : '');
+	$loop 	  = ($args['loop'] ? '&loop=1&playlist='.$youtubeID : '');
+	
+
 	$html=NULL;
 
-	if($royalSlider) {
-		if ($youtubeID) {
-			//$youtubeID='Kg2edsWOAEc';
-			$html='<div class="rsContent rsVideoFrame"><iframe id="rsYouVideo" class="" src="https://www.youtube.com/embed/'.$youtubeID.'?showinfo=0&rel=0&enablejsapi=1" frameborder="0" allowfullscreen></iframe>';
-		}
+
+
+	if ($youtubeID) {
+		/*$
+		<div id="youplayer_'.$youtubeID.'" class="youplayer" data-video-url="'.$youtubeID.'"></div>
+		<a class="start-video" data-video-id="'.$youtubeID.'"></a>
+		<a class="mute-video" data-video-id="'.$youtubeID.'" style="opacity:0"></a>
+		
+		<iframe width="100%" height="600" data-url="https://www.youtube.com/embed/'.$youtubeID.'?showinfo=0&rel=0&enablejsapi=1" src="" frameborder="0" allowfullscreen></iframe>
+		
+		*/
+		$html='<iframe width="100%" height=100%" src="https://www.youtube.com/embed/'.$youtubeID.'?rel=0'.$muted.$autoplay.$loop.'" frameborder="0" allowfullscreen></iframe>';
 	}
-	else {
-		if ($youtubeID) {
-			/*$
-			<div id="youplayer_'.$youtubeID.'" class="youplayer" data-video-url="'.$youtubeID.'"></div>
-			<a class="start-video" data-video-id="'.$youtubeID.'"></a>
-			<a class="mute-video" data-video-id="'.$youtubeID.'" style="opacity:0"></a>
-			
-			<iframe width="100%" height="600" data-url="https://www.youtube.com/embed/'.$youtubeID.'?showinfo=0&rel=0&enablejsapi=1" src="" frameborder="0" allowfullscreen></iframe>
-			
-			*/
-	  $html='<iframe width="100%" height=100%" src="https://www.youtube.com/embed/'.$youtubeID.'" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
-		}
-		if ($vimeoID) {
-			$html='<iframe id="vimeoplayer" src="https://player.vimeo.com/video/'.$vimeoID.'?api=1&player_id=vimeoplayer" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
-			<a class="start-video"></a>';
-		}
+	if ($vimeoID) {
+		$html='<iframe id="vimeoplayer" src="https://player.vimeo.com/video/'.$vimeoID.'?api=1&player_id=vimeoplayer" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+		<a class="start-video"></a>';
 	}
+	
 
 
   	return $html;

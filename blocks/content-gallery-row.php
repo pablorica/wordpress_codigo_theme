@@ -21,6 +21,8 @@ $block_color     = (get_field('bgallery_color') ? get_field('bgallery_color') : 
 $block_bgcolor   = (get_field('bgallery_bgcolor') ? get_field('bgallery_bgcolor') : '#FFFFFF'); 
 $block_animation = get_field('bgallery_animation');
 
+$block_menucolor = (get_field('bgallery_menu_color')?get_field('bgallery_menu_color'):'bg-green');
+
 $gallery_type    = get_field('bgallery_type');
 $gallery_columns = (get_field('bgallery_columns') ? get_field('bgallery_columns') : 3); 
 
@@ -193,7 +195,7 @@ if($gallery_type == 'articles'):
 endif; 
 
 
-echo '<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';">
+echo '<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';" data-menucolor="'.$block_menucolor.'">
   <div class="'.$container.'">
 	<div id="'.$style['block_id'].'"  class="'.$style['block_class'].' gblock gblock__gallery" >
 	  <div id="'.$style['content_id'].'" class="row '.$style['content_class'].' '.($block_animation ? 'animate-children fade_in_up' : '').'">

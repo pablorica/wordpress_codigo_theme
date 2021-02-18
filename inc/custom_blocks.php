@@ -236,10 +236,10 @@ if( function_exists('get_field') ) {
 
         $fade_animation = 'fade_in_up';
         if (strpos($body['classname'], 'left') !== false) {
-            $fade_animation = 'fade_in_right';
+            //$fade_animation = 'fade_in_right';
         }
         if (strpos($body['classname'], 'right') !== false) {
-            $fade_animation = 'fade_in_left';
+            //$fade_animation = 'fade_in_left';
         }
 
 

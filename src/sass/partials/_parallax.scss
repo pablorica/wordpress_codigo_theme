@@ -1,39 +1,19 @@
 
-.jarallax-enabled {
-    section {
-        background-position: 50% 50%;
-        background-repeat: no-repeat;
-        background-size: cover; 
-    }
-
-    .wn-fullscreen {
-        display: flex;
-        align-items: center;
-        min-height: 100%;
-        min-height: 100vh;
-        min-height: vh(100);
-        padding-top: 3rem;
-        padding-bottom: 3rem; 
-
-        .wn-overlay {
-            min-height: 100%;
-            min-height: 100vh;
-            min-height: vh(100);
-        }
-    }
-}
-
 
 //Inherit from fullpage
 .fp-bg {
     figure {
-        height:100%;
+        min-height: 100%;
+        min-height: 100vh;
+        min-height: vh(100);
         position: relative;
         img {
             position: absolute;
             height:100%;
             width:100%;
             object-fit: cover;
+            max-height:none;
+            max-width:none;
         }
     }
     &--video {
@@ -75,17 +55,10 @@ section {
         //height: vh(100);
         position: absolute;
         z-index:-1;
-        &--video {
-            z-index:1;
-        }
         figure {
             height: 0;
             padding-bottom: 56.25%;
         }
-    }
-    .gblock__headline--wrapper {
-        //position: absolute;
-        //z-index:1;
     }
 }
  
