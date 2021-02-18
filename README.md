@@ -12,6 +12,11 @@ Based in [wp-bootstrap4-sass](https://github.com/tone4hook/wp-bootstrap4-sass)
 
 * Run *npm run watch* for Webpack development watch
 
+### Import Data
+
+* Import ´´´export_files/Export.File.xml´´´
+* Import ´´´export_files/acf-export.json´´´
+
 ## Dev Dependencies
 
 *Note:* Using the extract-text-webpack-plugin Beta version since it plays better with Webpack 4; *npm i -D extract-text-webpack-plugin@next*
