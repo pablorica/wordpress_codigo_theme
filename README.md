@@ -14,8 +14,8 @@ Based in [wp-bootstrap4-sass](https://github.com/tone4hook/wp-bootstrap4-sass)
 
 ### Import Data
 
-* Import ´´´export_files/Export.File.xml´´´
-* Import ´´´export_files/acf-export.json´´´
+* Import `_export_files/Export.File.xml`  
+* Import `_export_files/acf-export.json` 
 
 ## Dev Dependencies
 
