@@ -36,7 +36,11 @@ function codigo_header_scripts()
     if ($GLOBALS['pagenow'] != 'wp-login.php' && !is_admin()) {
 
         // Custom scripts
-        wp_register_script('codigo-scripts', get_template_directory_uri() . '/dist/main.bundle.js', array('jquery'), '1.0.0');
+        // Create a version number based on the last time the file was modified
+        $mainBundleURI     = get_template_directory_uri() . '/dist/main.bundle.js';
+        $mainBundlePath    = get_template_directory() . '/dist/main.bundle.js';
+        $mainBundleVersion = (file_exists($mainBundlePath) ? date("ymd-Gis", filemtime($mainBundlePath)) : '1.5.5');
+        wp_register_script('codigo-scripts', $mainBundleURI, array('jquery'), $mainBundleVersion);
 
         // Enqueue it!
         wp_enqueue_script( array('codigo-scripts') );
@@ -94,8 +98,13 @@ function codigo_conditional_scripts()
 // Load WP Bootstrap Sass styles
 function codigo_styles()
 {
+
     // Normalize is loaded in Bootstrap and both are imported into the style.css via Sass
-    wp_register_style('codigo-css', get_template_directory_uri() . '/dist/style.min.css', array(), '1.5.1', 'all');
+    // Create a version number based on the last time the file was modified
+    $customStyleURI     = get_template_directory_uri() . '/dist/style.min.css';
+    $customStylePath    = get_template_directory() . '/dist/style.min.css';
+    $customStyleVersion = (file_exists($customStylePath) ? date("ymd-Gis", filemtime($customStylePath)) : '1.5.5');
+    wp_register_style('codigo-css', get_template_directory_uri() . '/dist/style.min.css', array(), $customStyleVersion, 'all');
     wp_enqueue_style('codigo-css'); // Enqueue it!
 }
 add_action('wp_enqueue_scripts', 'codigo_styles'); // Add Theme Stylesheet
