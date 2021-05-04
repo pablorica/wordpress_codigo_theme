@@ -1,10 +1,12 @@
+/* 
 html {
-  /* Disable scroll boucing *
+  /* Disable scroll boucing * /
   height  : 100%;
   overflow: hidden;
   position: relative;
-  /**/
+  
 }
+/**/
 
 body { 
     /* Disable scroll boucing *
@@ -19,26 +21,38 @@ body {
     
 
 	  background-color: white;
-    color: $green;
+    color: $blue;
     text-align: left;
     
     font-family: $font-medium;
 	  font-size: 18px;
-    line-height: 1.1;
+    line-height: 1.1; 
     @media screen and (min-width: 768px) {
-        font-size: 18px;
-        line-height: 1.1;
+      font-size: 12px;
+    } 
+    @media screen and (min-width: 992px)  {
+      font-size: 15px;
+    }  
+    @media screen and (min-width: 1200px)  {
+      font-size: 18px;
+    } 
+    @media screen and (min-width: 1920px)  {
+      font-size: 28px;
     }
 }
 
 *:focus {
     outline: none !important;
+    box-shadow: none !important;
 }
 a {
-	color: $green;
+	color: $blue;
 }
 a:hover, a:focus {
-	color: $red;
+	color: $blue;
+}
+p:last-of-type{
+  margin:0
 }
 img {
   width: auto;
@@ -48,20 +62,55 @@ strong, b {
   font-family: $font-bold;
 }
 h1,.h1,h2,.h2 ,h3,.h3,h4,.h4,h5,.h5 {
-  color: $dark-green;
   font-family: $font-bold;
 }
 h1,.h1 {
-    font-size:70px;
-    line-height: 77px;
+    font-size:30px;
+    line-height: 1.1;
+    @media screen and (min-width: 768px) {
+      font-size: 40px;
+    } 
+    @media screen and (min-width: 992px)  {
+      font-size: 52px;
+    }  
+    @media screen and (min-width: 1200px)  {
+      font-size: 63px;
+    }
+    @media screen and (min-width: 1920px)  {
+      font-size: 100px;
+    }
 }
 h2,.h2 {
-	font-size: 36px;
-	line-height: 1.2;
+	font-size: 24px;
+	line-height: 1.1;
+  @media screen and (min-width: 768px) {
+    font-size: 28px;
+  } 
+  @media screen and (min-width: 992px)  {
+    font-size: 37px;
+  }  
+  @media screen and (min-width: 1200px)  {
+    font-size: 44px;
+  }
+  @media screen and (min-width: 1920px)  {
+    font-size: 70px;
+  }
 }
 h3,.h3 {
-	font-size: 30px;
-	line-height: 1.2;
+  font-size: 18px;
+	line-height: 1.1;
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+  } 
+  @media screen and (min-width: 992px)  {
+    font-size: 21px;
+  }  
+  @media screen and (min-width: 1200px)  {
+    font-size: 25px;
+  }
+  @media screen and (min-width: 1920px)  {
+    font-size: 40px;
+  }
 }
 h4,.h4 {
 	font-size: 18px;
@@ -73,8 +122,6 @@ p:last-of-type {
 	margin-bottom:0;
 }
 blockquote {
-  font-family: $font-bold;
-  font-size: 20px;
 	p:first-of-type:before {
 	  content: open-quote;
 	  vertical-align: top;
@@ -83,6 +130,13 @@ blockquote {
 		content: close-quote;
   		vertical-align: bottom;
 	}
+}
+cite {
+  font-style: normal;
+}
+
+ul,ol,li {
+  list-style: none;
 }
 
 
@@ -109,33 +163,3 @@ small {
     text-decoration:underline;
   }
 }
-.hv-100 {
-  min-height: 100%;
-  min-height: 100vh;
-  min-height: vh(100);
-}
-
-
-
-
-/**** Bootstrap ****
-.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12, .col, .col-auto, .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm, .col-sm-auto, .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12, .col-md, .col-md-auto, .col-lg-1, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg, .col-lg-auto, .col-xl-1, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl, .col-xl-auto {
-    padding-right: 30px;
-    padding-left: 30px;
-}
-.row {
-    margin-right: -30px;
-    margin-left: -30px;
-}
-.container-fluid, .container-sm, .container-md, .container-lg, .container-xl {
-    padding-right: 30px;
-    padding-left: 30px;
-}
-.h-50 {
-	height:50vh !important;
-}
-.half-screen {
-	min-height:50vh !important;
-}
-/**** ****/
-

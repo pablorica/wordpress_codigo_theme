@@ -1,17 +1,141 @@
 
+input:not([type=checkbox]):not([type=radio]):not([type="submit"]):not([type="button"]):not([type="reset"]),
+textarea {
+  border-radius: 10px;
+  padding: 15px 35px;
+  min-width: 200px;
+  width: 100%;
+  border: 1px solid $blue;
+
+  font-family: $font-bold;
+  color:$blue;
+
+  
+  &::placeholder {
+    font-family: $font-bold;
+    color:$blue;
+    opacity: 1;
+  }
+}
+input[type=button], input[type=submit], input[type=reset],
 .btn {
   font-family: $font-bold;
-  font-size:20px;
-  line-height: 18px;
+  font-size:14px;
+  line-height: 1;
+  @media screen and (min-width: 768px) {
+		font-size: 10px;
+	} 
+	@media screen and (min-width: 992px)  {
+		font-size: 11px;
+	}  
+	@media screen and (min-width: 1200px)  {
+		font-size: 13px;
+	}
+	@media screen and (min-width: 1920px)  {
+		font-size: 20px;
+	}
 
-  text-transform: uppercase;
+  text-transform: none;
   text-decoration: none;
 
-  border-radius: 0;
-  padding: 14px 35px 10px 35px;
+  border-radius: 10px;
+  padding: 15px 35px;
+  min-width: 200px;
+
+  border: none;
   
   &:hover {
     text-decoration: none;
   }
 
+}
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: $blue;
+  color: white;
+
+}
+.btn-cta {
+  margin-top: 40px;
+}
+.btn-hidden {
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  left: 0;
+}
+
+.btn-secondary {
+  background-color: white !important;
+  color: $blue !important;
+}
+.btn-tertiary {
+  background-color: white !important;
+  color: $blue !important;
+  border: 1px solid $blue;
+  &.active,
+  &:hover {
+    background-color: $blue !important;
+    color: white !important;
+  }
+}
+.btn-quaternary {
+  background-color: white !important;
+  color: $blue !important;
+  border: none;
+  display: block;
+  font-family: $font-medium;
+  
+  position: relative;
+  font-size: 18px;
+	line-height: 1.1;
+  
+  @media screen and (max-width: 767px) {
+    padding:70px 0 0 0; 
+    min-width: 0;
+  }
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    padding-top:70px; 
+  }
+  @media screen and (min-width: 992px)  {
+    font-size: 21px;
+    padding-top:90px;
+  }  
+  @media screen and (min-width: 1200px)  {
+    font-size: 25px;
+    padding-top:110px;
+  }
+  @media screen and (min-width: 1920px)  {
+    font-size: 40px;
+    padding-top:150px;
+  }
+
+  &:before {
+    content:'';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $blue;
+
+    height: 60px;
+    width: 60px;
+    border-radius: 10px;
+    @media screen and (min-width: 992px)  {
+      height: 80px;
+      width: 80px;
+    }  
+    @media screen and (min-width: 1200px)  {
+      height: 100px;
+      width: 100px;
+    }
+    @media screen and (min-width: 1920px)  {
+      height: 145px;
+      width: 145px;
+    }
+  }
+  &.active,
+  &:hover {
+    font-family: $font-bold;
+  }
 }

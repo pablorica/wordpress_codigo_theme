@@ -1,0 +1,102 @@
+.container-search {
+    padding-top: 160px;
+
+    color:$blue;
+    a {
+        color:$blue;
+    }
+    h4,.h4 {
+        font-size: 22px;
+        line-height: 30px;
+    }
+    .post_excerpt {
+        @media screen and (min-width: 768px) {
+            max-width: 50%;
+        }
+    }
+    article:last-of-type hr {
+      display: none;
+    }
+    .view-article {
+        color: #fff !important;
+        background-color: $blue !important;
+        border-color: $blue !important;
+    }
+}
+
+
+/* SEARCH FORM */
+form.search {
+    padding: 0 80px;
+    @media screen and (min-width: 768px) {
+      position: fixed;
+      width: 100%;  
+      background-color: rgba(255,255,255,0.9);
+      z-index: 10;
+    }
+    input.search-input {
+      @media screen and (min-width: 768px) {
+        width:auto !important;
+        min-width: 340px !important;
+        margin-left: auto;
+        border: none !important;
+        background-color: transparent
+      }
+      @media screen and (min-width: 992px) {
+        min-width: 410px !important;
+      }
+      @media screen and (min-width: 1200px) {
+        min-width: 480px !important;
+      }
+      @media screen and (min-width: 1920px) {
+        min-width: 711px !important;
+      }
+    }
+    button {
+      @media screen and (min-width: 768px) {
+        background-color: transparent !important;
+        border:none !important;
+      }
+      &.search-submit {
+        @media screen and (min-width: 768px) {
+          color: $blue;
+          width:55px;
+          height: 50px;
+          text-align: left;
+        }
+        @media screen and (min-width: 1500px) {
+          margin-left:auto;
+        }
+      }
+      &.search-close {
+        min-width: 50px;
+        margin-right:0;
+        width:50px;
+        height: 50px;
+        background-repeat: no-repeat;
+        background-image: url('../../img/close_black.png');
+        background-size: 18px 18px;
+        background-position: center center;
+
+      }
+    }
+}
+form#desktopSearch {
+    transition: all .25s cubic-bezier(.785,.135,.15,.86),transform .25s;
+    top:0;
+    &.active {
+      @media screen and (min-width: 768px) {
+        transform: translateY(64px);
+      }
+      @media screen and (min-width: 992px)  {
+        transform: translateY(80px);
+      }  
+      @media screen and (min-width: 1200px)  {
+        transform: translateY(100px);
+      }
+      @media screen and (min-width: 1920px)  {
+        transform: translateY(154px);
+      }
+      
+    }
+}

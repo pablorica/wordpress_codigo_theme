@@ -8,55 +8,7 @@
  .component_video {
     position:relative;
     padding-bottom: 56.25%;
-    button.video_control {
-      position:absolute;
-      top:50%;
-      left:50%;
-      transform:translate(-50%,-50%);
-      width: 52px;
-      height: 52px;
-      background:transparent;
-      background-image: url('../../img/play_button.png');
-      background-position: center;
-      background-size: contain;
-      background-repeat:no-repeat;
-      border:none;
-      z-index:10;
-      &:not(.paused) {
-          z-index:-1;
-      }
-      /*
-      &:before {
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";        
-        width: 42px;
-        height: 42px;
-        box-sizing: border-box;
-        border-style: double;
-        border-width: 0 0 0 42px;
-        border-color: transparent transparent transparent white;
-        cursor: pointer;
-
-      }
-      &.active {
-        &:before {
-          position: absolute;
-          top: 0;
-          left: 0;
-          content: "";
-          box-sizing: border-box;
-          width: 42px;
-          height: 42px;
-          border-style: solid;
-          border-width: 21px 0px 21px 42px;
-          border-color: transparent transparent transparent white;
-          cursor: pointer;
-        }
-      }
-      */
-    }
+    
     iframe, video, img {
       position: absolute;
       height: 100%;
@@ -65,4 +17,53 @@
       left: 0;
       object-fit: cover;
     }
+}
+button.video_control {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width: 52px;
+  height: 52px;
+  background:transparent;
+  background-image: url('../../img/play_button.png');
+  background-position: center;
+  background-size: contain;
+  background-repeat:no-repeat;
+  border:none;
+  z-index:10;
+  &:not(.paused) {
+      z-index:-1;
   }
+  /*
+  &:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";        
+    width: 42px;
+    height: 42px;
+    box-sizing: border-box;
+    border-style: double;
+    border-width: 0 0 0 42px;
+    border-color: transparent transparent transparent white;
+    cursor: pointer;
+
+  }
+  &.active {
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      box-sizing: border-box;
+      width: 42px;
+      height: 42px;
+      border-style: solid;
+      border-width: 21px 0px 21px 42px;
+      border-color: transparent transparent transparent white;
+      cursor: pointer;
+    }
+  }
+  */
+}

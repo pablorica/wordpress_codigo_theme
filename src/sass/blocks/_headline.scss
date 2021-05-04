@@ -1,18 +1,28 @@
+
+.section__headline {
+  @include bottom-border;
+}
 .gblock__headline {
   text-decoration: none;
   &:hover,&:focus,&:active, 
   a, a:hover,a:focus,a:active {
     text-decoration: none;
   }
+  &--wrapper {
+    
+    @media screen and (min-width: 768px) {
+      padding-left:80px;
+      padding-right: 80px;
+    }
+  }
   &_body--wtext {
     color: white;
   }
   &_body--content {
     color: white;
-    margin-top:25px;
-    @media screen and (min-width: 768px) {
-      margin-top:40px;
-    }
+  }
+  &_body--ctext {
+    max-width: 600px;
   }
   &_body--logo {
     img, svg {

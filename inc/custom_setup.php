@@ -71,7 +71,7 @@ if (function_exists('load_theme_textdomain'))
 *
 */
 // Filters the custom logo output.
-add_filter( 'get_custom_logo', 'codigo_custom_logo' );
+//add_filter( 'get_custom_logo', 'codigo_custom_logo' );
 function codigo_custom_logo($html) {
     return str_replace('class="custom-logo-link"', 'class="pl-sm-3 pl-md-0 custom-logo-link"',$html);
 }
@@ -90,7 +90,14 @@ function codigo_customizer_setting($wp_customize) {
         'priority' => 8 // show it just below the custom-logo
     )));
 }
-//add_action('customize_register', 'codigo_customizer_setting');
+add_action('customize_register', 'codigo_customizer_setting');
+
+function get_codigo_custom_logo() {
+    return '
+    <a href="'.get_bloginfo('url').'" class="custom-logo-link custom_white_logo" rel="home" aria-current="page">
+        <img src="'.get_theme_mod( 'custom_white_logo' ).'" class="custom-logo" alt="'.get_bloginfo('name').'" >
+    </a>';
+}
 
 
 
@@ -117,7 +124,7 @@ function remove_admin_bar()
 
 
 // Remove Categories and Tags from Posts
-add_action('init', 'codigo_remove_tax');
+//add_action('init', 'codigo_remove_tax');
 function codigo_remove_tax() {
     register_taxonomy('category', array());
     register_taxonomy('post_tag', array());
@@ -171,18 +178,39 @@ if ( ! function_exists( 'codigo_custom_excerpt_more' ) ) {
 		return '';
 	}
 }
-//add_filter( 'excerpt_more', 'codigo_custom_excerpt_more' );
+add_filter( 'excerpt_more', 'codigo_custom_excerpt_more' );
 
 /**
-* Adds 'View Article' button instead of [...] for Excerpts
+* Adds 'Read more' button instead of [...] for Excerpts
  */
 if ( ! function_exists( 'codigo_view_article' ) ) {
-	function codigo_view_article($more) {
-	    global $post;
-	    return '... <p><a class="view-article btn btn-secondary" href="' . get_permalink($post->ID) . '" role="button">' . __('Read more', 'wpbootstrapsass') . ' </a></p>';
+	function codigo_view_article($more, $post_id = null) {
+	    
+
+        global $post;
+
+        if ($post instanceof \WP_Post) {
+            $post_id = $post->ID;
+        } 
+        
+        if ($post_id) {
+            $btn_class = 'btn-secondary';
+            $btn_style = '';
+            if($cstudy_excerpt = get_field('cstudy_excerpt',  $post_id)) {
+            $btn_class = '';
+            $btn_style = 'style="color:'.$cstudy_excerpt['cta_color'].'; border-color:'.$cstudy_excerpt['cta_color'].'; background-color:'.$cstudy_excerpt['cta_bgcolor'].'"';
+            }
+
+            return '... <p class="mt-4"><a class="view-article btn '.$btn_class.'" '.$btn_style.' href="' . get_permalink($post_id) . '" role="button">' . __('Read more', 'wpbootstrapsass') . ' </a></p>';
+        } 
+        else {
+            return '';
+        }
+    
+
 	}
 }
-//add_filter('excerpt_more', 'codigo_view_article');
+add_filter('excerpt_more', 'codigo_view_article');
 
 
 /**
@@ -193,7 +221,7 @@ if ( ! function_exists( 'codigo_remove_more_link' ) ) {
 		return '';
 	}
 }
-//add_filter( 'the_content_more_link', 'codigo_remove_more_link' );
+add_filter( 'the_content_more_link', 'codigo_remove_more_link' );
 
 
 /**

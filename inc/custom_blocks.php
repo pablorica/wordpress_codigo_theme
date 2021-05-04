@@ -20,6 +20,17 @@ if( function_exists('get_field') ) {
             'mode'              => 'preview', //preview, editor
             'keywords'          => array( 'headline', 'comment'),
         );
+        $carousel_block = array(
+            'name'              => 'carousel',
+            'title'             => __('Carousel'),
+            'description'       => __('Carousel displayed with 100% width.'),
+            'render_callback'   => 'my_acf_block_render_callback',
+            //'render_template'   => get_stylesheet_directory()  . '/template-parts/block/content-testimonial.php',
+            'category'          => 'codigo-blocks',
+            'icon'              => 'slides',
+            'mode'              => 'preview',
+            'keywords'          => array( 'carousel', 'slider', 'image', 'link' ),
+        );
 
         $onecolumn_block = array(
             'name'              => 'one-column',
@@ -52,7 +63,7 @@ if( function_exists('get_field') ) {
             'keywords'          => array( 'article', 'post', 'text', 'image', 'gallery' ),
         );
 
-        /*
+        
         $tabs_block = array(
             'name'              => 'tabs',
             'title'             => __('Tabs'),
@@ -61,10 +72,32 @@ if( function_exists('get_field') ) {
             'category'          => 'codigo-blocks',
             'icon'              => 'table-row-after',
             'mode'              => 'preview',
-            'keywords'          => array( 'tabs', 'ctas', 'accordion', 'link' ),
+            'keywords'          => array( 'tabs', 'images', 'link' ),
+        );
+
+        $loadpages_block = array(
+            'name'              => 'load-pages',
+            'title'             => __('Load Pages'),
+            'description'       => __('Codigo load pages block.'),
+            'render_callback'   => 'my_acf_block_render_callback',
+            'category'          => 'codigo-blocks',
+            'icon'              => 'editor-kitchensink',
+            'mode'              => 'preview',
+            'keywords'          => array( 'mosaic', 'content', 'pages', 'link' ),
+        );
+
+        $modal_block = array(
+            'name'              => 'modal',
+            'title'             => __('Pop-Up'),
+            'description'       => __('Codigo Pop-Up block.'),
+            'render_callback'   => 'my_acf_block_render_callback',
+            'category'          => 'codigo-blocks',
+            'icon'              => 'warning',
+            'mode'              => 'preview',
+            'keywords'          => array( 'pop-up', 'warning', 'text', 'CTA' ),
         );
         
-        
+        /*
         $info_grid_block = array(
             'name'              => 'info-grid',
             'title'             => __('Info Grid'),
@@ -74,29 +107,6 @@ if( function_exists('get_field') ) {
             'icon'              => 'editor-kitchensink',
             'mode'              => 'editor',
             'keywords'          => array( 'mosaic', 'data', 'grid', 'text' ),
-        );
-
-        $carousel_block = array(
-            'name'              => 'carousel',
-            'title'             => __('Carousel'),
-            'description'       => __('Codigo carousel block.'),
-            'render_callback'   => 'my_acf_block_render_callback',
-            //'render_template'   => get_stylesheet_directory()  . '/template-parts/block/content-testimonial.php',
-            'category'          => 'codigo-blocks',
-            'icon'              => 'slides',
-            'mode'              => 'preview',
-            'keywords'          => array( 'carousel', 'slider', 'image', 'link' ),
-        );
-        
-        $mosaic_block = array(
-            'name'              => 'mosaic',
-            'title'             => __('Mosaic'),
-            'description'       => __('Codigo mosaic block.'),
-            'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'codigo-blocks',
-            'icon'              => 'editor-kitchensink',
-            'mode'              => 'preview',
-            'keywords'          => array( 'mosaic', 'image', 'link' ),
         );
 
         $formatted_block = array(
@@ -148,7 +158,10 @@ if( function_exists('get_field') ) {
         acf_register_block_type($onecolumn_block);
         acf_register_block_type($twocolumns_block);
         acf_register_block_type($gallery_block);
-        //acf_register_block_type($tabs_block);
+        acf_register_block_type($carousel_block);
+        acf_register_block_type($tabs_block);
+        acf_register_block_type($loadpages_block);
+        acf_register_block_type($modal_block);
     }
 
     // Check if function exists and hook into setup.
@@ -419,10 +432,14 @@ function hb_acf_custom_fonts() {
             object-fit: cover;
             width: 100%;
         }
+        .acf-block-preview .video_control {
+            display: none;
+        }
         .acf-block-preview .component_video {
             position: relative;
         }
-        .acf-block-preview .component_video button.video_control {
+        .acf-block-preview .component_video::before {
+            content:"";
             position: absolute;
             top: 50%;
             left: 50%;
@@ -448,7 +465,8 @@ function hb_acf_custom_fonts() {
         .acf-block-preview .slick-carousel {
             position:relative
         }
-        .acf-block-preview .slick-carousel div + div {
+        .acf-block-preview .slick-carousel div + div,
+        .acf-block-preview .slick-carousel figure + figure {
             display:none;
         }
         .acf-block-preview .slick-carousel::before,
@@ -472,6 +490,36 @@ function hb_acf_custom_fonts() {
             right:calc(50% - 18px);
             background-color: white;
         }
+        .acf-block-preview .gblock__carousel .slick-carousel::before,
+        .acf-block-preview .gblock__carousel .slick-carousel::after {
+            display:none
+        }
+        .acf-block-preview .gblock__carousel .slick-arrow {
+            width: 50px;
+            height: 50px;
+            position: relative;
+            border:none;
+        }
+        .acf-block-preview .gblock__carousel .slick-arrow::before {
+            content:"";
+            position:absolute;
+            top:50%;
+            left:50%;
+            transform:translate(-50%,-50%);
+            width: 50px;
+            height: 50px;
+            background:transparent;
+            background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB8AAAA2CAYAAAA/DULHAAAAAXNSR0IArs4c6QAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAH6ADAAQAAAABAAAANgAAAACfnrq5AAABpUlEQVRYCe2Yz0oDQQyH+wgqigULFvEgiCC9ePHkSfAFPHn2MQVfQERQkKJQQRD8AyIiguMXO0tlmEw9ZGYKbiDMbsLm+02SXtrpFDDn3Dx+im8WwE0QHnzBKfaElxEAaBFvwDz+mAjYnsjL8AQgBh7jnRtlQI5LevBVQwrOF94HWeBTwK81wTu1btyCbTrP8izj2la/kcvWagEP8ZgJeNfmikEVCrfg3y2v1ur3WjMW8F6wFjavU5YrK3gFuPZzyg6+BR6zauAP1GSbsbRau7GA9222KahC4f8H7iVaTcodBE2yeaXwKq7N+JNcnhmLfIqf4Jod21xRqQK1j48U+r3klU9twl7AnSJAhK3ZkJQqXoDWAYn3lU9twrMiQGYdsyIdWIecEtCz6bVSBXhKwA35VkD1DnSV6dmE/Q48cMbsmmB2ARtAWgEz3YElm21TqjB/2YFHPGaXBLML2ALSCkh1YEGZnk2Y9qdGcE6+iAD5izNmRQQMIFcX8By7PrEzm0EnqgCJdeCL+FHiM7tUIEDAh3bV/1DJC5ARlAU32gDPNc/N+Q2laKNwJaa8sAAAAABJRU5ErkJggg==);
+            background-position: center;
+            background-size: contain;
+            background-repeat:no-repeat;
+            border:none;
+            z-index:10;
+        }
+        .acf-block-preview .gblock__carousel .slick-arrow.slick-next::before {
+            transform:translate(-50%,-50%) rotate(180deg);
+        }
+        
 
         .acf-block-preview .gblock__gallery .gblock__gallery--col,
         .acf-block-preview .gblock__gallery .gblock__gallery--post {
@@ -490,6 +538,14 @@ function hb_acf_custom_fonts() {
             font-size: 1em;
         }
         .acf-block-preview .gblock__gallery .gblock__gallery--col .post_excerpt{
+            display:none;
+        }
+
+
+        .acf-block-preview .gblock__tabs  .tab-content div.tab-pane {
+            padding-bottom:56.25%
+        }
+        .acf-block-preview .gblock__tabs  .tab-content div.tab-pane + div.tab-pane {
             display:none;
         }
     </style>';

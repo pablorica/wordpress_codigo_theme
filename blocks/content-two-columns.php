@@ -17,8 +17,8 @@ if (!function_exists('get_field')) {
 }
 
 $style         = get_field('btwocolumns_style');
-$block_color   = (get_field('btwocolumns_color') ? get_field('btwocolumns_color') : '#122D28'); 
-$block_bgcolor = (get_field('btwocolumns_bgcolor') ? get_field('btwocolumns_bgcolor') : '#FFFFFF'); 
+$block_color   = (get_field('btwocolumns_color') ? 'color:'.get_field('btwocolumns_color').';' : ''); 
+$block_bgcolor = (get_field('btwocolumns_bgcolor') ? 'background-color:'.get_field('btwocolumns_bgcolor').';' : ''); 
 
 $block_menucolor = (get_field('btwocolumns_menu_color')?get_field('btwocolumns_menu_color'):'bg-green');
 
@@ -87,7 +87,7 @@ foreach($bodybackc as $bodyback) {
 
 
 echo '
-<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';" data-menucolor="'.$block_menucolor.'" >
+<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="'.$block_color.$block_bgcolor.'" data-menucolor="'.$block_menucolor.'" >
 '.$htmlBack.'
   <div class="container-md">
     <div id="'.$style['block_id'].'" class="'.$style['block_class'].' gblock gblock__btwocolumns" >

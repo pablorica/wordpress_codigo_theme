@@ -59,6 +59,10 @@ require get_stylesheet_directory()  . '/inc/custom_blocks.php';
  */
 //require get_stylesheet_directory()  . '/inc/custom_shortcodes.php';
 
+/**
+ * REST API Management
+ */
+require get_stylesheet_directory()  . '/inc/custom_rest_api.php';
 
 /**
  * AJAX Management

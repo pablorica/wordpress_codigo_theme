@@ -4,7 +4,7 @@
 <main  class="wrapper">
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-md-12 p-md-0">
+			<div class="col-md-12 p-0">
 
 
 

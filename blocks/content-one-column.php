@@ -17,8 +17,8 @@ if (!function_exists('get_field')) {
 }
 
 $style         = get_field('bonecolumn_style');
-$block_color = (get_field('bonecolumn_color') ? get_field('bonecolumn_color') : '#122D28'); 
-$block_bgcolor = (get_field('bonecolumn_bgcolor') ? get_field('bonecolumn_bgcolor') : '#FFFFFF'); 
+$block_color = (get_field('bonecolumn_color') ? 'color:'.get_field('bonecolumn_color').';' : ''); 
+$block_bgcolor = (get_field('bonecolumn_bgcolor') ? 'background-color:'.get_field('bonecolumn_bgcolor').';' : ''); 
 
 $block_menucolor = (get_field('bonecolumn_menu_color')?get_field('bonecolumn_menu_color'):'bg-green');
 
@@ -30,7 +30,7 @@ $body['animation'] = get_field('bonecolumn_animation');
 $htmlBody = my_acf_block_column( $body );
 
 echo '
-<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';" data-menucolor="'.$block_menucolor.'">
+<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="'.$block_color.$block_bgcolor.'" data-menucolor="'.$block_menucolor.'">
   <div class="container-md">
 	<div id="'.$style['block_id'].'"  class="'.$style['block_class'].' gblock gblock__onecolumn" >
 	  <div class="row">

@@ -44,9 +44,22 @@ function codigo_custom_post($length)
 }
 
 // Create the Custom Excerpts callback
-function codigo_excerpt($length_callback = '', $more_callback = '')
+function codigo_excerpt($length_callback = '', $more_callback = '', $post_id = null)
 {
-	global $post;
+	if(!$post_id) {
+		global $post;
+		$post_id = $post->ID;
+		$read_more = '';
+	} else {
+		$read_more = codigo_view_article('', $post_id);
+	}
+	$post = get_post($post_id);
+	
+
+	$excerpt_style = '';
+	if($cstudy_excerpt = get_field('cstudy_excerpt', $post_id)) {
+		$excerpt_style = 'style="color:'.$cstudy_excerpt['color'].'"';
+	}
 
     if (function_exists($length_callback)) {
         add_filter('excerpt_length', $length_callback);
@@ -57,10 +70,10 @@ function codigo_excerpt($length_callback = '', $more_callback = '')
 
 	
 	$output =false;
-	if(get_the_excerpt()) {
-		$output = apply_filters('wptexturize', get_the_excerpt());
+	if(get_the_excerpt($post_id)) {
+		$output = apply_filters('wptexturize', get_the_excerpt($post_id));
 		$output = apply_filters('convert_chars', $output);
-		$output = '<p class="post_excerpt">' . $output . '</p>';
+		$output = '<p class="post_excerpt" '.$excerpt_style.'>' . $output . $read_more.'</p>';
 	}
     return $output;
 }
@@ -149,8 +162,58 @@ function codigo_block_wrapper( $block_content, $block ) {
 	}
     return $block_content;
 }
- 
 //add_filter( 'render_block', 'codigo_block_wrapper', 10, 2 );
+
+
+function codigo_block_scape( $block_content, $block ) {
+	global $post;
+	// only edit specific post types
+	$types = array( 'post' );
+	if ( $post && in_array( $post->post_type, $types, true ) ) {
+		error_log('block '.print_r($block,true));
+		//Scaping the ACF block from container div
+		if (strpos($block['blockName'], 'acf/') !== false) {
+			$scape_content = '</div>';
+			$scape_content .= $block_content;
+			$scape_content .= '<div class="container single-container">';
+			return $scape_content;
+		}
+	}
+
+    return $block_content;
+}
+//add_filter( 'render_block', 'codigo_block_scape', 10, 2 );
+
+
+
+/*** Managing Content *****/
+// https://wordpress.stackexchange.com/questions/225625/where-to-hook-into-post-content
+// the function that edits post content
+function my_edit_content( $content ) {
+	global $post;
+	// only edit specific post types
+	$types = array( 'post', 'page' );
+	if ( $post && in_array( $post->post_type, $types, true ) ) {
+	   $content = 'Hello World '. $content;
+	}
+  
+	return $content;
+  }
+  /*
+  // add the filter when main loop starts
+  add_action( 'loop_start', function( WP_Query $query ) {
+	 if ( $query->is_main_query() ) {
+	   add_filter( 'the_content', 'my_edit_content', -10 );
+	 }
+  } );
+  
+  // remove the filter when main loop ends
+  add_action( 'loop_end', function( WP_Query $query ) {
+	 if ( has_filter( 'the_content', 'my_edit_content' ) ) {
+	   remove_filter( 'the_content', 'my_edit_content' );
+	 }
+  } );
+  */
 
 
 
@@ -310,3 +373,15 @@ if ( ! function_exists ( 'codigo_posted_on' ) ) {
 	}
 }
 
+
+/*** Managing ACF *****/
+
+//Google API Key
+function my_acf_init() {
+	
+	$google_api_key = get_field('general_google_api_key','option');
+	
+	acf_update_setting('google_api_key', $google_api_key);
+}
+
+add_action('acf/init', 'my_acf_init');

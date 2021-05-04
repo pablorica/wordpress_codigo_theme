@@ -16,11 +16,20 @@ if (!function_exists('get_field')) {
 	exit; // Exit if ACF is not enabled
 }
 
+global $post;
+// only edit specific post types
+$types = array( 'post' ,'casestudy');
+$htmlScapeOpen  = '';
+$htmlScapeClose = '';
+if ( $post &&  !is_archive()  && in_array( $post->post_type, $types, true ) ) {
+	$htmlScapeOpen  = '</div>';
+	$htmlScapeClose = '<div class="container single-container">';
+}
+
+
 $style 					= get_field('bheadline_style');
 $style['section_style'] = "";
 $style['section_data']  = "";
-
-$block_menucolor = (get_field('bheadline_menu_color')?get_field('bheadline_menu_color'):'bg-green');
 
 
 $htmlBack   = '';
@@ -96,17 +105,26 @@ if(strpos($background['type'], 'video') !== false){
 	$video_url  = $background['video_url']; 
 	$video_file['desktop'] = $background['desktop_video']; 
 	$video_file['mobile']  = $background['mobile_video']; 
+
 	$args = array(
-		'controls' => $background['controls'],
+		'controls' => false,
 		'autoplay' => $background['autoplay'],
 		'loop' 	   => $background['loop'],
 		'muted'    => $background['muted'],
 	);
+	if($background['controls']) { 
+		$args['remote_controls'] = true;
+	}
 	//error_log('$type: '.$type);
 	ob_start(); ?>
-	<div class="fp-bg fp-bg--video">
+	<?php if($background['controls']) { ?>
+			<button class="mobile_button d-sm-none video_control paused"></button>
+			<button class="desktop_button d-none d-sm-block video_control paused"></button>
+	<?php } ?>
+	<div class="fp-bg fp-bg--video fp-bg--video-headline">
 		<?php //get_template_part( 'global-templates/component', 'video' ); ?>
 		<?php include(locate_template('global-templates/component-video.php')); ?>
+		
 	</div>
 	<?php
 	$htmlBack .= ob_get_contents();
@@ -131,7 +149,7 @@ if($block_animation) {
 }
 
 if(!$style['block_class']) {
-	$style['block_class'] = "text-center my-auto";
+	$style['block_class'] = "mt-auto mb-5 ";
 }
 if(!$style['content_class']) {
 	$style['content_class'] = "col-md-12";
@@ -139,19 +157,57 @@ if(!$style['content_class']) {
 
 $htmlBody .= '
 <div class="row gblock__headline_body--text '.$animation_css.'">
-	<div id="'.$style['content_id'].'" class="gblock__headline_body--content '.$style['content_class'].' "  >';
+	<div id="'.$style['content_id'].'" class="gblock__headline_body--content hv-50 d-flex flex-column '.$style['content_class'].' "  >';
 
 	if($block_body['headline']) {
-		$htag =  'h2';
+		$headtag    =  'h2';
+		$headclass  =  'mt-auto mt-md-0';
+		$block_cite = '';
 		if (strpos($style['section_class'], 'section-header') !== false) {
-			$htag = 'h1';
+			$headtag   = 'h1';
+			$headclass =  'text-center';
 		}
-		$htmlBody .= '<'.$htag.' class=" gblock__headline_body--htext" style="color:'.$block_body['head_color'].'">'.$block_body['headline'].'</'.$htag.'>';
+		if($block_body['quote']) {
+			$headtag    =  'blockquote';
+			$headclass .= ' h2 mb-5';
+			$block_body['headline'] = "<p>".$block_body['headline']."</p>";
+			if($block_body['cite']) {
+				$block_cite = '<cite style="color:'.$block_body['head_color'].'">'.$block_body['cite']."</cite>";
+			}
+		}
+		$htmlBody .= '<'.$headtag.' class=" gblock__headline_body--htext '.$headclass.'" style="color:'.$block_body['head_color'].'">'.$block_body['headline'].'</'.$headtag.'>'.$block_cite;
 	}
+	
+
+	$htmlCTA = '';
+	if( have_rows($block_body['groupname'])): while ( have_rows($block_body['groupname']) ) : the_row(); 
+		//error_log(print_r($block_body['ctas'],true));
+		if( have_rows('ctas') ){ while ( have_rows('ctas') ) { the_row(); 
+
+			$cta_download = (get_sub_field('download') ? 'download': false);
+			$cta_color    = get_sub_field('color');
+			$cta_bg       = get_sub_field('bgcolor');
+			$cta          = get_sub_field('link');
+
+			$cta_class    = "btn btn-primary btn-cta".($cta_download ?  ' btn-download': '');
+
+			//error_log(print_r($cta,true));
+
+
+			if(is_array($cta) && ( isset($cta['title']) && isset($cta['url']) )  ){
+				$htmlCTA .= '
+					<p>
+					<a class="'.$cta_class.'" role="button" href="'.$cta['url'].'" target="'.$cta['target'].'" style="color:'.$cta_color.'; border-color:'.$cta_color.'; background-color:'.$cta_bg.';" '.$cta_download.'>'.$cta['title'].'</a>
+					</p>';
+			}
+		}}
+	endwhile; endif;
+
 	if($block_body['content']) {
 		$htmlBody .= '
-		<div class="gblock__headline_body--ctext" style="color:'.$block_body['content_color'].'">
+		<div class="gblock__headline_body--ctext mt-md-auto mb-0" style="color:'.$block_body['content_color'].'">
 		'.$block_body['content'].'
+		'.$htmlCTA.'
 		</div>';
 	}
 
@@ -168,25 +224,15 @@ $htmlBody .= '
 
 
 
-/*
-echo '
-<section id="'.$style['section_id'].'" class="section '.$style['section_class'].' " style="'.$section_style.'" data-color="'.$block_color.'" data-bgcolor="'.($block_color_bg?  $block_color_bg : $block_color ).'" >
-'.$htmlBack.'
-	<div id="'.$style['block_id'].'" class="gblock gblock__headline container h-100 d-flex flex-column" >
-		'.$htmlBody.'
-  	</div><!-- /.container-->
-</section> <!-- /section -->';
-*/
 
-/* */
-echo '
-<section id="'.$style['section_id'].'" class="section '.$style['section_class'].' " style="'.$style['section_style'].'" data-menucolor="'.$block_menucolor.'" '.$style['section_data'].' >
+echo $htmlScapeOpen.'
+<section id="'.$style['section_id'].'" class="section section__headline '.$style['section_class'].' " style="'.$style['section_style'].'" '.$style['section_data'].' >
 '.$htmlBack.'
-  <div id="'.$style['block_id'].'" class="   gblock__headline--wrapper container-fluid '.$style['block_class'].' d-flex flex-column">
+  <div id="'.$style['block_id'].'" class="   gblock__headline--wrapper container-fluid  '.$style['block_class'].' d-flex flex-column">
 	'.$htmlBody.'
   </div>
 </section>'
-.$htmlStyle;
-/**/
+.$htmlStyle.$htmlScapeClose;
+
 ?>
 

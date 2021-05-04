@@ -42,10 +42,11 @@ if($type == 'videofile') {
 	if(!$mposter) $mposter = $dposter;
 	if(!$dposter) $dposter = $mposter;
 
-	$controls = ($args['controls'] ? true : false);
-	$autoplay = ($args['autoplay'] ? 'playsinline autoplay' : '');
-	$loop 	  = ($args['loop'] ? 'loop' : '');
-	$muted 	  = ($args['muted'] ? 'muted' : '');
+	$controls  = ($args['controls'] ? true : false);
+	$rcontrols = ($args['remote_controls'] ? true : false);
+	$autoplay  = ($args['autoplay'] ? 'playsinline autoplay' : '');
+	$loop 	   = ($args['loop'] ? 'loop' : '');
+	$muted 	   = ($args['muted'] ? 'muted' : '');
 
 
 
@@ -81,16 +82,20 @@ if($type == 'videofile') {
 	</div>
 	/**/
 
-
-	$cssControls  = ($controls ? 'controlled' : '');
+	$cssControls  = '';
 	$htmlControls = '';
 	if($controls) { 
-		$htmlControls = '<button class="video_control paused"></button>';
+		$mobileControls = '<button class="mobile_button video_control paused"></button>';
+		$desktopControls = '<button class="desktop_button video_control paused"></button>';
+		$cssControls  = 'controlled';
+	}
+	if($rcontrols) { 
+		$cssControls  = 'controlled';
 	}
 
-	$htmlVideo ='<div class="component_video d-sm-none m-auto '.$cssControls.'">
-		'.$htmlControls.'
-		<video '.$mposter.' '.$autoplay.' '.$loop.' '.$muted.' class="">
+	$htmlVideo ='<div class=" component_video d-sm-none m-auto '.$cssControls.'">
+		'.$mobileControls.'
+		<video '.$mposter.' '.$autoplay.' '.$loop.' '.$muted.' class="mobile_video">
 		'.$mmp4.'
 		'.$mogg.'
 		'.$mwebm.'
@@ -99,8 +104,8 @@ if($type == 'videofile') {
 	</div>';
 
 	$htmlVideo .='<div class="component_video d-none d-sm-block m-auto '.$cssControls.'">
-		'.$htmlControls.'
-		<video '.$dposter.' '.$autoplay.' '.$loop.' '.$muted.' class="">
+		'.$desktopControls.'
+		<video '.$dposter.' '.$autoplay.' '.$loop.' '.$muted.' class="desktop_video">
 		'.$dmp4.'
 		'.$dogg.'
 		'.$dwebm.'

@@ -7,20 +7,21 @@
  * Fonts
  */
 $font-light: LubalinGraphStd-ExtraLight, sans-serif;
-$font-medium: LubalinGraphStd-Book, sans-serif;
-$font-bold: LubalinGraphStd-Bold, sans-serif;
+$font-medium: NHaasGroteskTXPro-Regular, sans-serif;
+$font-bold: NHaasGroteskTXPro-Medium, sans-serif;
 
 
 /**
  * Colors
  */
 
-$blue: #051FF6;
+$blue: #032E5F; //rgb(3,46,99)
+$lightblue: rgba(3,46,99, 0.9);
+$grey: #555659;
+$orange: #f28c23;
+
+
 $dark-grey: #70634A; //rgb(112,99,74)
-
-
-
 $green: #93A6A3;
 $dark-green: #122D28;
-$grey: #707070;
 $red: #EC8772;

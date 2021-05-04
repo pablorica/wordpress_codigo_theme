@@ -2,6 +2,8 @@ const Rellax = require('Rellax');
 import slick from '../../slick/slick.min';
 import waypoint from '../../waypoints/jquery.waypoints.min';
 
+let CDG;
+
 (function($) {
 
 	/*'use strict';*/
@@ -64,8 +66,10 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 		/**/
 	}
 
+	let rellax;
 
-	var CDG = {
+
+	CDG = {
 
 		//OnReady functions
 
@@ -78,23 +82,50 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 				
 				$('.component_video.controlled').find('video').each(function(){
 
-					var htmlVideo = $(this).get(0); 
-					var $playButton = $(this).parent().find('button.video_control'); 
+					var htmlVideo     = $(this).get(0); 
+					var displayScreen = 'mobile'; 
+					if($(this).attr('class').indexOf('desktop_video') !== -1 ) {
+						displayScreen = 'desktop'; 
+					}
+					var classButton = 'button.video_control.'+displayScreen+'_button';
+					//console.log($(this).attr('class'));
+
+
+					var $playButton = null, $wrapperVideo = null;
+					if($(this).parent().find('button.video_control').length) {
+						$playButton = $(this).parent().find(classButton); 
+					} else {
+						if($(this).closest('.section').find('button.video_control').length) {
+							$playButton   = $(this).closest('.section').find(classButton); 
+							if($(this).closest('.fp-bg--video-headline').length) {
+								$wrapperVideo = $(this).closest('.fp-bg--video-headline');
+							} 
+						}
+					}
+					//console.log($playButton);
+					
 
 					
 					htmlVideo.onplaying = function() {
 						$playButton.removeClass("paused");
+						if($wrapperVideo.length) {
+							$wrapperVideo.addClass("front");
+						}
 					};
 					
 					htmlVideo.addEventListener("pause", function() {
 						$playButton.addClass("paused");
+						if($wrapperVideo.length) {
+							$wrapperVideo.removeClass("front");
+						}
 					}, true);
 					
 					$(this).on('click',function(){
+						//console.log('video clicked');
 						CDG.playPauseHTMLVideo($playButton,htmlVideo);
 					});
 					$playButton.on('click',function(){
-						console.log('button clicked');
+						//console.log('button clicked');
 						CDG.playPauseHTMLVideo($playButton,htmlVideo);
 					});
 				});
@@ -102,8 +133,10 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 		},
 		playPauseHTMLVideo: function($playButton,htmlVideo) {
 			if ($playButton.hasClass("paused")){
+				//console.log('play');
 				CDG.playHTMLVideo($playButton,htmlVideo);
 			} else {
+				//console.log('pause');
 				CDG.pauseHTMLVideo($playButton,htmlVideo);
 			}
 		},
@@ -129,6 +162,7 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 			slides     = $carousel.data('slides'),
 			info       = $carousel.data('info'),
 			fullbutton = $carousel.data('fullbutton');
+			
 
 			if(arrows === 1) {
 				arrows = true;
@@ -238,12 +272,25 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 				});
 
 			}
+
+
+			if($carousel.find('.nextbutton').length) {
+				$carousel.find('.nextbutton').on('click',function(){
+					$carousel.slick('slickNext');
+				})
+			}
+			if($carousel.find('.prevbutton').length) {
+				$carousel.find('.prevbutton').on('click',function(){
+					$carousel.slick('slickPrev');
+				})
+			}
+
 			
 		},
 		slicksAllSliders: function(){
 			//console.log('launching slick');
 			if ($(document.body).find('.slick-carousel').length) {
-				console.log('loading carousels');
+				//console.log('loading carousels');
 				var $carousels = [];
 				$(document.body).find('.slick-carousel').each(function(){
 
@@ -419,6 +466,89 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 
 
 			});
+
+			//Launch pop-up
+			$('body').find('.modal-trigger').each(function(){
+
+				var $modal = $(this); 
+				$modal.waypoint(function(direction) {
+					if (direction === 'down') {
+						//console.log('modal-trigger touched screen top');
+
+						var modalID = $modal.data('target'), modalUpdated = $modal.data('updated');
+						var popCookie = CDG.getCookie('popupshowed');
+						var createCookie = false;
+						
+
+						if( popCookie === null ) {
+							createCookie = true;
+						} else {
+							//console.log('modal updated on  '+modalUpdated);  // Mon, 22 Mar 2021 20:10:09 GMT
+							//console.log('popCookie created on  '+popCookie);  // Mon, 22 Mar 2021 20:03:59 GMT
+
+							var t2 = Date.parse(modalUpdated);
+							var t1 = Date.parse(popCookie);
+
+							if(t2 > t1) {
+								createCookie = true;
+							}
+
+							//var diffMinutes = parseInt((t2-t1)/(60*1000));
+							//console.log('diffMinutes  '+diffMinutes);
+						}
+
+						if( createCookie ) {
+							var now = new Date();
+							var created = now.toUTCString();
+							var time = now.getTime();
+							var expireTime = time + 1000*3600*24*30; //One month
+							now.setTime(expireTime);
+							document.cookie = 'popupshowed='+created+';expires='+now.toUTCString()+';path=/;SameSite=Strict';
+							//console.log(document.cookie);  // 'Wed, 21 Apr 2021 17:42:22 GMT'
+
+							//console.log('show modal '+modalID);
+							setTimeout(
+								function() {
+									CDG.modal(modalID, 'show');	
+								}, 
+							1500);	
+
+						} else {
+							//console.log('No show pop up'); 
+						}
+					}
+				}, {
+					offset: '75%'
+				})
+
+				
+			});
+
+
+		},
+
+		/* Modal */
+		modal: function(modalID, action = 'show'){
+			if($(modalID).length) {
+				$(modalID).modal(action)
+			}
+		},
+
+		getCookie: function(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			//console.log('decodedCookie ' + decodedCookie)
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return null;
 		},
 
 
@@ -426,33 +556,39 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 		/* Parallax */
 		initRellax: function() {
 			// https://dixonandmoe.com/rellax/
-			//console.log('Starting Rellax');;
-			var rellax = new Rellax('.rellax', {
+			//console.log('Starting Rellax');
+			rellax = new Rellax('.rellax', {
 				speed: -3,
 				center: true
 			});
 		},
+		destroyRellax: function() {
+			// https://github.com/dixonandmoe/rellax#destroy
+			//console.log('Destroying Rellax');
+			rellax.destroy();
+		},
 
 
-        
+
+		
 
 		burgerEffects: function() {
+			
 			//Burger menu effect
-			 $(".navbar-toggler__animated").on("click", function () {
-					$(this).toggleClass("active");
-					$navbar=$(this).closest('.navbar');
-					if($navbar.hasClass("back-white")) {
-						//console.log('removing class');
-						setTimeout(function () {
-						  //console.log('now');
-						  $navbar.removeClass("back-white");
-						}, 500);
-					}
-					else {
-						$navbar.addClass("back-white");
-					}
-
-			  });
+			$(".navbar-toggler").on("click", function () {
+				//$(this).toggleClass("active");
+				const $navbar = $(this).closest('#navbarHeader');
+				if($navbar.hasClass("back-dark")) {
+					//console.log('removing class');
+					setTimeout(function () {
+						//console.log('now');
+						$navbar.removeClass("back-dark");
+					}, 500);
+				}
+				else {
+					$navbar.addClass("back-dark");
+				}
+			});
 		},
 		styleSelects: function() {
 
@@ -495,14 +631,14 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 					}).appendTo($list);
 				}
 				var $listItems = $list.children('li');
-				$styledSelect.click(function(e) {
+				$styledSelect.on('click',function(e) {
 					e.stopPropagation();
 					$('div.select-div-styled.active').not(this).each(function(){
 						$(this).removeClass('active').next('ul.select-options').hide();
 					});
 					$(this).toggleClass('active').next('ul.select-options').toggle();
 				});
-				$listItems.click(function(e) {
+				$listItems.on('click',function(e) {
 					e.stopPropagation();
 					$styledSelect.text($(this).text()).removeClass('active');
 					$this.val($(this).attr('rel'));
@@ -519,7 +655,7 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 					}
 				});
 				/**/
-				$(document).click(function(event) {
+				$(document).on('click',function(event) {
 					classClicked=$(event.target).attr('class');
 
 					if (typeof classClicked !== 'undefined') {
@@ -545,6 +681,43 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 
 			setDocHeight()
 		},
+		searchEffects: function() {
+			//console.log('searchEffects loaded');
+			//Display search form
+			$(".search-link").on("click", function (event) {
+				event.preventDefault();
+				//console.log('search-link clicked');
+				$('form#desktopSearch').toggleClass("active");
+			});
+			$(".search-close").on("click", function (event) {
+				event.preventDefault();
+				$('form#desktopSearch').removeClass("active");
+			});
+
+			$('.search-input').on("keyup",function () {
+				if ($(this).val() == '') {
+					$('button.search-submit').prop('disabled', true);
+				} else {
+					$('button.search-submit').prop('disabled', false);
+				}
+			});
+		},
+
+		/* REST API */
+		restApiFilters: function() {
+			$('body').on("click", ".filters a", function (e) {
+				e.preventDefault();
+			});
+			$('body').on("click", ".vue_lodaded", function (e) {
+				e.preventDefault();
+				if (!$.isMobile()) {
+					//Rellax
+					CDG.destroyRellax()
+					CDG.initRellax();
+				}
+			});
+		},
+
 
 		/* AJAX */
 		ajaxPagination: function() {
@@ -917,19 +1090,16 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 			CDG.handleHTMLVideo();
 			CDG.cssElements();
 			
-			CDG.slicksAllSliders();
-
-			if (!$.isMobile()) {
-				//Rellax
-				CDG.initRellax();
-			}
-
+			//CDG.slicksAllSliders(); //Loaded on Load
 
 			CDG.scrollEffects();
 			CDG.scrollWayPoint();
 			
-			//CDG.burgerEffects();
+			CDG.burgerEffects();
 			//CDG.styleSelects();
+			//CDG.searchEffects(); //Loaded on Load
+
+			CDG.restApiFilters();
 
 			//CDG.dropdownNoPropagation();
 
@@ -948,6 +1118,14 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 
 		onloadFunctions: function() {
             //CDG.addMSGonLoad();
+			CDG.scrollWayPoint();
+			CDG.slicksAllSliders();
+			CDG.scrollEffects();
+			CDG.searchEffects();
+			if (!$.isMobile()) {
+				//Rellax
+				CDG.initRellax();
+			}
         }
     };
 
@@ -960,3 +1138,5 @@ import waypoint from '../../waypoints/jquery.waypoints.min';
 
 
 })(jQuery);
+
+export {CDG}

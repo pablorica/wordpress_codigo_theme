@@ -7,6 +7,9 @@
 	padding: 0;
 	margin: 0;
 }
+@mixin bottom-border {
+	border-bottom: 2px solid white;
+}
 
 
 

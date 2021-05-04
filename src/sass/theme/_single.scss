@@ -1,0 +1,27 @@
+.single-wrapper {
+    h1,.h1 {
+        font-size: 70px;
+        line-height: 1.1;
+    }
+    h2,.h2 {
+        font-size: 40px;
+        line-height: 1.1;
+        margin-bottom:80px;
+    }
+    
+    .single-container {
+        padding-top:80px;
+        padding-bottom: 80px;
+        
+        p, blockquote, figure, ul, h3, h4,h5,h6 {
+            margin-top: 0;
+            margin-bottom: 40px;
+        }
+        figure.wp-block-video,
+        figure.wp-block-image {
+            text-align: center;
+        }
+
+    } 
+    
+}

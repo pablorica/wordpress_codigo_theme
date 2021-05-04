@@ -1,0 +1,10 @@
+.acf-map {
+    width: 100%;
+    padding-bottom: 56.25%;
+    border: none;
+}
+
+// Fixes potential theme css conflict.
+.acf-map img {
+    max-width: inherit !important;
+}

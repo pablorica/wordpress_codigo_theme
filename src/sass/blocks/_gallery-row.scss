@@ -1,9 +1,34 @@
 .gblock__gallery {
+    .card {
+        margin-bottom: 0;
+        height: 100%;
+        
+        &-body {
+            position: relative;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        &-content {
+            height: 25%;
+            height: 25vh;
+            height: vh(25);
+            width: 100%;
+            @media screen and (min-width: 768px) {
+                padding-top: 0;
+                position: absolute;
+                top:0;
+                left:0;
+                height:100%;
+            }
+                
+        }
+    }
     &--img {
-        position: relative;
-        padding-bottom: 100%;
-        &.card-image {
-            padding-bottom: 56.25%;
+        figure {
+            margin: 0;
+            position: relative;
+            padding-bottom: 110%;
         }
         img {
             position: absolute;

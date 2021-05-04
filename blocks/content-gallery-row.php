@@ -21,10 +21,10 @@ $block_color     = (get_field('bgallery_color') ? get_field('bgallery_color') : 
 $block_bgcolor   = (get_field('bgallery_bgcolor') ? get_field('bgallery_bgcolor') : '#FFFFFF'); 
 $block_animation = get_field('bgallery_animation');
 
-$block_menucolor = (get_field('bgallery_menu_color')?get_field('bgallery_menu_color'):'bg-green');
 
 $gallery_type    = get_field('bgallery_type');
-$gallery_columns = (get_field('bgallery_columns') ? get_field('bgallery_columns') : 3); 
+//$gallery_columns = (get_field('bgallery_columns') ? get_field('bgallery_columns') : 2); 
+$gallery_columns = 2; 
 
 
 $col = "col-12";
@@ -51,10 +51,8 @@ switch ($gallery_columns) {
 		$col = "col-sm-6 col-md-6 col-lg-2";
 		break;
 }
-$col .= ' gblock__gallery--col';
-//$container = 'container-fluid';
-$container = 'container';
-
+$col .= ' gblock__gallery--col px-0 loop-mediumpost';
+$container = 'container-fluid'; //'container-xl'
 
 $htmlBody   = '';
 if($gallery_type == 'images'):
@@ -73,47 +71,46 @@ if($gallery_type == 'images'):
 endif; 
 
 if($gallery_type == 'ctas'):
-	$container = 'container-xl';
+
 	if( have_rows('bgallery_ctas') ):
-
+		$int = 0;
 		while( have_rows('bgallery_ctas') ) : the_row();
-			$color    = get_sub_field('color');
-			$bgcolor  = get_sub_field('bgcolor');
-			$headline = (get_sub_field('headline')? '<h4 class="card-title">'.get_sub_field('headline').'</h4>' : '');
-			$content  = (get_sub_field('content')? '<div class="card-excerpt">'.get_sub_field('content').'</div>' : '');
-			$image    = (get_sub_field('image')? '<div class="gblock__gallery--img card-image"><figure>'. wp_get_attachment_image( get_sub_field('image'), 'large').'</figure></div>' : '');
 
-			$htmlCTA  = '';
-			if( have_rows('cta') ){ while ( have_rows('cta') ) { the_row();   
-                $cta_download = (get_sub_field('download') ? 'download': false);
-                $cta_color    = get_sub_field('color');
-                $cta_bg       = get_sub_field('bgcolor');
-                $cta          = get_sub_field('link');
+			$col_img_pos  = '';
+			if($int%4 == 1 ) {
+				$col_img_pos  = 'order-sm-first order-md-last';
+			}
+			if($int%4 == 2 ) {
+				$col_img_pos  = 'order-md-first';
+			}
+			if( $int%4 == 3 ) {
+				$col_img_pos  = 'order-sm-first';
+			}
 
-                $cta_class    = "btn btn-primary btn-cta".($cta_download ?  ' btn-download': '');
-
-                if(is_array($cta) && ( isset($cta['title']) && isset($cta['url']) )  ){
-                    $htmlCTA .= '
-                        <p>
-                        <a class="'.$cta_class.'" role="button" href="'.$cta['url'].'" target="'.$cta['target'].'" style="color:'.$cta_color.'; border-color:'.$cta_color.'; background-color:'.$cta_bg.';" '.$cta_download.'>'.$cta['title'].'</a>
-                        </p>';
-                    
-                }
-            }}
+			$color      = get_sub_field('color');
+			$bgcolor    = get_sub_field('bgcolor');
+			$headline   = (get_sub_field('headline')? '<h3 class="card-title my-auto px-3">'.get_sub_field('headline').'</h3>' : '');
+			$content    = (get_sub_field('content')? '<div class="card-excerpt mt-auto mb-3 px-3">'.get_sub_field('content').'</div>' : '');
+			$image      = (get_sub_field('image')? '<div class="col-sm-6 gblock__gallery--img card-image d-none d-md-block '.$col_img_pos.'"><figure>'. wp_get_attachment_image( get_sub_field('image'), 'large').'</figure></div>' : '');
+			$download   = (get_sub_field('download') ? 'download': false);
+			$open_card  = (get_sub_field('url')? '<a class="row no-gutters" role="button" style="color:'.$color.'; background-color:'.$bgcolor.';" href="'.get_sub_field('url').'" '.$download.'>' : '');
+			$close_card = (get_sub_field('url')? '</a>' : '');
 
 			$htmlBody .= '
 			<div class="'.$col.'">
 				<div class="gblock__gallery--cta card mx-auto" style="color:'.$color.'; background-color:'.$bgcolor.';">
-					<div class="card-body">
-						<div class="card-headline mt-0">
-							'.$headline.'
-							'.$content.'
-							'.$image.'
+					'.$open_card.'
+						<div class="card-body col-sm-6">
+							<div class="card-content d-flex flex-column ">
+								'.$headline.'
+								'.$content.'
+							</div>
 						</div>
-						'.$htmlCTA.'
-					</div>
+						'.$image.'
+					'.$close_card.'
 				</div>
 			</div>';
+			$int ++;
 		endwhile;
 	endif;
 
@@ -195,7 +192,7 @@ if($gallery_type == 'articles'):
 endif; 
 
 
-echo '<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';" data-menucolor="'.$block_menucolor.'">
+echo '<section id="'.$style['section_id'].'" class="section '.$style['section_class'].'" style="color:'.$block_color .';background-color:'.$block_bgcolor.';" >
   <div class="'.$container.'">
 	<div id="'.$style['block_id'].'"  class="'.$style['block_class'].' gblock gblock__gallery" >
 	  <div id="'.$style['content_id'].'" class="row '.$style['content_class'].' '.($block_animation ? 'animate-children fade_in_up' : '').'">

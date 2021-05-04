@@ -24,6 +24,9 @@ if ( ! function_exists( 'codigo_enqueue_scripts' ) ) {
         
         //Imported directly on JS file
         //wp_enqueue_script( 'jarallax', get_stylesheet_directory_uri() . '/parallax/jarallax.min.js"', array(), '1.10.6', true);
+
+        define('VUE_STATUS', 'development');
+		wp_enqueue_script( 'vue',  get_stylesheet_directory_uri().'/vue/js/vue.js', array(), '2.6.11', false);
 	}
 }
 
@@ -39,7 +42,7 @@ function codigo_header_scripts()
         // Create a version number based on the last time the file was modified
         $mainBundleURI     = get_template_directory_uri() . '/dist/main.bundle.js';
         $mainBundlePath    = get_template_directory() . '/dist/main.bundle.js';
-        $mainBundleVersion = (file_exists($mainBundlePath) ? date("ymd-Gis", filemtime($mainBundlePath)) : '2.0.3');
+        $mainBundleVersion = (file_exists($mainBundlePath) ? date("ymd-Gis", filemtime($mainBundlePath)) : '2.1.0');
         wp_register_script('codigo-scripts', $mainBundleURI, array('jquery'), $mainBundleVersion);
 
         // Enqueue it!
@@ -103,7 +106,7 @@ function codigo_styles()
     // Create a version number based on the last time the file was modified
     $customStyleURI     = get_template_directory_uri() . '/dist/style.min.css';
     $customStylePath    = get_template_directory() . '/dist/style.min.css';
-    $customStyleVersion = (file_exists($customStylePath) ? date("ymd-Gis", filemtime($customStylePath)) : '2.0.3');
+    $customStyleVersion = (file_exists($customStylePath) ? date("ymd-Gis", filemtime($customStylePath)) : '2.1.0');
     wp_register_style('codigo-css', get_template_directory_uri() . '/dist/style.min.css', array(), $customStyleVersion, 'all');
     wp_enqueue_style('codigo-css'); // Enqueue it!
 }

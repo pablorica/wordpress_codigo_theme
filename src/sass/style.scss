@@ -30,8 +30,12 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @import "blocks/headline";
 @import "blocks/column";
 @import "blocks/gallery-row";
+@import "blocks/carousel";
+@import "blocks/tabs";
+@import "blocks/modal";
 
 // Partials
+@import "partials/bootstrap";
 @import "partials/header";
 @import "partials/video";
 @import "partials/parallax";
@@ -40,9 +44,16 @@ Use it to make something cool, have fun, and share what you've learned with othe
 @import "partials/card";
 @import "partials/carousel";
 @import "partials/footer";
+@import "partials/tabs";
+@import "partials/map";
+@import "partials/accordion";
+@import "partials/filter";
 
 // Templates
-@import "theme/pageform";
+@import "theme/loop";
+@import "theme/single";
+@import "theme/contact";
+@import "theme/search";
 
 
 

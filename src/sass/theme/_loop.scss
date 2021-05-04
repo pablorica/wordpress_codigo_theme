@@ -1,0 +1,93 @@
+.loop {
+    &-largepost {
+        color: white;
+        @include bottom-border;
+        a {
+            color: white;
+            text-decoration: none;
+        }
+    }
+    
+    &-post {
+        color: white;
+        background-color:$blue;
+        &.blue_lighter {
+            background-color:$lightblue;
+        }
+        a {
+            color: white;
+        }
+        .loop-content {
+            padding:100px 80px;
+        }
+        .loop-title {
+            max-height: 90px;
+            overflow: hidden;
+            a {
+                color: white;
+                text-decoration: none; 
+            }
+        }
+        figure {
+            margin: 0;
+            position: relative;
+            padding-bottom: 56.25%;
+            height:100%;
+            img {
+                position: absolute;
+                top:0;
+                left:0;
+                object-fit: cover;
+                width:100%;
+                height:100%;
+            }
+        }
+    }
+    &-bigpost {
+        .post_excerpt {
+            color: white !important; 
+        }
+        .btn {
+            color: $blue !important; 
+            background-color: white !important; 
+            border-color: white !important; 
+        }
+        &:nth-of-type(2), &-2 {
+            background-color:$orange;
+        }
+        &:nth-of-type(3), &-3  {
+            background-color:$grey;
+        }
+    }
+    &-mediumpost {
+        color:white;
+        background-color:$blue;
+        a {
+            color:white;
+        }
+        &:nth-of-type(2) {
+            background-color:$grey;
+            a {
+                background-color:$grey;
+            }
+        }
+        &:nth-of-type(3) {
+            background-color:$orange;
+            a {
+                background-color:$orange;
+            }
+        }
+        
+    }
+    &-smallpost {
+        &:nth-of-type(3n+2) {
+            background-color:$grey;
+        }
+        &:nth-of-type(3n) {
+            background-color:$orange;
+        }
+    }
+    &-category {
+        display: inline-block;
+    }
+}
