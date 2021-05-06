@@ -97,62 +97,29 @@ if( function_exists('get_field') ) {
             'keywords'          => array( 'pop-up', 'warning', 'text', 'CTA' ),
         );
         
-        /*
-        $info_grid_block = array(
-            'name'              => 'info-grid',
-            'title'             => __('Info Grid'),
-            'description'       => __('Codigo data displayed in a grid.'),
+        $counter_block = array(
+            'name'              => 'counter',
+            'title'             => __('Counter'),
+            'description'       => __('Codigo counter block.'),
             'render_callback'   => 'my_acf_block_render_callback',
+            //'render_template'   => get_stylesheet_directory()  . '/template-parts/block/content-testimonial.php',
             'category'          => 'codigo-blocks',
-            'icon'              => 'editor-kitchensink',
-            'mode'              => 'editor',
-            'keywords'          => array( 'mosaic', 'data', 'grid', 'text' ),
+            'icon'              => 'backup',
+            'mode'              => 'preview',
+            'keywords'          => array( 'counter', 'scroll', 'number' ),
         );
 
-        $formatted_block = array(
-            'name'              => 'formatted-section',
-            'title'             => __('Formatted Section'),
-            'description'       => __('Codigo formatted section block.'),
+        $instagram_block = array(
+            'name'              => 'instagram',
+            'title'             => __('Instagram'),
+            'description'       => __('Codigo Instagram block.'),
             'render_callback'   => 'my_acf_block_render_callback',
+            //'render_template'   => get_stylesheet_directory()  . '/template-parts/block/content-testimonial.php',
             'category'          => 'codigo-blocks',
-            'icon'              => 'admin-appearance',
+            'icon'              => 'instagram',
             'mode'              => 'preview',
-            'keywords'          => array( 'paragraph', 'background', 'columns' ),
+            'keywords'          => array( 'instagram', 'shortcode' ),
         );
-
-        $articles_block = array(
-            'name'              => 'articles-row',
-            'title'             => __('Articles Row'),
-            'description'       => __('Codigo Articles Row block.'),
-            'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'codigo-blocks',
-            'icon'              => 'excerpt-view',
-            'mode'              => 'preview',
-            'keywords'          => array( 'article', 'post', 'image', 'link', 'excerpt' ),
-        );
-        
-        $accordion_block = array(
-            'name'              => 'accordion',
-            'title'             => __('Accordion'),
-            'description'       => __('Codigo Accordion block.'),
-            'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'codigo-blocks',
-            'icon'              => 'feedback',
-            'mode'              => 'preview',
-            'keywords'          => array( 'article', 'post', 'text', 'excerpt' ),
-        );
-        
-        $slider_block = array(
-            'name'              => 'images-slider',
-            'title'             => __('Images Slider'),
-            'description'       => __('Codigo Simple Images Slider block.'),
-            'render_callback'   => 'my_acf_block_render_callback',
-            'category'          => 'codigo-blocks',
-            'icon'              => 'format-gallery',
-            'mode'              => 'preview',
-            'keywords'          => array( 'article', 'post', 'text', 'excerpt' ),
-        );
-        */
 
         acf_register_block_type($headline_block);
         acf_register_block_type($onecolumn_block);
@@ -162,6 +129,8 @@ if( function_exists('get_field') ) {
         acf_register_block_type($tabs_block);
         acf_register_block_type($loadpages_block);
         acf_register_block_type($modal_block);
+        acf_register_block_type($counter_block);
+        acf_register_block_type($instagram_block);
     }
 
     // Check if function exists and hook into setup.

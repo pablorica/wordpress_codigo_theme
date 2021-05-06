@@ -520,10 +520,42 @@ let CDG;
 				}, {
 					offset: '75%'
 				})
-
-				
 			});
 
+				
+			//Launch number counter
+			$('body').find('.counter-trigger').each(function(){
+
+				var $counter = $(this); 
+				$counter.waypoint(function(direction) {
+					if (direction === 'down') {
+						//console.log('modal-trigger touched screen top');
+						
+						const countTo = $counter.data('end');
+						$({
+							countNum: $counter.text()
+						}).animate({
+							countNum: countTo
+						},
+						{
+							duration: 3000,
+							easing: 'swing',
+							step: function() {
+								$counter.text(Math.floor(this.countNum));
+							},
+							complete: function() {
+								$counter.text(this.countNum);
+								//alert('finished');
+							}
+
+						});
+
+
+					}
+				}, {
+					offset: '75%'
+				})
+			});
 
 		},
 

@@ -56,5 +56,11 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ### Changelog
 
+- 2.1.2
+	- Adding Counter Block
+
+- 2.1.1
+	- Adding Instagram block
+
 - 2.1.0
 	- Adding VUE files
