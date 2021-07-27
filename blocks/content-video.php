@@ -1,8 +1,8 @@
 <?php
 /**
- * Block Name: Counter
+ * Block Name: Video
  *
- * This is the template that displays the counter block.
+ * This is the template that displays the video block.
  *
  * @param   array $block The block settings and attributes.
  * @param   bool $is_preview True during AJAX preview.
