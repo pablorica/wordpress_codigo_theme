@@ -59,6 +59,7 @@ Thumbs.db
 
 
 # ignore files that a local computer might use for its own convenience
+.DS_Store
 *.swp
 *.pyc
 
@@ -71,7 +72,6 @@ Thumbs.db
 *.codekit
 *.sh
 *.orig
-
 
 
 
