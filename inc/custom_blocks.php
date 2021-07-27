@@ -52,6 +52,16 @@ if( function_exists('get_field') ) {
             'mode'              => 'preview',
             'keywords'          => array( 'article', 'section', 'post', 'image', 'link', 'excerpt', 'one column' ),
         );
+        $floatcolumns_block = array(
+            'name'              => 'floating-columns',
+            'title'             => __('Floating Columns'),
+            'description'       => __('Codigo Floating Columns block.'),
+            'render_callback'   => 'my_acf_block_render_callback',
+            'category'          => 'codigo-blocks',
+            'icon'              => 'layout',
+            'mode'              => 'preview',
+            'keywords'          => array( 'article', 'section', 'post', 'image', 'link', 'excerpt', 'column' , 'floating'),
+        );
         $gallery_block = array(
             'name'              => 'gallery-row',
             'title'             => __('Gallery Row'),
@@ -121,9 +131,34 @@ if( function_exists('get_field') ) {
             'keywords'          => array( 'instagram', 'shortcode' ),
         );
 
+        $slider_block = array(
+            'name'              => 'slider',
+            'title'             => __('Slider'),
+            'description'       => __('Codigo slider block.'),
+            'render_callback'   => 'my_acf_block_render_callback',
+            //'render_template'   => get_stylesheet_directory()  . '/template-parts/block/content-testimonial.php',
+            'category'          => 'codigo-blocks',
+            'icon'              => 'slides',
+            'mode'              => 'preview',
+            'keywords'          => array( 'carousel', 'slider', 'image', 'link' ),
+        );
+
+        $video_block = array(
+            'name'              => 'video',
+            'title'             => __('Video'),
+            'description'       => __('Codigo video block.'),
+            'render_callback'   => 'my_acf_block_render_callback',
+            //'render_template'   => get_stylesheet_directory()  . '/template-parts/block/content-testimonial.php',
+            'category'          => 'codigo-blocks',
+            'icon'              => 'video-alt',
+            'mode'              => 'preview',
+            'keywords'          => array( 'video', 'scroll', 'autoplay' ),
+        );
+
         acf_register_block_type($headline_block);
         acf_register_block_type($onecolumn_block);
         acf_register_block_type($twocolumns_block);
+        acf_register_block_type($floatcolumns_block);
         acf_register_block_type($gallery_block);
         acf_register_block_type($carousel_block);
         acf_register_block_type($tabs_block);
@@ -131,6 +166,8 @@ if( function_exists('get_field') ) {
         acf_register_block_type($modal_block);
         acf_register_block_type($counter_block);
         acf_register_block_type($instagram_block);
+        acf_register_block_type($slider_block);
+        acf_register_block_type($video_block);
     }
 
     // Check if function exists and hook into setup.
@@ -200,10 +237,10 @@ if( function_exists('get_field') ) {
     	
         $htmlBody   = '';
         
-        $inner_col_class = "col-xl-9 mx-auto";
+        $inner_col_class = "col-xl-12 mx-auto";
 
         if($body['classname'] == 'onecolumn') {
-            $inner_col_class = "col-md-9 mx-auto";
+            $inner_col_class = "col-md-12 mx-auto";
         }
         if($body['classname'] == 'twocolumns-left') {
             //$inner_col_class = "col-12 mx-auto col-xl-10 mr-xl-auto ml-xl-0 pr-xl-0";
@@ -214,7 +251,7 @@ if( function_exists('get_field') ) {
             $inner_col_class = "col-12 mx-auto";
         }
 
-        $inner_col_class .= " ".$body['content_class'];
+        $inner_col_class .= " content ".$body['content_class'];
 
         $fade_animation = 'fade_in_up';
         if (strpos($body['classname'], 'left') !== false) {
@@ -229,7 +266,7 @@ if( function_exists('get_field') ) {
         
         $htmlCTA ='';
         if( have_rows($body['groupname'])): while ( have_rows($body['groupname']) ) : the_row(); 
-
+            $addWrapper   = false;
             if( have_rows('ctas') ){ while ( have_rows('ctas') ) { the_row();   
                 $cta_download = (get_sub_field('download') ? 'download': false);
                 $cta_color    = get_sub_field('color');
@@ -274,11 +311,33 @@ if( function_exists('get_field') ) {
             $mobile_image  = wp_get_attachment_image($body['mobile_image'], 'large', false, array('class'=>'d-md-none m-auto'));
             $desktop_image = wp_get_attachment_image($body['desktop_image'], 'full', false, array('class'=>'d-none d-md-block m-auto'));
             $htmlBody .= '
-            <figure class="gblock__'.$body['classname'].'_body--image h-100">
+            <figure class="gblock__'.$body['classname'].'_body--image h-100 content">
                 '.$mobile_image.'
                 '.$desktop_image.'
             </figure>';
         }
+        if($body['type'] == 'inner') {
+
+            $post_id = $body['inner'];
+
+            if(get_post_thumbnail_id($post_id)) {
+				$post_image = get_the_post_thumbnail($post_id, 'large');
+			} else {
+				$default_image = get_field('general_default_image','option');
+				$post_image    = wp_get_attachment_image($default_image, 'large');
+			}
+            $htmlBody .= '
+            <a class="card-link" href="'.get_permalink($post_id).'">
+                <div class="card-image">
+                    <figure class="gblock__'.$body['classname'].'_body--image h-100 content">
+                        '.$post_image.'
+                    </figure>
+                </div>
+                <h3 class="card-title">'.strtoupper(get_the_title($post_id)).'</h3>
+            </a>
+            ';
+        }
+        
         elseif($body['type'] == 'carousel') {
 
             $htmlBody   = '';
@@ -288,7 +347,7 @@ if( function_exists('get_field') ) {
             $carousel_navdots  = ($body['dots'] ? true: false);
             if($block_images):
                 $htmlBody .= '
-                <div class="gblock__'.$body['classname'].'_body--carousel h-100">
+                <div class="gblock__'.$body['classname'].'_body--carousel h-100 content">
                     <div class="w-100 p-0 m-auto slick-carousel-wrapper '.($body['animation'] ? 'animate-children '.$fade_animation : '').'">
                         <div class="slick-carousel" data-autoplay='.$carousel_autoplay.' data-arrows='.$carousel_arrows.' data-dots='.$carousel_navdots.' >';
 
@@ -362,7 +421,7 @@ if( function_exists('get_field') ) {
             );
             //error_log($type);
             ob_start(); ?>
-            <div class="gblock__<?=$body['classname']?>_body--video ">
+            <div class="gblock__<?=$body['classname']?>_body--video content">
                 <?php //get_template_part( 'global-templates/component', 'video' ); ?>
                 <?php include(locate_template('global-templates/component-video.php')); ?>
             </div>
@@ -371,9 +430,60 @@ if( function_exists('get_field') ) {
             ob_end_clean();
         }
 
-        if($body['column_custom']) {
-            $htmlBody = '<div class="column-wrapper-inner" data-acolor="'.$body['column_color'] .'" style="color:'.$body['column_color'] .';background-color:'.$body['column_bgcolor'].';">'.$htmlBody.'</div>';
+
+        $column_style = '';
+        if($body['classname'] == 'floatcolumns') {
+            //$inner_col_class = "col-12 mx-auto col-xl-10 ml-xl-auto mr-xl-0 pl-xl-0 ";
+            $column_style = "
+            #".$body['id']." {
+                width: 100%;
+                height: auto;
+                max-width: 100%;
+                
+            }
+            
+            @media screen and (min-width: 992px) {
+                #".$body['id']." {
+                    position: absolute;
+                    top: ".($body['top']?$body['top']:0)."vh;
+                    left:".($body['left']?$body['left']:0)."vw;
+                    width: ".($body['width']?$body['width']:50)."vw;
+                    height: ".($body['height']?$body['height']:50)."vw;
+                    z-index: ".($body['index']?$body['index']:10).";
+                    max-width: 100vw;
+                }
+            }";
+
+            if($body['type'] == 'text') {
+                $column_style .= "
+                @media screen and (max-width: 991px) {
+                    #".$body['id']." {
+                        text-align: center;
+                    }
+                }
+                ";
+            }
+            if($body['type'] == 'image' || $body['type'] == 'inner') {
+                $padding_class = 'padding-right';
+                if($body['number']%2 == 0) $padding_class = 'padding-left';
+                $column_style .= "
+                @media screen and (max-width: 991px) {
+                    #".$body['id']." figure {
+                        ".$padding_class.": 20vw;
+                    }
+                }
+                ";
+            }
         }
+
+        if($body['column_custom']) {
+            if($body['classname'] == 'onecolumn') {
+                $htmlBody = '<div class="column-wrapper-inner"  style="color:'.$body['column_color'] .';background-color:'.$body['column_bgcolor'].';">'.$htmlBody.'</div>';
+            }
+            $column_style .= $body['column_style'];
+        }
+
+        $htmlBody .= ($column_style ? '<style>'. $column_style.'</style>' : '');
         
 
         return $htmlBody;
@@ -422,6 +532,11 @@ function hb_acf_custom_fonts() {
             background-repeat: no-repeat;
             border: none;
             z-index: 10;
+        }
+        .acf-block-preview .content {
+            position: static !important;
+            overflow: hidden !important;
+            max-width: 100% !important;
         }
 
         .acf-block-preview .fp-bg__twocolumns-left,
@@ -516,6 +631,14 @@ function hb_acf_custom_fonts() {
         }
         .acf-block-preview .gblock__tabs  .tab-content div.tab-pane + div.tab-pane {
             display:none;
+        }
+
+        .acf-block-preview .gblock__floatcolumns {
+            overflow:hidden;
+        }
+        .acf-block-preview .gblock__floatcolumns .floating-column {
+            position:static !important;
+            height:auto !important;
         }
     </style>';
 }

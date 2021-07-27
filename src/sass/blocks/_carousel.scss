@@ -1,8 +1,6 @@
-.section__carousel {
-    @include bottom-border;
-}
 .gblock__carousel {
     text-decoration: none;
+    overflow: hidden;
     &:hover,&:focus,&:active, 
     a, a:hover,a:focus,a:active {
         text-decoration: none;
@@ -13,6 +11,7 @@
     figure {
         margin: 0;
         position: relative;
+        padding-bottom:56.25%;
         img {
             position: absolute;
             top:0;
@@ -25,16 +24,16 @@
     &_slide {
         color: white;
         position: absolute;
-        top:50%;
+        top:0;
         left:0;
         width: 100%;
-        @media screen and (min-width: 768px) {
-            padding-left:80px;
-            padding-right: 80px;
-        }
-        &--ctext {
-            max-width: 600px;
-            position: relative;
+        height:100%;
+        &--ctext-absolute {
+            //max-width: 600px;
+            position: absolute;
+            bottom: 100px;
+            width: 100%;
+            left:0;
         }
         &--arrows {
             padding-top:40px

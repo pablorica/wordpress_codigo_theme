@@ -2,17 +2,23 @@
  * partials/footer
  * ---
  */
- footer.footer {
+footer.footer {
   padding-top:45px;
-  padding-bottom:40px;  
+  padding-bottom:40px; 
+  font-size: 14px;
+  line-height: 1.1; 
   @media screen and (min-width: 768px) {
     padding-top:85px;
     padding-bottom:80px;
 		padding-left:0;
 		padding-right: 0;
 	}
-  color: $blue;
-  background-color: white;
+  @media screen and (min-width: 992px)  {
+    font-size: 16px;
+  }  
+  @media screen and (min-width: 1500px)  {
+    font-size: 21px;
+  } 
   
   a {
     color:inherit;
@@ -29,6 +35,39 @@
       padding:0;
     }
   }
+  h5,.h5 {
+    font-size: 14px;
+    line-height: 1.1;
+    margin-bottom: 0.1rem;
+    @media screen and (min-width: 992px)  {
+      font-size: 16px;
+    }  
+    @media screen and (min-width: 1500px)  {
+      font-size: 21px;
+    }
+  }
+  .column-1 {
+    padding-right: 20px !important;
+    @media screen and (min-width: 1200px) and (max-width: 1499px)  {
+			//max-width: 20%;
+		}
+    @media screen and (min-width: 1500px) and (max-width: 1800px)  {
+			max-width: 30%;
+		}
+    img {
+      @media screen and (min-width: 1200px) and (max-width: 1499px)  {
+        max-width: 200px;
+      }
+    }
+  }
+  .column-4 {
+    @media screen and (min-width: 1200px) and (max-width: 1499px)  {
+			//margin-left: 20%;
+		}
+    @media screen and (min-width: 1500px) and (max-width: 1800px)  {
+			margin-left: 30%;
+		}
+ }
   .footer-logo {
 		width: 90px;
 		@media screen and (min-width: 768px) {
@@ -44,25 +83,4 @@
 			width: 160px;
 		}
 	}
-  .footer-media {
-      list-style:none;
-      padding:0;
-      margin:0;
-      text-align: left;
-      li {
-        list-style:none;
-        padding:0;
-        margin:0 14px 0 0;
-        display:inline;
-      }
-      img {
-        width:40px;
-        height: 40px;
-      }
-  }
-  .footer-copyright {
-    @media screen and (min-width: 768px) {
-      min-height:300px;
-    }
-  }
 }

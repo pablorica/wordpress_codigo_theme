@@ -25,8 +25,10 @@ if ( ! function_exists( 'codigo_enqueue_scripts' ) ) {
         //Imported directly on JS file
         //wp_enqueue_script( 'jarallax', get_stylesheet_directory_uri() . '/parallax/jarallax.min.js"', array(), '1.10.6', true);
 
-        define('VUE_STATUS', 'development');
-		wp_enqueue_script( 'vue',  get_stylesheet_directory_uri().'/vue/js/vue.js', array(), '2.6.11', false);
+        //define('VUE_STATUS', 'development');
+        //wp_enqueue_script( 'vue',  get_stylesheet_directory_uri().'/vue/js/vue.js', array(), '2.6.11', false);
+        define('VUE_STATUS', 'production');
+		wp_enqueue_script( 'vue',  get_stylesheet_directory_uri().'/vue/js/vue.min.js', array(), '2.6.11', false);
 	}
 }
 

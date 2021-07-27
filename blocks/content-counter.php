@@ -20,19 +20,14 @@ $style 					= get_field('bcounter_style');
 $style['section_style'] = "";
 $style['section_data']  = "";
 
-$block_menucolor = (get_field('bcounter_menu_color')?get_field('bcounter_menu_color'):'bg-green');
-
 
 $htmlBack   = '';
 $htmlStyle  = '';
 $background = get_field('bcounter_background'); 
 if($background['type'] == 'color') {
-	$htmlBack .= '
-	<div class="fp-bg" style="background-color:'.$background['background_colour'].'"></div>';
-	$block_color_bg = $background['background_colour'];
+	$style['section_style'] .= " background-color:".$background['background_colour'].";";
 
 	if($background['fullscreen']){
-		$style['section_style'] .= " background-color:".$background['background_colour'].";";
 		$style['section_class'] .= " d-flex hv-100";
 	}
 }
@@ -41,7 +36,6 @@ if($background['type'] == 'image') {
 	if(!$background['mobile_image']) $background['mobile_image'] = $background['desktop_image'];
     if(!$background['desktop_image']) $background['desktop_image'] = $background['mobile_image'];
 
-	
 
 	if($background['parallax']){
 
@@ -163,7 +157,7 @@ $htmlBody .= '
 
 
 echo '
-<section id="'.$style['section_id'].'" class="section '.$style['section_class'].' " style="'.$style['section_style'].'" data-menucolor="'.$block_menucolor.'" '.$style['section_data'].' >
+<section id="'.$style['section_id'].'" class="section '.$style['section_class'].' " style="'.$style['section_style'].'" '.$style['section_data'].' >
 '.$htmlBack.'
   <div id="'.$style['block_id'].'" class="gblock__counter container-fluid '.$style['block_class'].' d-flex flex-column">
 	'.$htmlBody.'

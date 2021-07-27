@@ -12,11 +12,6 @@ Based in [wp-bootstrap4-sass](https://github.com/tone4hook/wp-bootstrap4-sass)
 
 * Run *npm run watch* for Webpack development watch
 
-### Import Data
-
-* Import `_export_files/Export.File.xml`  
-* Import `_export_files/acf-export.json` 
-
 ## Dev Dependencies
 
 *Note:* Using the extract-text-webpack-plugin Beta version since it plays better with Webpack 4; *npm i -D extract-text-webpack-plugin@next*
@@ -53,14 +48,3 @@ MIT
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/pablorica/wordpress_codigo_theme/tags).
-
-### Changelog
-
-- 2.1.2
-	- Adding Counter Block
-
-- 2.1.1
-	- Adding Instagram block
-
-- 2.1.0
-	- Adding VUE files
