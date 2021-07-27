@@ -6,22 +6,29 @@
 /**
  * Fonts
  */
-$font-light: LubalinGraphStd-ExtraLight, sans-serif;
-$font-medium: NHaasGroteskTXPro-Regular, sans-serif;
-$font-bold: NHaasGroteskTXPro-Medium, sans-serif;
+$font-light: Graphik-Light, sans-serif;
+$font-medium: Graphik-Regular, sans-serif;
+$font-bold: Graphik-Bold, sans-serif;
 
 
 /**
  * Colors
  */
 
-$blue: #032E5F; //rgb(3,46,99)
-$lightblue: rgba(3,46,99, 0.9);
+
+$brown: #56220F; //rgb(86,34,15)
+$orange: #FF4600; //rgb(255,70,0)
+$coral: #FF675D; //rgb(178,224,225)
+$cyan: #B2E0E1; //rgb(255,103,93)
+$lightblue:#C2EFEB;
+$pink: #F6CDD7;
+$red: #FF4D00;
+
+
+
+$blue: #4E5780; 
+$green: #579E99;
 $grey: #555659;
-$orange: #f28c23;
-
-
 $dark-grey: #70634A; //rgb(112,99,74)
-$green: #93A6A3;
 $dark-green: #122D28;
-$red: #EC8772;
+

@@ -56,6 +56,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ### Changelog
 
+- 2.2
+	- REST API filters 
+    - Floating parallax elements
+
 - 2.1.2
 	- Adding Counter Block
 

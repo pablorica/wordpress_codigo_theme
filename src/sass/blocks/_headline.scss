@@ -1,18 +1,29 @@
 
-.section__headline {
-  @include bottom-border;
-}
 .gblock__headline {
+  font-size: 25px;
+  @media screen and (min-width: 768px) {
+    font-size: 70px;
+  }
+
   text-decoration: none;
   &:hover,&:focus,&:active, 
   a, a:hover,a:focus,a:active {
     text-decoration: none;
   }
+  cite {
+    font-size: 18px;
+    line-height: 1.1; 
+
+    @media screen and (min-width: 992px)  {
+      font-size: 26px;
+    }  
+    @media screen and (min-width: 1200px)  {
+      font-size: 30px;
+    } 
+  }
   &--wrapper {
-    
     @media screen and (min-width: 768px) {
-      padding-left:80px;
-      padding-right: 80px;
+
     }
   }
   &_body--wtext {
@@ -21,8 +32,10 @@
   &_body--content {
     color: white;
   }
-  &_body--ctext {
-    max-width: 600px;
+  &_body--ctas {
+    .btn-cta {
+      margin-top: 0;
+    }
   }
   &_body--logo {
     img, svg {

@@ -1,61 +1,36 @@
 
-input:not([type=checkbox]):not([type=radio]):not([type="submit"]):not([type="button"]):not([type="reset"]),
-textarea {
-  border-radius: 10px;
-  padding: 15px 35px;
-  min-width: 200px;
-  width: 100%;
-  border: 1px solid $blue;
 
-  font-family: $font-bold;
-  color:$blue;
-
-  
-  &::placeholder {
-    font-family: $font-bold;
-    color:$blue;
-    opacity: 1;
-  }
-}
-input[type=button], input[type=submit], input[type=reset],
+//Buttons
 .btn {
   font-family: $font-bold;
-  font-size:14px;
-  line-height: 1;
-  @media screen and (min-width: 768px) {
-		font-size: 10px;
-	} 
-	@media screen and (min-width: 992px)  {
-		font-size: 11px;
-	}  
-	@media screen and (min-width: 1200px)  {
-		font-size: 13px;
-	}
-	@media screen and (min-width: 1920px)  {
-		font-size: 20px;
-	}
+  font-size:20px;
+  line-height: 18px;
 
-  text-transform: none;
+  text-transform: uppercase;
   text-decoration: none;
 
-  border-radius: 10px;
-  padding: 15px 35px;
-  min-width: 200px;
-
-  border: none;
+  border-radius: 0;
+  padding: 14px 35px 10px 35px;
   
   &:hover {
     text-decoration: none;
   }
-
+  &:focus, &.focus {
+    outline: 0;
+    box-shadow:none;
+    text-decoration: none;   
+  }
 }
-input[type=button], input[type=submit], input[type=reset] {
-  background-color: $blue;
-  color: white;
 
-}
-.btn-cta {
-  margin-top: 40px;
+
+
+.btn-secondary {
+  @include text-box;
+
+  &:hover,&:focus,&:active,&.active ,
+  &:not(:disabled):not(.disabled):active, &:not(:disabled):not(.disabled).active, .show > &.dropdown-toggle {
+    @include text-box-selected
+  }
 }
 .btn-hidden {
   opacity: 0;
@@ -64,78 +39,110 @@ input[type=button], input[type=submit], input[type=reset] {
   left: 0;
 }
 
-.btn-secondary {
-  background-color: white !important;
-  color: $blue !important;
-}
-.btn-tertiary {
-  background-color: white !important;
-  color: $blue !important;
-  border: 1px solid $blue;
-  &.active,
+
+input[type='submit'] {
+  @include text-box;
+  font-family: $font-light;
+  font-size: 21px !important;
+  width: calc(100vw - 30px);
+  margin:auto;
+  @media screen and (min-width: 446px) {
+    width: 325px;
+  }
+
   &:hover {
-    background-color: $blue !important;
-    color: white !important;
+    @include text-box-selected
   }
 }
-.btn-quaternary {
-  background-color: white !important;
-  color: $blue !important;
-  border: none;
+
+
+//Contact Form 7
+
+.wpcf7 {
+  text-align: center;
+  p {
+    margin-bottom: 100px;
+  }
+  h3 {
+    margin-bottom:25px;
+  }
+}
+
+div.wpcf7 .ajax-loader {
   display: block;
-  font-family: $font-medium;
-  
-  position: relative;
-  font-size: 18px;
-	line-height: 1.1;
-  
-  @media screen and (max-width: 767px) {
-    padding:70px 0 0 0; 
-    min-width: 0;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: $pink;
+  margin-top: 2rem;
+  &::before {
+    background-color: $brown;
   }
-  @media screen and (min-width: 768px) {
-    font-size: 16px;
-    padding-top:70px; 
-  }
-  @media screen and (min-width: 992px)  {
-    font-size: 21px;
-    padding-top:90px;
-  }  
-  @media screen and (min-width: 1200px)  {
-    font-size: 25px;
-    padding-top:110px;
-  }
-  @media screen and (min-width: 1920px)  {
-    font-size: 40px;
-    padding-top:150px;
-  }
+}
+.wpcf7 form.sent .wpcf7-response-output {
+  border-color: $pink;
+}
 
-  &:before {
-    content:'';
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: $blue;
 
-    height: 60px;
-    width: 60px;
-    border-radius: 10px;
-    @media screen and (min-width: 992px)  {
-      height: 80px;
-      width: 80px;
-    }  
-    @media screen and (min-width: 1200px)  {
-      height: 100px;
-      width: 100px;
+.wpcf7-text {
+  @include text-box;
+  font-family: $font-light;
+  font-size: 21px !important;
+  padding: 0 10px;
+  width: calc(100vw - 30px);
+  margin: auto;
+  @media screen and (min-width: 446px) {
+    width: 100%;
+    max-width: 668px;
+  }
+}
+
+
+
+
+//Radio
+.wpcf7-radio {
+  .wpcf7-list-item {
+    margin: 0;
+    @media screen and (min-width: 446px) {
+      margin: 0 0.5em;
     }
-    @media screen and (min-width: 1920px)  {
-      height: 145px;
-      width: 145px;
+    input {
+      display:none
+    }
+    .wpcf7-list-item-label {
+      @include text-box;
+      font-family: $font-light;
+      font-size: 21px !important;
+      width: calc(100vw - 30px);
+      @media screen and (min-width: 446px) {
+        width: 325px;
+      }
+      small {
+        font-family: $font-medium;
+        font-size: inherit;
+	      line-height: inherit;
+      }
+      
+    }
+    input:checked ~ .wpcf7-list-item-label {
+      @include text-box-selected
     }
   }
-  &.active,
-  &:hover {
-    font-family: $font-bold;
+}
+
+.wpcf7-form-control-wrap {
+  display: block;
+  margin:auto;
+  /*
+  &.time-appointment {
+    max-width: 700px;
+  }
+  */
+  &.how-to-view {
+    .wpcf7-list-item.first {
+      @media screen and (min-width: 992px) {
+        transform:translateY(-12px);
+      }
+    }
   }
 }

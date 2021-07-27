@@ -7,8 +7,91 @@
 	padding: 0;
 	margin: 0;
 }
+@mixin text-box {
+	//display: inline-block;
+	//padding: 35px 1rem 30px 1rem;
+
+	display: flex;
+    justify-content: center;
+    align-items: center;
+	flex-direction: column;
+
+	padding: 0;
+	border: 1px solid $pink;
+	overflow: hidden;
+
+	text-transform: uppercase;
+	font-family: $font-medium;
+	font-size: 18px;
+	line-height: 1.1;
+
+	border-color: $pink;
+	background-color: transparent;
+	color: $pink;
+
+	cursor: pointer;
+	transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+	height:58px;
+	min-width: 1px;
+	width: 100%;
+	@media screen and (min-width: 992px)  {
+		font-size: 25px;
+	}  
+	@media screen and (min-width: 1200px)  {
+		font-size: 30px;
+		min-width: 325px;
+	}
+	
+}
+@mixin text-box-selected {
+	border-color: $red;
+    background-color: $red;
+    color: white;
+}
+
 @mixin bottom-border {
 	border-bottom: 2px solid white;
+}
+@mixin bootstrap-padding {
+	padding-right: 20px;
+    padding-left: 20px;
+    @media screen and (min-width: 768px) {
+        padding-right: 32px;
+        padding-left: 32px;
+    }
+    @media screen and (min-width: 992px)  {
+        padding-right: 40px;
+        padding-left: 40px;
+    }  
+    @media screen and (min-width: 1200px)  {
+        padding-right: 50px;
+        padding-left: 50px;
+    }
+    @media screen and (min-width: 1920px)  {
+        padding-right: 80px;
+        padding-left: 80px;
+    }
+}
+@mixin bootstrap-margin {
+	margin-right: -20px;
+    margin-left: -20px;
+    @media screen and (min-width: 768px) {
+        margin-right: -32px;
+        margin-left: -32px;
+    }
+    @media screen and (min-width: 992px)  {
+        margin-right: -40px;
+        margin-left: -40px;
+    }  
+    @media screen and (min-width: 1200px)  {
+        margin-right: -50px;
+        margin-left: -50px;
+    }
+    @media screen and (min-width: 1920px)  {
+        margin-right: -80px;
+        margin-left: -80px;
+    }
 }
 
 
@@ -33,3 +116,4 @@
 @function rvh($q1,$q2) {
 	@return calc(var(--vh, 1vh) * #{$q1} - #{$q2});
 }
+

@@ -18,6 +18,7 @@
 						$post_image_url = wp_get_attachment_image_url($default_image, 'full');
 					}
 					$parallax = get_field('pageoptions_parallax');
+					$title    = get_field('pageoptions_uppercase') ? strtoupper(get_the_title()) : get_the_title();
 				?>
 
 
@@ -35,7 +36,7 @@
                             <div class="gblock__headline--wrapper container-fluid  mt-auto mb-5  d-flex flex-column">
                                 <div class="row gblock__headline_body--text scene_element scene_element--fadeinup">
                                     <div class="gblock__headline_body--content hv-50 d-flex flex-column col-md-12 ">
-                                        <h1 class=" gblock__headline_body--htext text-center" style="color:<?php the_field('pageoptions_title_color'); ?>"><?php the_title(); ?></h1>
+                                        <h1 class=" gblock__headline_body--htext text-center" style="color:<?php the_field('pageoptions_title_color'); ?>"><?php echo $title ?></h1>
                                     </div>
                                 </div>
                             </div>

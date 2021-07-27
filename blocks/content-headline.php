@@ -36,21 +36,17 @@ $htmlBack   = '';
 $htmlStyle  = '';
 $background = get_field('bheadline_background'); 
 if($background['type'] == 'color') {
-	$htmlBack .= '
-	<div class="fp-bg" style="background-color:'.$background['background_colour'].'"></div>';
-	$block_color_bg = $background['background_colour'];
+	$style['section_style'] .= " background-color:".$background['background_colour'].";";
 
 	if($background['fullscreen']){
-		$style['section_style'] .= " background-color:".$background['background_colour'].";";
-		$style['section_class'] .= " d-flex hv-100";
-	}
+        $style['section_class'] .= " d-flex hv-100";
+	} 
 }
 if($background['type'] == 'image') {
 
 	if(!$background['mobile_image']) $background['mobile_image'] = $background['desktop_image'];
     if(!$background['desktop_image']) $background['desktop_image'] = $background['mobile_image'];
 
-	
 
 	if($background['parallax']){
 
@@ -84,7 +80,10 @@ if($background['type'] == 'image') {
 		<style>
 			'.$cssIndex.'{
 				background-image: url('.$mobile_image.');
-				background-size: cover;
+				background-size: '.($background['background_size'] ? $background['background_size'] : 'cover' ).';
+				background-color:'.$background['background_colour'].';
+				background-position:center;
+				background-repeat:no-repeat;
 			}
 			@media screen and (min-width: 768px) {
 				'.$cssIndex.'{
@@ -139,7 +138,6 @@ $block_body['groupname'] = 'bheadline_body';
 $block_animation = $block_body['animation'];
 
 if($block_animation) {
-
 	if (strpos($style['section_class'], 'section-header') !== false) {
 		$animation_css = 'scene_element scene_element--fadeinup';
 	} else {
@@ -149,33 +147,39 @@ if($block_animation) {
 }
 
 if(!$style['block_class']) {
-	$style['block_class'] = "mt-auto mb-5 ";
+	$style['block_class'] = "my-auto ";
 }
+
 if(!$style['content_class']) {
-	$style['content_class'] = "col-md-12";
+	$style['content_class'] = "hv-75 ";
 }
+
+
+
 
 $htmlBody .= '
-<div class="row gblock__headline_body--text '.$animation_css.'">
-	<div id="'.$style['content_id'].'" class="gblock__headline_body--content hv-50 d-flex flex-column '.$style['content_class'].' "  >';
+<div id="'.$style['content_id'].'" class="row gblock__headline_body--text '.$style['content_class'].' '.$animation_css.'">';
 
-	if($block_body['headline']) {
-		$headtag    =  'h2';
-		$headclass  =  'mt-auto mt-md-0';
+	if($block_body['content']) {
+		$headtag    =  'div';
+		$headclass  =  'my-auto text-center ';
 		$block_cite = '';
-		if (strpos($style['section_class'], 'section-header') !== false) {
-			$headtag   = 'h1';
-			$headclass =  'text-center';
-		}
 		if($block_body['quote']) {
 			$headtag    =  'blockquote';
-			$headclass .= ' h2 mb-5';
-			$block_body['headline'] = "<p>".$block_body['headline']."</p>";
+			$headclass = 'text-left mt-auto mt-md-0 h2 mb-5';
+			$block_body['content'] = "<p>".wp_strip_all_tags($block_body['content'])."</p>";
 			if($block_body['cite']) {
-				$block_cite = '<cite style="color:'.$block_body['head_color'].'">'.$block_body['cite']."</cite>";
+				$block_cite = '<cite style="color:'.$block_body['content_color'].'">'.$block_body['cite']."</cite>";
 			}
 		}
-		$htmlBody .= '<'.$headtag.' class=" gblock__headline_body--htext '.$headclass.'" style="color:'.$block_body['head_color'].'">'.$block_body['headline'].'</'.$headtag.'>'.$block_cite;
+		if($block_body['large_font']) {
+			$headclass .= " large-font";
+		}
+		$htmlBody .= '
+		<div class="gblock__headline_body--content  d-flex flex-column col-md-12"  >
+			<'.$headtag.' class=" gblock__headline_body--htext '.$headclass.'" style="color:'.$block_body['content_color'].'">'.$block_body['content'].'</'.$headtag.' >
+			'.$block_cite.'
+		</div>';
 	}
 	
 
@@ -203,32 +207,23 @@ $htmlBody .= '
 		}}
 	endwhile; endif;
 
-	if($block_body['content']) {
+	if($htmlCTA) {
 		$htmlBody .= '
-		<div class="gblock__headline_body--ctext mt-md-auto mb-0" style="color:'.$block_body['content_color'].'">
-		'.$block_body['content'].'
+		<div class="gblock__headline_body--ctas col-md-12 mt-auto mb-0 text-center" style="color:'.$block_body['content_color'].'">
 		'.$htmlCTA.'
 		</div>';
 	}
 
-	if(get_field('bheadline_show_scroll_cta')) {
-		$htmlBody .= '
-		<button class="gblock__headline_scroll_cta '.($block_animation ? 'animate-single fade_in_up' : '').' moveScrollDown">
-			'.get_field('bheadline_scroll_cta').'
-		</button>';
-	}
-
 	$htmlBody .= '
-	</div>
 </div>';
 
 
 
 
 echo $htmlScapeOpen.'
-<section id="'.$style['section_id'].'" class="section section__headline '.$style['section_class'].' " style="'.$style['section_style'].'" '.$style['section_data'].' >
+<section id="'.$style['section_id'].'" class="section section__headline gblock__headline '.$style['section_class'].' " style="'.$style['section_style'].'" '.$style['section_data'].' >
 '.$htmlBack.'
-  <div id="'.$style['block_id'].'" class="   gblock__headline--wrapper container-fluid  '.$style['block_class'].' d-flex flex-column">
+  <div id="'.$style['block_id'].'" class="gblock__headline--wrapper container-fluid  '.$style['block_class'].' d-flex flex-column">
 	'.$htmlBody.'
   </div>
 </section>'

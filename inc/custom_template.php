@@ -48,11 +48,13 @@ if( function_exists('acf_add_options_page') ) {
 
 if( function_exists('get_field') ) {
 	function rampa_login_logo() { 
-		$array_image=wp_get_attachment_image_src(get_field('login_logo','option'), 'medium');
-		$logoimg=$array_image[0];
-		
-		$logowidth=get_field('login_logo_width','option');
-		$logoheight=get_field('login_logo_height','option');
+		$logoimg     = false;
+		$array_image = wp_get_attachment_image_src(get_field('login_logo','option'), 'medium');
+		if(is_array($array_image)) {
+			$logoimg    = $array_image[0];
+			$logowidth  = get_field('login_logo_width','option');
+			$logoheight = get_field('login_logo_height','option');
+		}
 		
 		if($logoimg) {
 		?>

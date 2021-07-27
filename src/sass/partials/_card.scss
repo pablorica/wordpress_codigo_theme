@@ -11,6 +11,15 @@
     }
     &-body {
         padding: 0;
+        .post_excerpt, .btn-secondary {
+            margin-bottom: 3rem;
+        }
+        
+    }
+    &-title {
+        margin: 1rem 0;
+        text-transform: uppercase;
+        font-family: $font-medium;
     }
     .background-thumb-wrapper {
         position: relative;

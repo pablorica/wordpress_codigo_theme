@@ -4,8 +4,28 @@
 		<meta charset="<?php bloginfo('charset'); ?>">
 		<title><?php wp_title(''); ?><?php if(wp_title('', false)) { echo ' :'; } ?> <?php bloginfo('name'); ?></title>
 
-		<link href="<?php echo get_template_directory_uri(); ?>/img/icons/favicon.ico" rel="shortcut icon">
-		<link href="<?php echo get_template_directory_uri(); ?>/img/icons/touch.png" rel="apple-touch-icon-precomposed">
+		<?php if ( ! has_site_icon()) : ?>
+			<link rel="shortcut icon" href="<?php echo get_template_directory_uri(); ?>/img/icons/favicon.ico" >
+		    <link rel="apple-touch-icon-precomposed" href="<?php echo get_template_directory_uri(); ?>/img/icons/touch.png">
+			<link rel="apple-touch-icon" sizes="57x57" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-57x57.png">
+			<link rel="apple-touch-icon" sizes="60x60" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-60x60.png">
+			<link rel="apple-touch-icon" sizes="72x72" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-72x72.png">
+			<link rel="apple-touch-icon" sizes="76x76" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-76x76.png">
+			<link rel="apple-touch-icon" sizes="114x114" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-114x114.png">
+			<link rel="apple-touch-icon" sizes="120x120" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-120x120.png">
+			<link rel="apple-touch-icon" sizes="144x144" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-144x144.png">
+			<link rel="apple-touch-icon" sizes="152x152" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-152x152.png">
+			<link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/img/icons/apple-icon-180x180.png">
+			<link rel="icon" type="image/png" sizes="192x192"  href="<?php echo get_template_directory_uri(); ?>/img/icons/android-icon-192x192.png">
+			<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_template_directory_uri(); ?>/img/icons/favicon-32x32.png">
+			<link rel="icon" type="image/png" sizes="96x96" href="<?php echo get_template_directory_uri(); ?>/img/icons/favicon-96x96.png">
+			<link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri(); ?>/img/icons/favicon-16x16.png">
+			<link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/img/icons/manifest.json">
+			<meta name="msapplication-TileColor" content="#ffffff">
+			<meta name="msapplication-TileImage" content="<?php echo get_template_directory_uri(); ?>/img/icons/ms-icon-144x144.png">
+			<meta name="theme-color" content="#ffffff">
+		<?php endif; ?>
+		
 		<link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?>" href="<?php bloginfo('rss2_url'); ?>" />
 
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -16,6 +36,7 @@
 
 	</head>
 	<body <?php body_class(); ?>>
+	<?php if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); } ?>
 
 		<!-- #page -->
 		<div id="page">
@@ -23,33 +44,35 @@
 			<!-- header -->
 			<header class="header clear">
 
-                <nav class="navbar navbar-expand-md fixed-top navbar-light bg-light">
+                <nav class="navbar fixed-top">
 
-					<div id="navbarHeader">
+					<div id="navbarHeader" class="container-fluid">
 
-						<!-- Your site title as branding in the menu -->
-						<?php if ( ! has_custom_logo() ) { ?>
+						<div class="col-lg-2 offset-lg-5 p-lg-0 col-logo text-center">
+							<!-- Your site title as branding in the menu -->
+							<?php if ( ! has_custom_logo() ) {
+									$logo_extra_class = '';
+									if(is_front_page() && (get_field('home_big_logo') || get_field('home_hide_logo_on_first_section')) ) {
+										$logo_extra_class = 'hide_logo_effect';
+									}
+								?>
 
-							<?php if ( is_front_page() && is_home() ) : ?>
+								<a id="siteLogo" class="navbar-brand mx-auto d-block <?=$logo_extra_class?>" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url"><?php bloginfo( 'name' ); ?></a>
 
-								<h1 class="navbar-brand mx-auto d-block"><a rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url"><?php bloginfo( 'name' ); ?></a></h1>
+							<?php } else {
+								the_custom_logo();
+							} ?><!-- end custom logo -->
+						</div>
 
-							<?php else : ?>
+						<div class="col-lg-5 p-lg-0 text-right">
 
-								<a class="navbar-brand mx-auto d-block" rel="home" href="<?php echo esc_url( home_url( '/' ) ); ?>" title="<?php echo esc_attr( get_bloginfo( 'name', 'display' ) ); ?>" itemprop="url"><?php bloginfo( 'name' ); ?></a>
+							<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
 
-							<?php endif; ?>
-
-
-						<?php } else {
-							the_custom_logo();
-							echo get_codigo_custom_logo();
-						} ?><!-- end custom logo -->
-
-						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="icon-bar"></span>
-							<span class="icon-bar"></span>
-						</button>
+						</div>
 					</div>
 					<!-- The WordPress Menu goes here -->
 					<div id="navbarNavDropdown" class="navbar-collapse collapse">
@@ -59,7 +82,7 @@
 								'container'    	  => false,
 								//'container_class' => 'collapse navbar-collapse',
 								//'container_id'    => 'navbarNavDropdown',
-								'menu_class'      => 'navbar-nav ml-auto',
+								'menu_class'      => 'navbar-nav d-flex flex-column justify-content-center',
 								'fallback_cb'     => '',
 								'menu_id'         => 'main-menu',
 								'depth'           => 2,
@@ -67,28 +90,46 @@
 							)
 						); ?>
 
-						<form class="search form-inline p-0 d-md-none" method="get" action="<?php echo home_url(); ?>">
-							<input class="search-input" type="search" name="s" placeholder="<?php _e( 'Search', 'codigo' ); ?>">
-						</form>
-					</div>
-					<div class="navbar-right d-none d-md-block">
-						<ul class="navbar-nav ml-auto">
-							<li itemscope="itemscope" itemtype="https://www.schema.org/SiteNavigationElement"  class="menu-item nav-item nav-item-search ">
-								<a title="Search" href="#" class="nav-link search-link" ></a>
-							</li>
-						</ul>
+							<div class="menu-register-menu d-flex flex-column justify-content-center">
+								<?php wp_nav_menu(
+									array(
+										'theme_location'  => 'extra-menu',
+										'container_class' => '',
+										'container_id'    => '',
+										'menu_class'      => '',
+										'fallback_cb'     => '',
+										'menu_id'         => '',
+										'depth'           => 2,
+										'walker'          => new Codigo_WP_Bootstrap_Navwalker(),
+									)
+								); ?>
+							</div>
 					</div>
 
                     <!-- /.container -->
                 </nav>
+				<style>
+					nav.navbar {
+						background-color: <?php echo (get_field('header_background_color','option') ? get_field('header_background_color','option') : "#4E5780") ?>;
+					}
+					nav.navbar .nav-link {
+						color: <?php echo (get_field('header_color','option') ? get_field('header_color','option') : "#F89ABA") ?>;
+					}
+					nav.navbar .nav-link:hover, nav.navbar .nav-link:focus {
+						color: <?php echo (get_field('header_color','option') ? get_field('header_color','option') : "#F89ABA") ?>;
+					}
+					nav.navbar .menu-register-menu .nav-link {
+						border-color: <?php echo (get_field('header_color','option') ? get_field('header_color','option') : "#F89ABA") ?>;
+						background-color: <?php echo (get_field('header_background_color','option') ? get_field('header_background_color','option') : "#4E5780") ?>;
+						color: <?php echo (get_field('header_color','option') ? get_field('header_color','option') : "#F89ABA") ?>;
+					}
+					nav.navbar .menu-register-menu .nav-link:hover, nav.navbar .menu-register-menu .nav-link:focus {
+						border-color: <?php echo (get_field('header_background_color','option') ? get_field('header_background_color','option') : "#4E5780") ?>;
+						background-color: <?php echo (get_field('header_color','option') ? get_field('header_color','option') : "#F89ABA") ?>;
+						color: <?php echo (get_field('header_background_color','option') ? get_field('header_background_color','option') : "#4E5780") ?>;
+					}
+				</style>
 
-				<form id="desktopSearch" class="search form-inline d-none d-md-block" method="get" action="<?php echo home_url(); ?>">
-					<div class="d-flex">
-						<input class="p-0 search-input" type="search" name="s" placeholder="<?php _e( 'Enter search term', 'codigo' ); ?>">
-						<!--<button class="p-0 search-submit btn btn-secondary" type="submit" disabled="disabled"><?php _e( 'Search', 'codigo' ); ?></button> -->
-						<button class="p-0 search-close btn btn-secondary" type="button"></button>
-					</div>
-				</form>
 
 			</header>
 			<!-- /header -->

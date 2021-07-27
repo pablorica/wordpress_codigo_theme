@@ -142,6 +142,105 @@ function cptui_register_my_cpts_cstudies() {
 add_action( 'init', 'cptui_register_my_cpts_cstudies' );
 
 /**
+ * Post Type: apartments
+ */
+
+function cptui_register_my_cpts_apartments() {
+
+    $labels = array(
+        "name" => __( 'Apartments', 'codigo' ),
+        "singular_name" => __( 'Apartment', 'codigo' ),
+		'add_new' => _x('Add New', 'codigo'),
+		'add_new_item' => __('Add new apartment'),
+		'edit_item' => __('Edit apartment'),
+		'new_item' => __('New apartment'),
+		'view_item' => __('View apartment'),
+		'search_items' => __('Search apartments'),
+		'not_found' =>  __('No apartments found'),
+		'not_found_in_trash' => __('No apartments found in Trash'),
+		'parent_item_colon' => '',
+		'menu_name' => 'Apartments'
+    );
+
+    $args = array(
+        "label" => __( 'Apartments', 'codigo' ),
+        "labels" => $labels,
+        "description" => "Florence Apartments",
+        "public" => true,
+        "publicly_queryable" => true,
+        "show_ui" => true,
+        "show_in_rest" => true,
+        "rest_base" => "",
+        "has_archive" => false,
+        "show_in_menu" => true,
+        "exclude_from_search" => false,
+        "capability_type" => "post",
+        "map_meta_cap" => true,
+        "hierarchical" => false,
+        "rewrite" => array( "slug" => "apartment", "with_front" => true ),
+        "query_var" => true,
+        "menu_position" => 5,
+        "menu_icon" => "dashicons-building",
+        "supports" => array( "title", "editor", "thumbnail", "excerpt"),
+    );
+
+    register_post_type( "apartment", $args );
+}
+
+add_action( 'init', 'cptui_register_my_cpts_apartments' );
+
+
+/**
+ * Post Type: data_pages
+ */
+
+function cptui_register_my_cpts_datapages() {
+
+    $labels = array(
+        "name" => __( 'Data Pages', 'codigo' ),
+        "singular_name" => __( 'Data Page', 'codigo' ),
+		'add_new' => _x('Add New', 'codigo'),
+		'add_new_item' => __('Add new data page'),
+		'edit_item' => __('Edit data page'),
+		'new_item' => __('New data page'),
+		'view_item' => __('View data page'),
+		'search_items' => __('Search data page'),
+		'not_found' =>  __('No data pages found'),
+		'not_found_in_trash' => __('No data pages found in Trash'),
+		'parent_item_colon' => '',
+		'menu_name' => 'Data Pages'
+    );
+
+    $args = array(
+        "label" => __( 'Data Pages', 'codigo' ),
+        "labels" => $labels,
+        "description" => "Florence House Data Pages",
+        "public" => true,
+        "publicly_queryable" => true,
+        "show_ui" => true,
+        "show_in_rest" => true,
+        "rest_base" => "",
+        "has_archive" => false,
+        "show_in_menu" => true,
+        "exclude_from_search" => false,
+        "capability_type" => "post",
+        "map_meta_cap" => true,
+        "hierarchical" => false,
+        "rewrite" => array( "slug" => "data_page", "with_front" => true ),
+        "query_var" => true,
+        "menu_position" => 5,
+        "menu_icon" => "dashicons-analytics",
+        "supports" => array( "title", "editor" ),
+    );
+
+    register_post_type( "datapage", $args );
+
+
+}
+
+add_action( 'init', 'cptui_register_my_cpts_datapages' );
+
+/**
  * Post Type: office
  */
 

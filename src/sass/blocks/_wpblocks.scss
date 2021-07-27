@@ -1,0 +1,22 @@
+.wp-block {
+    &-columns {
+        padding-top:0;
+        padding-bottom:0;
+        @include bootstrap-padding;
+        margin-bottom: 0;
+        &.has-background {
+            padding-top:0;
+            padding-bottom:0;
+            @include bootstrap-padding;
+        }
+        .container-fluid, .container {
+            padding-right: 0;
+            padding-left: 0;
+        }
+        .wp-block-column:not(:first-child) {
+            @media screen and (min-width: 768px) {
+                margin-left: 0.25rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,18 @@
+body.community-initiatives,
+body.single-datapage {
+    .btn-secondary {
+        font-family: $font-light;
+        font-size: 21px !important;
+        width: 100%;
+        // max-width:215px;
+        @media screen and (min-width: 992px) {
+            width: 70%;
+            //max-width:100%;
+        }
+    }
+}
+#ctaInitiatives {
+    .btn-secondary {
+        margin: 0 auto;
+    }
+}

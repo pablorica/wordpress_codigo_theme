@@ -18,27 +18,24 @@ body {
 
 	-webkit-font-smoothing: antialiased; 
 	-moz-osx-font-smoothing: grayscale; 
+
+  overflow-x: hidden;
     
 
-	  background-color: white;
-    color: $blue;
+	  background-color: $brown;
+    color: white;
     text-align: left;
     
-    font-family: $font-medium;
+    font-family: $font-light;
 	  font-size: 18px;
     line-height: 1.1; 
-    @media screen and (min-width: 768px) {
-      font-size: 12px;
-    } 
+
     @media screen and (min-width: 992px)  {
-      font-size: 15px;
+      font-size: 26px;
     }  
     @media screen and (min-width: 1200px)  {
-      font-size: 18px;
+      font-size: 30px;
     } 
-    @media screen and (min-width: 1920px)  {
-      font-size: 28px;
-    }
 }
 
 *:focus {
@@ -46,77 +43,103 @@ body {
     box-shadow: none !important;
 }
 a {
-	color: $blue;
+	color: $red;
 }
 a:hover, a:focus {
-	color: $blue;
+	color: $red;
 }
 p:last-of-type{
   margin:0
 }
 img {
+  max-width: 100%;
+  max-height: 100%;
   width: auto;
   height: auto;
+}
+figure {
+  margin: 0;
+  overflow: hidden;
+  img {
+    max-width: none;
+    max-height: none;
+  }
 }
 strong, b {
   font-family: $font-bold;
 }
 h1,.h1,h2,.h2 ,h3,.h3,h4,.h4,h5,.h5 {
-  font-family: $font-bold;
+  font-family: $font-light;
 }
 h1,.h1 {
-    font-size:30px;
-    line-height: 1.1;
-    @media screen and (min-width: 768px) {
-      font-size: 40px;
-    } 
-    @media screen and (min-width: 992px)  {
-      font-size: 52px;
-    }  
-    @media screen and (min-width: 1200px)  {
-      font-size: 63px;
-    }
-    @media screen and (min-width: 1920px)  {
-      font-size: 100px;
-    }
-}
-h2,.h2 {
-	font-size: 24px;
-	line-height: 1.1;
+  font-size:28px;
+  line-height: 1.1;
   @media screen and (min-width: 768px) {
-    font-size: 28px;
+    font-size: 52px;
   } 
   @media screen and (min-width: 992px)  {
-    font-size: 37px;
+    font-size: 52px;
   }  
   @media screen and (min-width: 1200px)  {
-    font-size: 44px;
+    font-size: 110px;
+  }
+}
+h2,.h2 {
+	font-size: 25px;
+	line-height: 1.1;
+  @media screen and (min-width: 768px) {
+    font-size: 25px;
+  } 
+  @media screen and (min-width: 992px)  {
+    font-size: 70px;
+  }  
+  @media screen and (min-width: 1200px)  {
+    font-size: 70px;
   }
   @media screen and (min-width: 1920px)  {
     font-size: 70px;
   }
 }
 h3,.h3 {
-  font-size: 18px;
+  font-size: 25px;
 	line-height: 1.1;
-  @media screen and (min-width: 768px) {
-    font-size: 16px;
-  } 
   @media screen and (min-width: 992px)  {
-    font-size: 21px;
+    font-size: 35px;
   }  
   @media screen and (min-width: 1200px)  {
-    font-size: 25px;
-  }
-  @media screen and (min-width: 1920px)  {
+    font-size: 50px;
+  } 
+}
+h4,.h4 {
+  font-size: 22px;
+  line-height: 1.1;
+  @media screen and (min-width: 992px)  {
+    font-size: 30px;
+  }  
+  @media screen and (min-width: 1200px)  {
     font-size: 40px;
   }
 }
-h4,.h4 {
-	font-size: 18px;
-}
 h5,.h5 {
-	font-size: 18px;
+  font-family: $font-medium;
+  font-size: 18px;
+  line-height: 1.1;
+  @media screen and (min-width: 992px)  {
+    font-size: 26px;
+  }  
+  @media screen and (min-width: 1200px)  {
+    font-size: 30px;
+  }
+}
+h6,.h6 {
+  font-size: 18px;
+  line-height: 1.1;
+  @media screen and (min-width: 992px)  {
+    font-size: 26px;
+  }  
+  @media screen and (min-width: 1200px)  {
+    font-size: 30px;
+  }
 }
 p:last-of-type {
 	margin-bottom:0;
@@ -146,11 +169,16 @@ div.author {
 		display:block;
 	}
 }
-small {
-	font-size: 18px;
-	line-height: 20px;
+.large-font,
+.large-font * {
+	font-size: 50px !important;
+	line-height: 1.1!important;
+  font-family: $font-bold!important;
+  @media screen and (min-width: 992px)  {
+    font-size: 200px !important;
+  }
 }
-.small {
+small, .small {
 	font-size: 15px;
 	line-height: 15px;
 }

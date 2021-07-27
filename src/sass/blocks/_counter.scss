@@ -1,5 +1,5 @@
 .gblock__counter {
-    font-family: $font-bold;
+    font-family: $font-medium;
     text-align: center;
     font-size: 28px;
 	line-height: 1.2;
@@ -15,4 +15,22 @@
     }
 }
 
-
+.wp-block-column {
+    .gblock__counter {
+        font-size: 18px;
+        @media screen and (min-width: 992px) {
+            font-size: 18px;
+        }
+        @media screen and (min-width: 1200px) {
+            font-size: 30px;
+        }
+        &_body--number {
+            @media screen and (min-width: 992px) {
+                font-size: 100px;
+            }
+            @media screen and (min-width: 1200px) {
+                font-size: 200px;
+            }
+        }
+    }
+}

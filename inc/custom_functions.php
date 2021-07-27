@@ -111,7 +111,7 @@ function codigo_advanced_excerpt($article = null) {
 						break; //There is one excerpt, break the loop 
 					}
 
-					if (strpos($key, '_text') !== false) {
+					if (strpos($key, '_text') !== false || (substr($key, -8) == '_content') ) {
 						$excerpt = preg_replace("/\<h(.*)\>(.*)\<\/h[^>]+\>/","", $val); //remove <h1>,<h2>,<h3>
 						$excerpt = strip_tags($excerpt);
 						$excerpt = wp_trim_words( $excerpt, 20);
@@ -170,7 +170,7 @@ function codigo_block_scape( $block_content, $block ) {
 	// only edit specific post types
 	$types = array( 'post' );
 	if ( $post && in_array( $post->post_type, $types, true ) ) {
-		error_log('block '.print_r($block,true));
+		//error_log('block '.print_r($block,true));
 		//Scaping the ACF block from container div
 		if (strpos($block['blockName'], 'acf/') !== false) {
 			$scape_content = '</div>';
