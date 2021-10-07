@@ -28,8 +28,8 @@ let CDG;
 	/*LAUNCH  AJAX */
 	function launch_ajax_form($container,$custom_query,$taxonomy) {
 		/**/
-		 $action='cdgajax_results';
-		if( typeof $custom_query['medium']!== 'undefined')  $action='cdgajax_mediums';
+		 $action='cdgajax_results'; //loads 'wp_ajax_nopriv_cdgajax_results' and 'wp_ajax_cdgajax_results' hooks defined in inc/custom_ajax.php
+		if( typeof $custom_query['medium']!== 'undefined')  $action='cdgajax_mediums'; //loads 'wp_ajax_nopriv_cdgajax_mediums' and 'wp_ajax_cdgajax_mediums' hooks defined in inc/custom_ajax.php
 
 		$.ajax({
 			type : 'post',
@@ -828,6 +828,188 @@ let CDG;
 					$('button.search-submit').prop('disabled', false);
 				}
 			});
+		},
+
+
+
+		/* AJAX */
+		ajaxPagination: function() {
+		//console.log('loading AJAX pagination ...');
+
+		$( document ).on( 'click', '.load-more', function(event) {
+			event.preventDefault();
+			//console.log('Button clicked');
+
+			if(typeof $(this).data('ajax-container') !== 'undefined') {
+				var container_id = $(this).data('ajax-container');
+				$container = $('#'+container_id);
+			} else {
+				return;
+			}
+
+			$custom_query ={};
+			if(typeof $(this).data('post-type') !== 'undefined') {
+				$custom_query['post_type'] = $(this).data('post-type');
+			}
+			if(typeof $(this).data('paged') !== 'undefined') {
+				$custom_query['paged'] = $(this).data('paged');
+			}
+			//console.log('custom_query');
+			//console.log(JSON.stringify($custom_query));
+
+			$taxonomy ={};
+			if(typeof $(this).data('taxonomy-name') !== 'undefined') {
+
+				$taxonomy['name'] = $(this).data('taxonomy-name');
+				$taxonomy['field'] = $(this).data('taxonomy-field');
+				$taxonomy['terms'] = $(this).data('taxonomy-terms');
+			}
+
+			launch_ajax_form($container,$custom_query,$taxonomy);
+		})
+
+		},
+		ajaxSelection: function() {
+		//console.log('loading AJAX selection ...');
+
+		$( document ).on( 'click', '.ajax-select', function(event) {
+			event.preventDefault();
+			//console.log('Select button clicked');
+
+			$('.ajax-select').removeClass('selected');
+			$(this).addClass('selected');
+
+			if(typeof $(this).data('ajax-container') !== 'undefined') {
+				var container_id = $(this).data('ajax-container');
+				$container = $('#'+container_id);
+			} else {
+				return;
+			}
+
+			$custom_query ={};
+			if(typeof $(this).data('blint') !== 'undefined') {
+				$custom_query['blint'] = $(this).data('blint');
+			}
+			if(typeof $(this).data('post-id') !== 'undefined') {
+				$custom_query['post-id'] = $(this).data('post-id');
+			}
+			if(typeof $(this).data('medium') !== 'undefined') {
+				$custom_query['medium'] = $(this).data('medium');
+			}
+			$taxonomy ={};
+
+			launch_ajax_form($container,$custom_query,$taxonomy);
+		})
+
+		},
+		ajaxFiltering: function() {
+		//console.log('Filtering Ready');
+
+		$( document ).on( 'click', '.ajax-filter', function(event) {
+			event.preventDefault();
+			//console.log('Filter clicked');
+
+			/*
+			* CSS, Titles and Collapse functions (not related with AJAX)
+			*/
+			$(this).siblings().removeClass('focused');
+			$(this).addClass('focused');
+
+			if(typeof $(this).data('toggle') !== 'undefined') {
+				var toggle=$(this).data('toggle');//collapse, hide
+				if(toggle=='collapse') {
+					toggle='toggle';
+				}
+				if(typeof $(this).data('target') !== 'undefined') {
+					$target=$(this).data('target');
+					$($target).each(function(){
+						//console.log(toggle + ' ' +$(this).attr('aria-labelledby'));
+						$(this).collapse(toggle);
+					});
+				}
+			}
+
+			if(typeof $(this).data('main-title') !== 'undefined') {
+				var main_title = $(this).data('main-title');
+				var main_title_container = $(this).data('main-title-container');
+				$(main_title_container).html(main_title);
+			}
+			if(typeof $(this).data('main-subtitle') !== 'undefined') {
+				var main_subtitle = '<br/><span class="page-title__query">'+$(this).data('main-subtitle')+'</span>';
+				var main_title_container = $(this).data('main-title-container');
+				$(main_title_container).append(main_subtitle);
+			}
+
+			if($(this).hasClass("load-more")) {
+				$(this).removeClass('load-more');
+				$(this).addClass('d-none');
+			}
+			/* --- */
+
+
+
+			if(typeof $(this).data('ajax-container') !== 'undefined') {
+				var container_id = $(this).data('ajax-container');
+				$container = $('#'+container_id);
+			} else {
+				return;
+			}
+
+			$custom_query ={};
+			if(typeof $(this).data('post-type') !== 'undefined') {
+				$custom_query['post_type'] = $(this).data('post-type');
+			}
+			if(typeof $(this).data('paged') !== 'undefined') {
+				$custom_query['paged'] = $(this).data('paged');
+			}
+			//console.log('custom_query');
+			//console.log(JSON.stringify($custom_query));
+
+			$taxonomy ={};
+			if(typeof $(this).data('taxonomy-name') !== 'undefined') {
+
+				$taxonomy['name'] = $(this).data('taxonomy-name');
+				$taxonomy['field'] = $(this).data('taxonomy-field');
+				$taxonomy['terms'] = $(this).data('taxonomy-terms');
+			}
+
+			launch_ajax_form($container,$custom_query,$taxonomy);
+		})
+		},
+		ajaxScroll: function() {
+		//console.log('loading AJAX scroll ...');
+		var displayWidth = $(window).width();
+		var displayHeight = $(window).height();
+
+		if ( $( ".load-more" ).length ) {
+		var load_more_triggered=false;
+
+		$(window).scroll(function() {
+			var footerp=$('#wrapper-footer').position();
+
+			//console.log('Scroll '+$(window).scrollTop() + ' Footer '+footerp.top+ ' window.height '+$(window).height());
+			//console.log('Scroll '+$(window).scrollTop());
+			//console.log(footerp.top-$(window).height());
+
+			//$(window).scrollTop() == $(document).height() - $(window).height() -> Scroll reachs page bottom
+			//$(window).scrollTop() == footerp.top - $(window).height() -> Scroll reachs footer
+			if($(window).scrollTop() >= footerp.top - $(window).height()) {
+				if(!load_more_triggered) {
+					load_more_triggered=true;
+					//console.log('- - - - - - -');
+					//console.log('Scroll');
+
+					$('.load-more').trigger('click');
+				}
+			}
+			else {
+				load_more_triggered=false;
+			}
+		});
+		}
+
+		return false;
+
 		},
 
 		/* REST API */
