@@ -96,6 +96,109 @@ add_action(
 );
 
 
+
+/**
+ * Disable comments
+ *
+ * @return void
+ */
+function disable_comments() {
+	
+	// Redirects any user trying to access comments page.
+	global $pagenow;
+	
+	if ( 'edit-comments.php' === $pagenow ) {
+		wp_safe_redirect( admin_url() );
+		exit;
+	}
+	
+	remove_meta_box(
+		'dashboard_recent_comments', 
+		'dashboard', 
+		'normal'
+	);
+
+	// Disable support for comments and trackbacks in post types.
+	foreach ( get_post_types(
+		array(), 
+		'names', 
+		'and'
+	) as $post_type 
+	) {
+		if ( is_string( $post_type )
+			&& post_type_supports(
+				$post_type, 
+				'comments'
+			) 
+		) {
+			remove_post_type_support(
+				$post_type, 
+				'comments'
+			);
+			remove_post_type_support(
+				$post_type, 
+				'trackbacks'
+			);
+		}
+	}   
+}
+add_action(
+	'admin_init', 
+	'disable_comments'
+);
+// Close comments on the front-end.
+add_filter(
+	'comments_open',
+	'__return_false',
+	20
+);
+// Close pings on the front-end.
+add_filter(
+	'pings_open',
+	'__return_false', 
+	20
+);
+// Hide existing comments.
+add_filter(
+	'comments_array',
+	'__return_empty_array',
+	10
+);
+
+/**
+ * Remove comments page in menu.
+ *
+ * @return void
+ */
+function remove_comments_page() {
+	remove_menu_page( 'edit-comments.php' );
+}
+add_action(
+	'admin_menu', 
+	'remove_comments_page'
+);
+
+/**
+ * Remove comments links from admin bar.
+ *
+ * @return void
+ */
+function remove_comments_admin_bar() {
+	if ( is_admin_bar_showing() ) {
+		remove_action(
+			'admin_bar_menu', 
+			'wp_admin_bar_comments_menu', 
+			60
+		);
+	}
+}
+add_action(
+	'init', 
+	'remove_comments_admin_bar'
+);
+
+
+
 /**
  * Get Posts By Taxonomy.
  *

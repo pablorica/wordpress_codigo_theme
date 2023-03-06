@@ -1,0 +1,327 @@
+// Use this file to overwrite the basic Bootstrap variables and add your own variables
+// To overwrite a Bootstrap variable you don´t have to touch the Bootstrap folder.
+// Just copy a variable from src/sass/assets/bootstrap5/_variables.scss, paste it here and edit the value.
+
+
+/**
+ * Functions
+ * 
+ */
+
+//Function to get same variables as vh in mobile devices (requires javascript)
+/*
+  height: 100%;
+  height: 100vh;
+  height: vh(100);
+*/
+@function vh($quantity) {
+	@return calc(var(--vh, 1vh) * #{$quantity});
+}
+@function svh($q1,$q2) {
+	@return calc(var(--vh, 1vh) * #{$q1} + #{$q2});
+}
+@function rvh($q1,$q2) {
+	@return calc(var(--vh, 1vh) * #{$q1} - #{$q2});
+}
+
+
+/**
+ * Animations
+ * 
+ */
+ @keyframes fade-out {
+    0% {
+        opacity: 1;
+        display: block;
+        z-index: 1000;
+    }
+    90% {
+        opacity: 0;
+    }
+    100% {
+        display: none;
+        z-index: -10;
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+        display: block;
+        z-index: 1000;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+//smoothState
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+  
+    100% {
+      opacity: 1;
+      transform: none;
+    }
+}
+
+
+/**
+ * Mixins
+ * 
+ */
+
+// Ascending
+// Used to evaluate Sass maps like our grid breakpoints.
+@mixin _assert-ascending($map, $map-name) {
+    $prev-key: null;
+    $prev-num: null;
+    @each $key, $num in $map {
+        @if $prev-num == null or unit($num) == "%" or unit($prev-num) == "%" {
+            // Do nothing
+        } @else if not comparable($prev-num, $num) {
+            @warn "Potentially invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} whose unit makes it incomparable to #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+        } @else if $prev-num >= $num {
+            @warn "Invalid value for #{$map-name}: This map must be in ascending order, but key '#{$key}' has value #{$num} which isn't greater than #{$prev-num}, the value of the previous key '#{$prev-key}' !";
+        }
+        $prev-key: $key;
+        $prev-num: $num;
+    }
+}
+
+// Starts at zero
+// Used to ensure the min-width of the lowest breakpoint starts at 0.
+@mixin _assert-starts-at-zero($map, $map-name: "$grid-breakpoints") {
+    @if length($map) > 0 {
+        $values: map-values($map);
+        $first-value: nth($values, 1);
+        @if $first-value != 0 {
+            @warn "First breakpoint in #{$map-name} must start at 0, but starts at #{$first-value}.";
+        }
+    }
+}
+
+@mixin _transition {
+    transition: all .5s cubic-bezier(.785,.135,.15,.86);
+}
+
+@mixin _break-container  {
+    min-width:100vw;
+    width:100vw;
+    position:relative;
+    left:calc(-1 * (100vw - 100%)/2);
+    padding: 0 !important;
+}
+
+
+
+
+/**
+ * Variables
+ * 
+ */
+
+//Fonts (include in theme using Bootstrap variables)
+$font-family-base: CircularStd-Book, sans-serif;
+$headings-font-family: CircularStd-Bold, sans-serif;
+
+// Colour system
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
+$gray-600: #6c757d !default;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
+$gray-900: #212529 !default;
+$black:    #000 !default;
+
+$grays: (
+  "100": $gray-100,
+  "200": $gray-200,
+  "300": $gray-300,
+  "400": $gray-400,
+  "500": $gray-500,
+  "600": $gray-600,
+  "700": $gray-700,
+  "800": $gray-800,
+  "900": $gray-900
+) !default;
+
+
+$blue:    #0d6efd !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
+$pink:    #d63384 !default;
+$red:     #dc3545 !default;
+$orange:  #fd7e14 !default;
+$yellow:  #ffc107 !default;
+$green:   #198754 !default;
+$teal:    #20c997 !default;
+$cyan:    #0dcaf0 !default;
+
+// Original assets/bootstrap5/_variables.scss
+//Update src/build/postcss.config.js to apply changes
+$colors: (
+  "blue":       $blue,
+  "indigo":     $indigo,
+  "purple":     $purple,
+  "pink":       $pink,
+  "red":        $red,
+  "orange":     $orange,
+  "yellow":     $yellow,
+  "green":      $green,
+  "teal":       $teal,
+  "cyan":       $cyan,
+  "black":      $black,
+  "white":      $white,
+  "gray":       $gray-600,
+  "gray-dark":  $gray-800
+) !default;
+
+$primary: $black;
+$secondary: $purple; 
+
+
+// Grid breakpoints
+//
+// Define the minimum dimensions at which your layout will change,
+// adapting to different screen sizes, for use in media queries.
+
+// scss-docs-start grid-breakpoints
+$grid-breakpoints: (
+    xs: 0,
+    sm: 576px, 
+    md: 782px, //md: 768px
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px,
+    3xl: 1720px,
+    4xl: 1921px
+) !default;
+// scss-docs-end grid-breakpoints
+
+@include _assert-ascending($grid-breakpoints, "$grid-breakpoints");
+@include _assert-starts-at-zero($grid-breakpoints, "$grid-breakpoints");
+
+
+// Grid containers
+//
+// Define the maximum width of `.container` for different screen sizes.
+
+// scss-docs-start container-max-widths
+$container-max-widths: (
+    sm: 540px, 
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px,
+    3xl: 1520px, //1640px
+    4xl: 1840px
+) !default;
+// scss-docs-end container-max-widths
+
+@include _assert-ascending($container-max-widths, "$container-max-widths");
+
+//Bootstrap variables
+//$border-radius: 0;
+//$border-radius-sm: 0;
+//$border-radius-lg: 40px;
+$link-decoration: none;
+$link-color: $primary;
+
+$btn-border-radius:           40px !default; //$border-radius 
+$btn-border-radius-lg:        40px !default; //$border-radius-lg
+$btn-border-radius-sm:        40px !default; //$border-radius-sm
+
+
+
+// Body
+$body-bg:                   $white !default;
+$body-color:                $black !default;
+$body-text-align:           null !default;
+
+$letter-spacing:            -0.5px !default;
+$letter-spacing-big:        -1px !default;
+
+$font-size-body: (
+    xs: 16px,
+    sm: 16px,
+    md: 18px, 
+    lg: 20px, 
+    xl: 20px, 
+    xxl: 20px, 
+    3xl: 20px,
+    4xl: 20px 
+) !default;
+
+$font-size-h1: (
+    xs: 35px,
+    sm: 35px, //576px
+    md: 90px, //782px
+    lg: 90px, //992px
+    xl: 100px, //1200px
+    xxl: 100px, // 1400px,
+    3xl: 118px, //1720px,
+    4xl: 118px //1921px
+) !default;
+
+$font-size-h2: (
+    xs: 25px,
+    sm: 25px,
+    md: 60px,
+    lg: 60px,
+    xl: 60px,
+    xxl: 60px,
+    3xl: 60px,
+    4xl: 80px
+) !default;
+
+$font-size-h3: (
+    xs: 25px,
+    sm: 25px,
+    md: 44px,
+    lg: 44px,
+    xl: 44px,
+    xxl: 44px,
+    3xl: 44px,
+    4xl: 60px
+) !default;
+
+$font-size-h5: (
+    xs: 25px,
+    sm: 25px,
+    md: 18px, 
+    lg: 20px, 
+    xl: 20px, 
+    xxl: 20px, 
+    3xl: 20px,
+    4xl: 20px 
+) !default;
+
+$font-size-small: (
+    xs: 16px,
+    sm: 16px,
+    md: 16px,
+    lg: 16px,
+    xl: 16px,
+    xxl: 16px,
+    3xl: 16px,
+    4xl: 16px
+) !default;
+
+
+$aspect-ratios: (
+    "2x3": calc(3/ 2 * 100% - 5%),
+    "3x2": calc(2/ 3 * 100% + 3.25%),
+    "16x9": calc(9 / 16 * 100%)
+);
+
+
+@import "codigo_svg_images";   

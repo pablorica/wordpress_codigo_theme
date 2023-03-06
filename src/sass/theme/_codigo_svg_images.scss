@@ -1,0 +1,15 @@
+/**
+ * SVG images
+ * 
+ */
+
+
+/*
+Instead of
+background-image: url(../img/icon-arrow-right--white.png);
+use
+@include bg-arrow('%234A4A4A'); //%23 replaces #
+*/
+@mixin bg-arrow($iconcolor) {
+    background-image: url('data:image/svg+xml;utf8,<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 36 36" enable-background="new 0 0 36 36" xml:space="preserve"><g><g><path fill="#{$iconcolor}" d="M21.6,28.6h-2C19.6,22.2,24.7,17,31,17v2C25.8,19,21.6,23.3,21.6,28.6z M21,19H5v-2h16V19z M25.6,17.7 c-3.7-2-6-5.9-6-10.2h2c0,3.5,1.9,6.8,5,8.4L25.6,17.7z"/><path fill="#{$iconcolor}" d="M18,36C8.1,36,0,27.9,0,18C0,8.1,8.1,0,18,0s18,8.1,18,18C36,27.9,27.9,36,18,36z M18,2C9.2,2,2,9.2,2,18 s7.2,16,16,16s16-7.2,16-16S26.8,2,18,2z"/></g></g></svg>');
+}

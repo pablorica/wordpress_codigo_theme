@@ -67,11 +67,6 @@ phpcs.xml
 *.sass-cache
 npm-debug.log
 
-# Ignore potentially dangerous files (dependabot alerts)
-yarn.lock 
-package-lock.json
-composer.lock
-
 
 # Numerous always-ignore extensions
 *.bak
@@ -116,3 +111,8 @@ composer.lock
 # Ignore compiled files
 js/codigo.*
 css/*.*
+
+# Ignore potentially dangerous files (dependabot alerts)
+yarn.lock 
+package-lock.json
+composer.lock

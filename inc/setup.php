@@ -38,7 +38,6 @@ add_action(
 );
 
 
-
 /**
  * Enqueue our stylesheet and javascript file
  * 
@@ -99,6 +98,40 @@ if ( ! function_exists( 'codigo_enqueue_scripts' ) ) {
 add_action(
 	'wp_enqueue_scripts',
 	'codigo_enqueue_scripts'
+);
+
+/**
+ * Add style to admin area
+ * 
+ * @see https://wordpress.stackexchange.com/questions/110895/adding-custom-stylesheet-to-wp-admin
+ * @see https://decodecms.com/agregar-css-personalizado-al-area-de-administracion-de-wordpress/
+ * 
+ * Note: custom-editor-style.min.css contains the custom TinyMCE editor stylesheets, 
+ * only works for editor areas, and it's being loaded by the function 
+ * add_editor_style() in the parent theme (/understrap/inc/editor.php)
+ * @see https://developer.wordpress.org/reference/functions/add_editor_style/
+ *
+ * @return void
+ */
+function admin_style() {
+
+	// Get the theme data.
+	$the_theme = wp_get_theme();
+
+	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	// Grab asset urls.
+	$admin_styles = "/css/custom-admin-style{$suffix}.css";
+
+	wp_enqueue_style( 
+		'codigo-admin-styles', 
+		get_stylesheet_directory_uri() . $admin_styles, 
+		array(), 
+		$the_theme->get( 'Version' ) 
+	);
+}
+add_action(
+	'admin_enqueue_scripts',
+	'admin_style'
 );
 
 

@@ -1,0 +1,136 @@
+$count: 0;
+@each $grid-breakpoint, $i in $grid-breakpoints {
+    $count: $count + 1;
+    @media screen and (min-width: $i) {
+
+        body,
+        .button, 
+        .submit, 
+        .wp-block-button__link, h6 {
+            font-size: map-get($font-size-body, $grid-breakpoint);
+            line-height: 1.1;
+            letter-spacing: $letter-spacing;
+        }
+        h1, .h1 {
+            font-size: map-get($font-size-h1, $grid-breakpoint);
+            letter-spacing: $letter-spacing-big;
+        }
+        .h1 {
+            font-size: map-get($font-size-h1, $grid-breakpoint) !important;
+        }
+
+        
+        h2, .h2 {
+            font-size: map-get($font-size-h2, $grid-breakpoint);
+            letter-spacing: $letter-spacing-big;
+        }
+        .h2 {
+            font-size: map-get($font-size-h2, $grid-breakpoint) !important;
+        }
+
+
+        h3, .h3, h4, .h4 {
+            font-size: map-get($font-size-h3, $grid-breakpoint);
+            letter-spacing: $letter-spacing-big;
+            line-height: 1.1;
+        }
+        .h3, .h4 {
+            font-size: map-get($font-size-h3, $grid-breakpoint) !important;
+        }
+
+
+        h5 {
+            font-size: map-get($font-size-h5, $grid-breakpoint);
+            letter-spacing: $letter-spacing-big;
+        }
+
+        .small, 
+        .tooltip {
+            font-size : map-get($font-size-small, $grid-breakpoint) !important;
+            letter-spacing: $letter-spacing;
+        }
+    }
+}
+
+* {
+    font-weight: 100;
+    line-height: 1.1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    text-shadow: rgba(0,0,0,.01) 0 0 1px;
+
+    -webkit-scroll-behavior: auto !important;
+    scroll-behavior: auto !important;
+
+    /* No wraping on words*/
+    word-break: keep-all;
+    overflow-wrap: normal;
+}
+*:hover, *:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+html, body {
+    background-color: $white;
+    overscroll-behavior-y: none;
+    letter-spacing: $letter-spacing;
+}
+b, strong {
+    font-family: $headings-font-family;
+    font-weight: normal;
+}
+
+p {
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+    &.has-background {
+        padding: 0 !important;
+    }
+}
+
+
+figcaption {
+    @extend .small;
+    font-style: normal;
+    color: $black !important;
+    margin-top:5px !important;
+    margin-bottom:0 !important;
+}
+
+blockquote {
+    @extend h3;
+    cite {
+        @extend .small;
+        font-style: normal;
+        color: $gray-400;
+        margin-top:15px;
+        margin-bottom:0;
+        img {
+           width: 56px !important;
+           height: auto;
+           border-radius: 50%; 
+           margin-right: 10px;
+        }
+        &::before {
+            content: '';
+        }
+    }
+    p:first-of-type {
+        margin-top: -0.2em; //Vertical align to top
+        &:before {
+            color: inherit;
+            content: open-quote;
+            vertical-align: top;
+            //margin-left: -0.4em;
+            //margin-right: 0.1em;
+        }
+    }
+    p:last-of-type:after {
+        color: inherit;
+        content: close-quote;
+        vertical-align: bottom;
+        //margin-left: 0.1em;
+    }
+}
