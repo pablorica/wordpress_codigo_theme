@@ -70,6 +70,7 @@ npm-debug.log
 # Ignore potentially dangerous files (dependabot alerts)
 yarn.lock 
 package-lock.json
+composer.lock
 
 
 # Numerous always-ignore extensions
@@ -96,7 +97,6 @@ package-lock.json
 !README.md
 !CHANGELOG.md
 !composer.json
-!composer.lock
 
 # Migration file
 !*.sql.gz
