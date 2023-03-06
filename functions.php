@@ -1,86 +1,41 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) {
-    exit; // Exit if accessed directly.
+/**
+ * Codigo Theme functions and definitions
+ * php version 7.4.1
+ *
+ * @package    Understrap
+ * @subpackage Codigo
+ * @author     Pablo Rica <pablo@codigo.co.uk>
+ * @license    MIT 
+ * @version    GIT: @1.0.0@
+ * @link       link
+ * @since      Codigo 1.0
+ */
+
+// Exit if accessed directly.
+defined( 'ABSPATH' ) || exit;
+
+
+// Array of files to include.
+$includes = array(
+	'/setup.php',
+	'/child-extras.php',
+);
+
+if ( function_exists( 'get_field' ) ) { 
+	$includes[] = '/acf.php';
 }
 
-/**
- * Remove Understrap Configuration.
- */
-//require get_stylesheet_directory()   . '/inc/wpbootstrapsass.php'; //Deprecated
+if ( class_exists( 'WPSEO_Options' ) ) {
+	$includes[] = '/yoast-seo.php';
+}
 
-/**
- * Theme Set Up.
- */
-require get_stylesheet_directory()   . '/inc/custom_setup.php';
-
-/**
- * Custom Enqueue.
- */
-require get_stylesheet_directory()   . '/inc/custom_enqueue.php';
-
-/**
- * Custom Navigation.
- */
-require get_stylesheet_directory()   . '/inc/class-wp-codigo-navwalker.php';
-
-/**
- * Custom Pagination.
- */
-require get_stylesheet_directory()   . '/inc/custom_pagination.php';
-
-/**
- * Custom Functions.
- */
-require get_stylesheet_directory()   . '/inc/custom_functions.php';
-
-/**
- * Custom Types.
- */
-require get_stylesheet_directory()  . '/inc/custom_types.php';
-
-/**
- * Custom Template Management
- */
-require get_stylesheet_directory()  . '/inc/custom_template.php';
-
-/**
- * Custom Blocks for Gutenberg
- */
-require get_stylesheet_directory()  . '/inc/custom_blocks.php';
+if ( class_exists( 'Default_Admin_Color_Scheme' ) ) {
+	$includes[] = '/default-admin-color-scheme.php';
+}
 
 
-/**
- * Custom Sidebars.
- */
-//require get_stylesheet_directory()   . '/inc/custom_sidebars.php';
-
-/**
- * Custom Shortcodes.
- */
-//require get_stylesheet_directory()  . '/inc/custom_shortcodes.php';
-
-/**
- * REST API Management
- */
-require get_stylesheet_directory()  . '/inc/custom_rest_api.php';
-
-/**
- * AJAX Management
- */
-//require get_stylesheet_directory()  . '/inc/custom_ajax.php';
-
-
-
-
-
-/**
- * Load WooCommerce functions.
- */
-//require get_stylesheet_directory() . '/inc/woocommerce.php';
-
-
-/**
- * Custom Constants
- */
-//require get_stylesheet_directory()  . '/inc/custom_constants.php';
-
+// Include files.
+foreach ( $includes  as $file ) {
+	require_once get_theme_file_path( 'inc' . $file );
+}

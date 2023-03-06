@@ -1,38 +1,31 @@
 
-
-# ignore all files starting with . or ~
+# Ignore all files and directories starting with . or ~ or ._ or ending with ~
 .*
 ~*
+*~
+._*
 
 # ignore node dependency directories
 node_modules/
-npm-debug.log
-
-# ignore bower dependency directories
-bower_components/
-
-# ignore composer dependency directories
-vendor/
-
-
-# ignore production directories
 dist/
 dist-product/
-
-
-# ignore cache files
-.sass-cache
-
+bower_components
+/vendor/
 
 # ignore OS generated files
 ehthumbs.db
 Thumbs.db
+.Trashes
 
 # ignore Editor files
 *.sublime-project
 *.sublime-workspace
+*.sublime*
 *.komodoproject
-
+*.code-workspace
+*.elc
+*.esproj
+*.tmproj*
 
 # ignore log files and databases
 *.log
@@ -57,12 +50,10 @@ Thumbs.db
 *.tar
 *.zip
 
-
 # ignore files that a local computer might use for its own convenience
 .DS_Store
 *.swp
 *.pyc
-
 
 # local build tools
 .vagrant
@@ -71,22 +62,57 @@ Thumbs.db
 *.scssc
 *.codekit
 *.sh
-*.orig
+*.lock 
+phpcs.xml
+*.sass-cache
+npm-debug.log
 
-
-
-# OS generated files #
-######################
-.DS_Store
-.DS_Store?
-**/.DS_Store
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Potentially Dangerous Files #
-############################### 
-yarn.lock
+# Ignore potentially dangerous files (dependabot alerts)
+yarn.lock 
 package-lock.json
+
+
+# Numerous always-ignore extensions
+*.bak
+*.cvs
+*.db
+*.diff
+*.err
+*.orig
+*.rej
+
+# -------------------------
+# BEGIN Whitelisted Files
+# -------------------------
+
+# track these files, if they exist
+!.gitignore
+!.gitattributes
+!.github
+!.editorconfig
+!.phpcs.xml.dist
+!.babelrc.js
+!.browserslist
+!README.md
+!CHANGELOG.md
+!composer.json
+!composer.lock
+
+# Migration file
+!*.sql.gz
+
+
+# track favicon files, if they exist
+!android-chrome-*.png
+!apple-touch-icon*.png
+!browserconfig.xml
+!favicon*.png
+!favicon*.ico
+!manifest.json
+!mstile-*.png
+!safari-pinned-tab.svg
+!site.webmanifest
+
+# Ignore compiled files
+js/codigo.*
+css/*.*
