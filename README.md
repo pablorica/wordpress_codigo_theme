@@ -208,3 +208,26 @@ chmod +x prepare-commit-msg
 ## Copyright and License
 
 Copyright 2023 Codigo Wordpress Theme released under the [MIT](https://github.com/pablorica/citysuburban/blob/main/LICENSE) license.
+
+## Versioning
+
+We use [SemVer](https://semver.org/) for versioning. For the versions available, [list of tags can be found in this page](https://github.com/pablorica/wordpress_codigo_theme/tags).
+
+### Changelog
+
+    3.0.0
+        Theme updated to Boostrap 5 
+        PHP Code quality setup tools added
+
+    2.2
+        REST API filters
+        Floating parallax elements
+
+    2.1.2
+        Adding Counter Block
+
+    2.1.1
+        Adding Instagram block
+
+    2.1.0
+        Adding VUE files
