@@ -73,6 +73,35 @@ add_action(
 );
 
 
+if ( ! function_exists( 'codigo_enqueue_scripts' ) ) {
+
+	/**
+	 * Load custom JavaScript and CSS sources.
+	 * 
+	 * @return void
+	 */
+	function codigo_enqueue_scripts() {
+
+		// VUE.
+		define( 'VUE_STATUS', 'development' ); // development | production.
+
+		$vuescript = get_stylesheet_directory_uri() . '/vue/js/vue.js'; // production : '/vue/js/vue.global.prod.min.js'.
+
+		wp_enqueue_script( 
+			'vue',  
+			$vuescript, 
+			array(), 
+			'3.2.41', 
+			false
+		);
+	}
+}
+add_action(
+	'wp_enqueue_scripts',
+	'codigo_enqueue_scripts'
+);
+
+
 
 /**
  * Load the child theme's text domain

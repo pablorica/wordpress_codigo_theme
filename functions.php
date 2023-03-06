@@ -19,7 +19,7 @@ defined( 'ABSPATH' ) || exit;
 // Array of files to include.
 $includes = array(
 	'/setup.php',
-	'/child-extras.php',
+	'/extras.php',
 );
 
 if ( function_exists( 'get_field' ) ) { 

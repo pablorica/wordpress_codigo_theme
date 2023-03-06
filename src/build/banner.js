@@ -5,8 +5,8 @@ const year = new Date().getFullYear()
 
 function getBanner(pluginFilename) {
   return `/*!
-  * Understrap${pluginFilename ? ` ${pluginFilename}` : ''} v${pkg.version} (${pkg.homepage})
-  * Copyright 2013-${year} ${pkg.author}
+  * Codigo${pluginFilename ? ` ${pluginFilename}` : ''} v${pkg.version} (${pkg.homepage})
+  * Copyright ${year} ${pkg.author.name} <${pkg.author.email}>
   * Licensed under ${ pkg.license } (${ pkg.licenseUrl })
   */`
 }

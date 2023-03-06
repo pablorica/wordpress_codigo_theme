@@ -6,6 +6,7 @@ async function copyDir(src, dest) {
     let entries = await fs.readdir(src, { withFileTypes: true });
 	let ignore = [
 		'node_modules',
+        'vendor',
 		'dist',
 		'src',
 		'.github',
@@ -21,13 +22,47 @@ async function copyDir(src, dest) {
 		'package.json',
 		'package-lock.json',
 		'phpcs.xml.dist',
-		'readme.txt'
+		'readme.txt',
+        '.DS_Store',
+	];
+    let ignoreexp = [
+        '.orig',
+        '.tar.gz',
+	];
+    let ignorestart = [
+        '.',
+        '_',
+        'phpstan',
+        'phpmd',
 	];
 
     for (let entry of entries) {
 		if ( ignore.indexOf( entry.name ) != -1 ) {
 			continue;
 		}
+
+        const contains = ignoreexp.some(element => {
+            if (entry.name.includes(element)) {
+                return true;
+            }
+            
+            return false;
+        });
+        if ( contains) {
+			continue;
+		}
+
+        const starts = ignorestart.some(element => {
+            if (entry.name.startsWith(element)) {
+                return true;
+            }
+            
+            return false;
+        });
+        if (starts) {
+			continue;
+		}
+
         let srcPath = path.join(src, entry.name);
         let destPath = path.join(dest, entry.name);
 

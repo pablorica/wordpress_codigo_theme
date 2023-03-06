@@ -1,7 +1,7 @@
 {
   "name": "codigo",
-  "version": "1.2.0",
-  "description": "Basic Child Theme for Understrap Theme Framework: https://github.com/pablorica/wordpress_codigo_theme",
+  "version": "3.0.0",
+  "description": "Basic Child Theme for Understrap Theme Framework: https://github.com/understrap/",
   "main": "index.js",
   "scripts": {
     "bs": "browser-sync start --config src/build/browser-sync.config.js",
@@ -26,21 +26,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/understrap/understrap-child.git"
+    "url": "https://github.com/pablorica/wordpress_codigo_theme.git"
   },
   "keywords": [
     "wordpress",
     "theme",
     "framework",
     "bootstrap",
-    "underscores"
+    "underscores",
+    "vue"
   ],
-  "author": "The Understrap Authors (https://github.com/understrap/understrap/graphs/contributors)",
-  "license": "GPL-3.0",
-  "bugs": {
-    "url": "https://github.com/understrap/understrap-child/issues"
+  "author": {
+    "name" : "Pablo Rica",
+    "email" : "pablo@codigo.co.uk",
+    "url" : "https://codigo.co.uk"
   },
-  "homepage": "https://understrap.com",
+  "license": "MIT",
+  "licenseUrl": "https://github.com/pablorica/wordpress_codigo_theme/blob/master/LICENSE",
+  "bugs": {
+    "url": "https://github.com/pablorica/wordpress_codigo_theme/issues"
+  },
+  "homepage": "https://github.com/pablorica/wordpress_codigo_theme",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.19.6",
@@ -51,6 +57,7 @@
     "@rollup/plugin-multi-entry": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-replace": "^5.0.1",
+    "rollup-plugin-vue": "^6.0.0",
     "autoprefixer": "^10.4.13",
     "bootstrap": "^5.2.2",
     "browser-sync": "^2.27.10",
@@ -66,6 +73,7 @@
     "rollup": "^3.2.5",
     "sass": "^1.56.0",
     "terser": "^5.15.1",
-    "understrap": "github:understrap/understrap#develop"
+    "understrap": "github:understrap/understrap#develop",
+    "tiny-emitter": "^2.1.0"
   }
 }
