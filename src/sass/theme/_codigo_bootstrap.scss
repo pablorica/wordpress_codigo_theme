@@ -1,0 +1,37 @@
+/* 
+* Break container
+*/
+.break-container {
+    @include _break-container;
+}
+.break-mobile-container {
+    @include media-breakpoint-down(md) {
+        @include _break-container;
+    }
+}
+.break-md-container {
+    @include media-breakpoint-up(md) {
+        @include _break-container;
+    }
+}
+
+
+/* 
+* Ratios 
+*/
+@each $grid-breakpoint, $width in $grid-breakpoints {
+    @media screen and (min-width: $width) {
+        @each $key, $ratio in $aspect-ratios {
+            .ratio-#{$grid-breakpoint}-#{$key} {
+                   --#{$variable-prefix}aspect-ratio: #{$ratio};
+            }
+        }
+    }
+}
+.ratio,
+.wp-block-image.ratio {
+    img {
+        height: 100% !important;
+        object-fit: cover;
+    }
+}
