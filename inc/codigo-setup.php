@@ -5,7 +5,6 @@
  * Adds the needed template hooks.
  * php version 7.4.1
  *
- * @category   Category
  * @package    Understrap
  * @subpackage Codigo
  * @author     Pablo Rica <pablo@codigo.co.uk>

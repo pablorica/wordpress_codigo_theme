@@ -5,14 +5,13 @@
  * Eventually, some of the functionality here could be replaced by core features.
  * php version 7.4.1
  *
- * @category   Category
  * @package    Understrap
  * @subpackage Codigo
  * @author     Pablo Rica <pablo@codigo.co.uk>
  * @license    MIT 
  * @version    GIT: @1.0.0@
  * @link       link
- * @since      UnderstrapChild 1.0
+ * @since      Codigo 1.0
  */
 
 // Exit if accessed directly.

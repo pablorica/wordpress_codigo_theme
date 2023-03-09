@@ -18,8 +18,8 @@ defined( 'ABSPATH' ) || exit;
 
 // Array of files to include.
 $includes = array(
-	'/setup.php',
-	'/extras.php',
+	'/codigo-setup.php',
+	'/codigo-extras.php',
 );
 
 if ( function_exists( 'get_field' ) ) { 
