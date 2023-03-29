@@ -214,6 +214,15 @@ Copyright 2023 Codigo Wordpress Theme released under the [MIT](https://github.co
 We use [SemVer](https://semver.org/) for versioning. For the versions available, [list of tags can be found in this page](https://github.com/pablorica/wordpress_codigo_theme/tags).
 
 ### Changelog
+    3.1.0
+        Add ACF Google Map block
+
+    3.0.15
+        Setting up color palette
+        Adding bootstrap SCSS
+
+    3.0.10
+        Setting up VUE
 
     3.0.0
         Theme updated to Boostrap 5 
