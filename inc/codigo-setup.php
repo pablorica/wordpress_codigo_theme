@@ -134,18 +134,40 @@ add_action(
 );
 
 
-
 /**
- * Load the child theme's text domain
+ * Sets up child theme defaults and registers support for various WordPress features.
+ * - Loads Textdomain
+ * - Registers new menus
+ * - Removes understrap widgets
+ *
+ * @see https://wordpress.stackexchange.com/questions/49864/unregister-sidebar-from-child-theme
+ *
+ * Note that this function is hooked into the after_setup_theme hook, which
+ * runs before the init hook. The init hook is too late for some features, such
+ * as indicating support for post thumbnails. 
  * 
  * @return void
  */
-function add_child_theme_textdomain() {
-	load_child_theme_textdomain( 'codigo', get_stylesheet_directory() . '/languages' );
+function add_codigo_setup() {
+	load_child_theme_textdomain( 
+		'codigo', 
+		get_stylesheet_directory() . '/languages' 
+	);
+
+	register_nav_menus(
+		array(
+			'footer' => __( 'Footer Menu', 'codigo' ),
+		)
+	);
+
+	remove_action( 
+		'widgets_init', 
+		'understrap_widgets_init' 
+	);
 }
 add_action( 
 	'after_setup_theme', 
-	'add_child_theme_textdomain' 
+	'add_codigo_setup' 
 );
 
 

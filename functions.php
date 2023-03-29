@@ -23,15 +23,15 @@ $includes = array(
 );
 
 if ( function_exists( 'get_field' ) ) { 
-	$includes[] = '/acf.php';
+	$includes[] = '/codigo-acf.php';
 }
 
 if ( class_exists( 'WPSEO_Options' ) ) {
-	$includes[] = '/yoast-seo.php';
+	$includes[] = '/codigo-yoast-seo.php';
 }
 
 if ( class_exists( 'Default_Admin_Color_Scheme' ) ) {
-	$includes[] = '/default-admin-color-scheme.php';
+	$includes[] = '/codigo-default-admin-color-scheme.php';
 }
 
 

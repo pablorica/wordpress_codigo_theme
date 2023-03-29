@@ -10,8 +10,7 @@ parameters:
 	paths:
 		- inc/
 	excludePaths:
-		- inc/deprecated.php
-		- inc/class-wp-bootstrap-navwalker.php
+		- inc/codigo-acf.php
 	tmpDir: .phpstan-cache
 	ignoreErrors:
 		# no value type specified in iterable type:
