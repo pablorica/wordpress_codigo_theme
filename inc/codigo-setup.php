@@ -170,6 +170,29 @@ add_action(
 	'add_codigo_setup' 
 );
 
+/**
+ * Initializes codigo widgets.
+ * 
+ * @return void
+ */
+function codigo_widgets_init() {
+	register_sidebar(
+		array(
+			'name'          => __( 'Footer Full', 'codigo' ),
+			'id'            => 'footerfull',
+			'description'   => __( 'Full sized footer widget with dynamic grid', 'codigo' ),
+			'before_widget' => '<div id="%1$s" class="footer-widget %2$s dynamic-classes">',
+			'after_widget'  => '</div><!-- .footer-widget -->',
+			'before_title'  => '<h3 class="widget-title">',
+			'after_title'   => '</h3>',
+		)
+	);
+}
+add_action( 
+	'widgets_init', 
+	'codigo_widgets_init' 
+);
+
 
 
 /**
