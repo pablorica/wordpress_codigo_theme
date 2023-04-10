@@ -15,7 +15,7 @@ $count: 0;
             font-size: map-get($font-size-h1, $grid-breakpoint);
             letter-spacing: $letter-spacing-big;
         }
-        .h1 {
+        .h1 , .has-x-large-font-size {
             font-size: map-get($font-size-h1, $grid-breakpoint) !important;
         }
 
@@ -24,23 +24,23 @@ $count: 0;
             font-size: map-get($font-size-h2, $grid-breakpoint);
             letter-spacing: $letter-spacing-big;
         }
-        .h2 {
+        .h2, .has-large-font-size {
             font-size: map-get($font-size-h2, $grid-breakpoint) !important;
         }
 
 
-        h3, .h3, h4, .h4 {
+        h3, .h3  {
             font-size: map-get($font-size-h3, $grid-breakpoint);
             letter-spacing: $letter-spacing-big;
             line-height: 1.1;
         }
-        .h3, .h4 {
+        .h3 , .has-medium-font-size {
             font-size: map-get($font-size-h3, $grid-breakpoint) !important;
         }
 
 
-        h5 {
-            font-size: map-get($font-size-h5, $grid-breakpoint);
+        h4, h5 , .h4 , .h5 {
+            font-size: map-get($font-size-h4, $grid-breakpoint);
             letter-spacing: $letter-spacing-big;
         }
 
