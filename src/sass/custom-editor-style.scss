@@ -47,6 +47,9 @@
         box-shadow: none;
     }
 }
-.wp-block:hover {
-    border: 1px solid red;
+.wp-block {
+    border: 1px solid transparent;
+    &:hover {
+        border-color: red;
+    }
 }
