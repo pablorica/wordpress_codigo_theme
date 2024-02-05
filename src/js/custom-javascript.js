@@ -1,4 +1,5 @@
 import consoleHello from './modules/consoleHello';
+//import customAJAX from './modules/customAJAX';
 
 (function($) {
 
@@ -46,6 +47,9 @@ import consoleHello from './modules/consoleHello';
 
         onreadyFunctions: function() {
             consoleHello('CDG is ready');
+
+            /* AJAX */
+            //customAJAX();
 
             $(window).on('resize',function() {
                 //consoleHello('window has resized');

@@ -42,7 +42,7 @@ add_action(
  * 
  * @return void
  */
-function theme_enqueue_styles() {
+function codigo_enqueue_libraries() {
 
 	// Get the theme data.
 	$the_theme     = wp_get_theme();
@@ -61,13 +61,28 @@ function theme_enqueue_styles() {
 	$js_version = $theme_version . '.' . filemtime( get_stylesheet_directory() . $theme_scripts );
 	
 	wp_enqueue_script( 'codigo-scripts', get_stylesheet_directory_uri() . $theme_scripts, array(), $js_version, true );
+
+    // AJAX
+    /*
+    wp_localize_script( 
+        'codigo-scripts', //We are adding the AJAX variables and route to the script we enqueued earlier
+        'cdg_ajax_var', //Name of variable in JS
+        array(
+            'url'    => admin_url( 'admin-ajax.php' ),
+            'nonce'  => wp_create_nonce( 'codigo-ajax-nonce' ),
+            'action' => 'cdg-ajax' //This is the name of the function in add_action(wp_ajax_<name-function>) and add_action(wp_ajax_nopriv_<name-function>)
+        ) 
+    );
+    //The AJAX php functions are in inc/codigo-ajax.php, the JS functions are in src/js/modules/customAJAX.js
+    */
+
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
 }
 add_action( 
 	'wp_enqueue_scripts', 
-	'theme_enqueue_styles' 
+	'codigo_enqueue_libraries' 
 );
 
 

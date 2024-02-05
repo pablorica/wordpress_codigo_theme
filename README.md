@@ -214,6 +214,9 @@ Copyright 2023 Codigo Wordpress Theme released under the [MIT](https://github.co
 We use [SemVer](https://semver.org/) for versioning. For the versions available, [list of tags can be found in this page](https://github.com/pablorica/wordpress_codigo_theme/tags).
 
 ### Changelog
+    3.1.7
+        Adding default AJAX functions
+
     3.1.6
         Adding CMS colors
 
