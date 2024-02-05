@@ -34,6 +34,10 @@ if ( class_exists( 'Default_Admin_Color_Scheme' ) ) {
 	$includes[] = '/codigo-default-admin-color-scheme.php';
 }
 
+if ( class_exists( 'WooCommerce' ) ) {
+	$includes[] = '/codigo-woocommerce.php';
+}
+
 
 // Include files.
 foreach ( $includes  as $file ) {

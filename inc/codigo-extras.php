@@ -118,11 +118,12 @@ function disable_comments() {
 	);
 
 	// Disable support for comments and trackbacks in post types.
-	foreach ( get_post_types(
-		array(), 
-		'names', 
-		'and'
-	) as $post_type 
+	foreach ( 
+        get_post_types(
+            array(), 
+            'names', 
+            'and'
+        ) as $post_type 
 	) {
 		if ( is_string( $post_type )
 			&& post_type_supports(
@@ -138,9 +139,13 @@ function disable_comments() {
 				$post_type, 
 				'trackbacks'
 			);
-		}
+		
+        } else {
+            continue;
+        }
 	}   
 }
+
 add_action(
 	'admin_init', 
 	'disable_comments'

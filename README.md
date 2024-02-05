@@ -180,8 +180,43 @@ exit $?
 Don't forget to give execution permission to this file
 
 ```bash
-chmod +x prepare-commit-msg
+chmod +x pre-commit
 ```
+
+### Run manually quality scripts
+
+#### PHP Lint
+
+```bash
+composer run php-lint
+```
+
+#### PHP Code Sniffer
+
+```bash
+composer run phpcs 
+## PHPCBF CAN FIX THE MARKED SNIFF VIOLATIONS AUTOMATICALLY
+composer run phpcs-fix
+```
+**Note:** `composer run phpcs-fix` is giving an error on php 8.1 due the trim() function
+
+#### PHP MD
+
+```bash
+composer run phpmd
+```
+
+The config file is `wordpress_codigo_theme/phpmd.xml`
+
+**Note:** For some reason when the script saved in `.git/hooks/pre-commit` runs before commit, PHP MD is not following the exclude rules of `phpmd.xml` ( however it follows when it runs manually. i.e, typing `composer run phpmd`)
+
+
+#### PHP STAN
+
+```bash
+composer run phpstan
+```
+
 
 ## Required Plugins
 * [Carousel Slider Block for Gutenberg](https://en-gb.wordpress.org/plugins/carousel-block/)

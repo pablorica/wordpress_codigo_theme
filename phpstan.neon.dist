@@ -6,6 +6,7 @@ includes:
 	- src/phpstan/extension.neon
 	- phpstan-baseline.neon
 parameters:
+	treatPhpDocTypesAsCertain: false
 	level: max
 	paths:
 		- inc/

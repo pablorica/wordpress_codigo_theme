@@ -18,15 +18,21 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * Displays the updated checkout form
- *
+ * 
+ * @return void
  */
 function cdg_update_post() {
     // Check for nonce security
-    $nonce = sanitize_text_field( $_POST['nonce'] );
+    if(isset($_POST['nonce']) && is_string($_POST['nonce'])) {
+        $nonce = sanitize_text_field( $_POST['nonce'] );
 
-    if ( ! wp_verify_nonce( $nonce, 'codigo-ajax-nonce' ) ) {
-        die ( 'Busted!');
+        if ( ! wp_verify_nonce( $nonce, 'codigo-ajax-nonce' ) ) {
+            die ( 'Busted!');
+        }
+    } else {
+        die ( 'No nonce');
     }
+    
 
 	$id_post = absint($_POST['id_post']);
 	$content = apply_filters('the_content', get_post_field('post_content', $id_post));
